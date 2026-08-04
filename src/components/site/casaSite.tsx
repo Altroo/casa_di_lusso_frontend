@@ -223,28 +223,34 @@ export default function CasaSite({ content }: CasaSiteProps) {
 	const { settings } = content;
 	const heroSlides = [
 		{
-			src: '/assets/casa/hero-showroom-main.jpg',
+			src: '/assets/casa/hero-showroom-main.png',
 			alt: 'Showroom Casa di Lusso encadré par les arbres',
+			sizes: '(max-width: 1536px) 100vw, 1536px',
 		},
 		{
-			src: '/assets/casa/hero-lighting-pendants.jpg',
+			src: '/assets/casa/hero-lighting-pendants.png',
 			alt: 'Luminaires suspendus en laiton',
+			sizes: '(max-width: 1920px) 100vw, 1920px',
 		},
 		{
-			src: '/assets/casa/hero-delta-light.jpg',
+			src: '/assets/casa/hero-delta-light.png',
 			alt: 'Éclairage architectural Delta Light au crépuscule',
+			sizes: '(max-width: 1920px) 100vw, 1920px',
 		},
 		{
-			src: '/assets/casa/hero-dark-interior.jpg',
+			src: '/assets/casa/hero-dark-interior.png',
 			alt: 'Salle à manger contemporaine illuminée',
+			sizes: '(max-width: 1920px) 100vw, 1920px',
 		},
 		{
-			src: '/assets/casa/hero-kitchen.jpg',
+			src: '/assets/casa/hero-kitchen.png',
 			alt: 'Cuisine contemporaine verte',
+			sizes: '(max-width: 1920px) 100vw, 1920px',
 		},
 		{
 			src: '/assets/casa/hero-gessi-shower.jpg',
 			alt: 'Salle de douche Gessi',
+			sizes: '(max-width: 1920px) 100vw, 1920px',
 		},
 	];
 
@@ -371,7 +377,8 @@ export default function CasaSite({ content }: CasaSiteProps) {
 								fill
 								preload={index === 0}
 								fetchPriority={index === 0 ? 'high' : 'auto'}
-								sizes="100vw"
+								sizes={slide.sizes}
+								quality={70}
 								className={styles.coverImage}
 							/>
 						</div>
