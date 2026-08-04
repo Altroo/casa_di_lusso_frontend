@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import ThemeProvider from '@/providers/themeProvider';
 import '@/styles/globals.sass';
 
 export const generateMetadata = (): Metadata => ({
@@ -52,11 +50,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 				<a href="#main-content" className="skip-to-content">
 					Aller au contenu
 				</a>
-				<AppRouterCacheProvider>
-					<ThemeProvider>
-						<div id="main-content">{children}</div>
-					</ThemeProvider>
-				</AppRouterCacheProvider>
+				<div id="main-content">{children}</div>
 			</body>
 		</html>
 	);

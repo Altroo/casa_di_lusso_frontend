@@ -31,10 +31,12 @@ const nextConfig: NextConfig = {
 	devIndicators: false,
 	reactCompiler: true,
 	reactStrictMode: true,
+	experimental: {
+		inlineCss: true,
+	},
 	poweredByHeader: false,
 	typedRoutes: true,
 	images: {
-		unoptimized: true,
 		remotePatterns: [
 			{ protocol: 'https', hostname: 'api.casadilusso.ma', pathname: '/media/**' },
 			{ protocol: 'http', hostname: '148.251.138.48', port: '8008', pathname: '/media/**' },

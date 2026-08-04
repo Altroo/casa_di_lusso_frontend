@@ -2,15 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import MenuIcon from '@mui/icons-material/Menu';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import CloseIcon from '@mui/icons-material/Close';
 import type { SiteContent } from '@/types/websiteTypes';
 import ContactForm from './contactForm';
 import NewsletterForm from './newsletterForm';
@@ -18,6 +9,82 @@ import styles from './site.module.sass';
 
 interface CasaSiteProps {
 	content: SiteContent;
+}
+
+function MenuIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M3 6h18M3 12h18M3 18h18" />
+		</svg>
+	);
+}
+
+function CloseIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="m5 5 14 14M19 5 5 19" />
+		</svg>
+	);
+}
+
+function PhoneIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M7.2 3.5 4.5 4.7c-.8.4-.9 1.2-.7 2.1 1.5 6.4 6 10.9 12.4 12.4.9.2 1.7.1 2.1-.7l1.2-2.7-4.2-2-1.3 2c-2.5-1.1-4.7-3.3-5.8-5.8l2-1.3-2-4.2Z" />
+		</svg>
+	);
+}
+
+function EmailIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<rect x="3" y="5" width="18" height="14" rx="1" />
+			<path d="m4 7 8 6 8-6" />
+		</svg>
+	);
+}
+
+function LinkedInIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M6.4 8.4V18M6.4 5.5v.1M10.5 18v-5.3c0-2.4 4.1-2.6 4.1.2V18M10.5 9.6v1.5" />
+		</svg>
+	);
+}
+
+function FacebookIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M14.6 20v-7h2.6l.4-3h-3V8.1c0-.9.3-1.6 1.6-1.6H18V3.8c-.4-.1-1.4-.2-2.5-.2-2.5 0-4.1 1.5-4.1 4.2V10H9v3h2.4v7" />
+		</svg>
+	);
+}
+
+function InstagramIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<rect x="4" y="4" width="16" height="16" rx="4" />
+			<circle cx="12" cy="12" r="3.5" />
+			<circle cx="17.3" cy="6.8" r=".7" className={styles.socialFill} />
+		</svg>
+	);
+}
+
+function YouTubeIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<rect x="3" y="6" width="18" height="12" rx="3" />
+			<path d="m10 9 5 3-5 3Z" className={styles.socialFill} />
+		</svg>
+	);
+}
+
+function PinterestIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M9.7 20.5c.8-2.2 1.2-3.4 1.6-5.2-.8-1.3-.1-3.9 1.2-3.9 1 0 1.3.8 1.3 1.6 0 1-.7 2.6-1 3.9-.4 1.7.9 3 2.5 3 3 0 5-3.1 5-7.2 0-3.8-3.1-6.7-7.7-6.7-5.5 0-8.8 4-8.8 8.2 0 3 1.2 5.3 3.7 6.2" />
+		</svg>
+	);
 }
 
 function AnimatedMetricValue({ value }: { value: string }) {
@@ -55,9 +122,12 @@ function AnimatedMetricValue({ value }: { value: string }) {
 			const rect = element.getBoundingClientRect();
 			if (rect.top < window.innerHeight && rect.bottom > 0) startAnimation();
 		};
-		const observer = new IntersectionObserver(([entry]) => {
-			if (entry?.isIntersecting) startAnimation();
-		}, { threshold: 0.2 });
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry?.isIntersecting) startAnimation();
+			},
+			{ threshold: 0.2 },
+		);
 
 		observer.observe(element);
 		window.addEventListener('scroll', checkVisibility, { passive: true });
@@ -69,7 +139,11 @@ function AnimatedMetricValue({ value }: { value: string }) {
 		};
 	}, [target]);
 
-	return <strong ref={elementRef} aria-label={value}>[ {current} +]</strong>;
+	return (
+		<strong ref={elementRef} aria-label={value}>
+			[ {current} +]
+		</strong>
+	);
 }
 
 const topBrandMarks = [
@@ -136,14 +210,13 @@ const sectionImage = (apiImage: string, fallback: string) => apiImage || fallbac
 export default function CasaSite({ content }: CasaSiteProps) {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [heroIndex, setHeroIndex] = useState(0);
+	const [heroAutoplayEnabled, setHeroAutoplayEnabled] = useState(false);
 	const [heroAutoplayRevision, setHeroAutoplayRevision] = useState(0);
 	const [videoStarted, setVideoStarted] = useState(false);
 	const touchStartX = useRef<number | null>(null);
-	const videoFrameRef = useRef<HTMLIFrameElement>(null);
 	const heroAutoplayTimer = useRef<number | null>(null);
 	const heroUnlockTimer = useRef<number | null>(null);
 	const heroAutomaticGuardTimer = useRef<number | null>(null);
-	const videoReplayTimer = useRef<number | null>(null);
 	const heroTransitionLocked = useRef(false);
 	const heroAutomaticTransitionActive = useRef(false);
 	const { settings } = content;
@@ -174,15 +247,11 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		return true;
 	}, []);
 	const changeHero = (direction: -1 | 1) => {
+		setHeroAutoplayEnabled(true);
 		stopHeroAutoplay();
 		if (!heroAutomaticTransitionActive.current) {
 			transitionHero((current) => (current + direction + heroSlides.length) % heroSlides.length);
 		}
-		setHeroAutoplayRevision((revision) => revision + 1);
-	};
-	const selectHero = (index: number) => {
-		stopHeroAutoplay();
-		if (!heroAutomaticTransitionActive.current) transitionHero(() => index);
 		setHeroAutoplayRevision((revision) => revision + 1);
 	};
 	const scrollToTop = () => {
@@ -192,32 +261,18 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		const animate = (timestamp: number) => {
 			startedAt ??= timestamp;
 			const progress = Math.min((timestamp - startedAt) / duration, 1);
-			const eased = progress < 0.5
-				? 4 * progress * progress * progress
-				: 1 - Math.pow(-2 * progress + 2, 3) / 2;
+			const eased = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 			window.scrollTo(0, Math.round(initialScroll * (1 - eased)));
 			if (progress < 1) window.requestAnimationFrame(animate);
 		};
 		window.requestAnimationFrame(animate);
 	};
 	const playVideo = () => {
-		if (videoReplayTimer.current !== null) window.clearTimeout(videoReplayTimer.current);
-		videoFrameRef.current?.contentWindow?.postMessage(
-			JSON.stringify({ method: 'setCurrentTime', value: 0 }),
-			'https://player.vimeo.com',
-		);
-		videoFrameRef.current?.contentWindow?.postMessage(
-			JSON.stringify({ method: 'play' }),
-			'https://player.vimeo.com',
-		);
 		setVideoStarted(true);
-		videoReplayTimer.current = window.setTimeout(() => {
-			setVideoStarted(false);
-			videoReplayTimer.current = null;
-		}, 15000);
 	};
 
 	useEffect(() => {
+		if (!heroAutoplayEnabled) return;
 		stopHeroAutoplay();
 		heroAutoplayTimer.current = window.setTimeout(() => {
 			heroAutoplayTimer.current = null;
@@ -231,13 +286,15 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		}, 5000);
 
 		return stopHeroAutoplay;
-	}, [heroAutoplayRevision, heroIndex, heroSlides.length, stopHeroAutoplay, transitionHero]);
+	}, [heroAutoplayEnabled, heroAutoplayRevision, heroIndex, heroSlides.length, stopHeroAutoplay, transitionHero]);
 
-	useEffect(() => () => {
-		if (heroUnlockTimer.current !== null) window.clearTimeout(heroUnlockTimer.current);
-		if (heroAutomaticGuardTimer.current !== null) window.clearTimeout(heroAutomaticGuardTimer.current);
-		if (videoReplayTimer.current !== null) window.clearTimeout(videoReplayTimer.current);
-	}, []);
+	useEffect(
+		() => () => {
+			if (heroUnlockTimer.current !== null) window.clearTimeout(heroUnlockTimer.current);
+			if (heroAutomaticGuardTimer.current !== null) window.clearTimeout(heroAutomaticGuardTimer.current);
+		},
+		[],
+	);
 
 	useEffect(() => {
 		if (!menuOpen) return;
@@ -260,10 +317,18 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					<Image src="/assets/casa/logo.png" alt="Casa di Lusso" width={112} height={100} />
 				</a>
 				<nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`} aria-label="Navigation principale">
-					<a href="#a-propos" onClick={closeMenu}>À propos</a>
-					<a href="#services" onClick={closeMenu}>services</a>
-					<a href="#portfolio" onClick={closeMenu}>portfolio</a>
-					<a href="#contact" onClick={closeMenu}>CONTACT</a>
+					<a href="#a-propos" onClick={closeMenu}>
+						À propos
+					</a>
+					<a href="#services" onClick={closeMenu}>
+						services
+					</a>
+					<a href="#portfolio" onClick={closeMenu}>
+						portfolio
+					</a>
+					<a href="#contact" onClick={closeMenu}>
+						CONTACT
+					</a>
 				</nav>
 				<button
 					type="button"
@@ -284,7 +349,8 @@ export default function CasaSite({ content }: CasaSiteProps) {
 								src={slide}
 								alt={index === heroIndex ? 'Intérieur raffiné Casa di Lusso' : ''}
 								fill
-								priority
+								preload={index === 0}
+								fetchPriority={index === 0 ? 'high' : 'auto'}
 								sizes="100vw"
 								className={styles.coverImage}
 							/>
@@ -294,6 +360,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div
 					className={styles.heroGestureArea}
 					onTouchStart={(event) => {
+						setHeroAutoplayEnabled(true);
 						stopHeroAutoplay();
 						touchStartX.current = event.touches[0]?.clientX ?? null;
 					}}
@@ -308,35 +375,43 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div className={styles.heroCopy}>
 					<div className={styles.wordmarkArt} role="img" aria-label={settings.hero_eyebrow}>
 						{heroWordmark.map((letter) => (
-							<span key={`${letter.src}-${letter.left}`} style={{ left: letter.left, width: letter.width, height: letter.height }}>
+							<span
+								key={`${letter.src}-${letter.left}`}
+								style={{ left: letter.left, width: letter.width, height: letter.height }}
+							>
 								<Image src={letter.src} alt="" width={letter.width} height={letter.height} />
 							</span>
 						))}
 					</div>
 					<h1>{settings.hero_title}</h1>
 					<p>{settings.hero_text}</p>
-					<a href="#services" className={styles.textLink}>nos services</a>
+					<a href="#services" className={styles.textLink}>
+						nos services
+					</a>
 				</div>
 				<div className={styles.heroArrows}>
-					<button type="button" className={styles.arrowPrevious} onPointerDown={stopHeroAutoplay} onClick={() => changeHero(-1)} aria-label="Image précédente">
+					<button
+						type="button"
+						className={styles.arrowPrevious}
+						onPointerDown={stopHeroAutoplay}
+						onClick={() => changeHero(-1)}
+						aria-label="Image précédente"
+					>
 						<Image src="/assets/casa/figma/arrow-left.svg" alt="" width={44} height={8} />
 					</button>
-					<button type="button" onPointerDown={stopHeroAutoplay} onClick={() => changeHero(1)} aria-label="Image suivante">
+					<button
+						type="button"
+						onPointerDown={stopHeroAutoplay}
+						onClick={() => changeHero(1)}
+						aria-label="Image suivante"
+					>
 						<Image src="/assets/casa/figma/arrow-right.svg" alt="" width={44} height={8} />
 					</button>
 				</div>
 			</section>
-			<div className={styles.heroPagination} aria-label="Choisir une image du carrousel">
+			<div className={styles.heroPagination} aria-hidden="true">
 				{heroSlides.map((slide, index) => (
-					<button
-						type="button"
-						key={slide}
-						className={index === heroIndex ? styles.heroDotActive : ''}
-						onPointerDown={stopHeroAutoplay}
-						onClick={() => selectHero(index)}
-						aria-label={`Afficher l’image ${index + 1}`}
-						aria-current={index === heroIndex ? 'true' : undefined}
-					/>
+					<span key={slide} className={index === heroIndex ? styles.heroDotActive : ''} />
 				))}
 			</div>
 
@@ -347,7 +422,13 @@ export default function CasaSite({ content }: CasaSiteProps) {
 							{topBrandMarks.map((brand) => (
 								<div className={styles.brandMark} key={`${copy}-${brand.src}`}>
 									<div className={styles.brandArtwork}>
-										<Image src={brand.src} alt={copy === 0 ? brand.alt : ''} fill sizes="220px" className={styles.containImage} />
+										<Image
+											src={brand.src}
+											alt={copy === 0 ? brand.alt : ''}
+											fill
+											sizes="220px"
+											className={styles.containImage}
+										/>
 									</div>
 								</div>
 							))}
@@ -369,17 +450,25 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div className={styles.aboutCopy}>
 					<h2>{settings.about_title}</h2>
 					<div className={styles.headingLine} />
-					{settings.about_text.split('\n').map((paragraph, index) => paragraph && <p key={`${paragraph}-${index}`}>{paragraph}</p>)}
+					{settings.about_text
+						.split('\n')
+						.map((paragraph, index) => paragraph && <p key={`${paragraph}-${index}`}>{paragraph}</p>)}
 				</div>
 			</section>
 
-			<section
-				className={styles.values}
-				style={{ backgroundImage: `linear-gradient(rgba(0,0,0,.54), rgba(0,0,0,.54)), url("${sectionImage(settings.values_background_url, '/assets/casa/values.jpg')}")` }}
-			>
+			<section className={styles.values}>
+				<Image
+					src={sectionImage(settings.values_background_url, '/assets/casa/values.jpg')}
+					alt=""
+					fill
+					sizes="100vw"
+					className={styles.valuesBackdrop}
+				/>
 				{content.values.map((value) => (
 					<article key={value.id} className={styles.valueItem}>
-						<span><Image src={valueIcons[value.icon] ?? valueIcons.design} alt="" width={82} height={76} /></span>
+						<span>
+							<Image src={valueIcons[value.icon] ?? valueIcons.design} alt="" width={82} height={76} />
+						</span>
 						<h3>{value.title}</h3>
 					</article>
 				))}
@@ -389,16 +478,36 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<h2>{settings.project_title}</h2>
 				<div className={styles.projectCollage}>
 					<div className={styles.projectWide}>
-						<Image src={sectionImage(settings.project_image_url, '/assets/casa/partner-vby.jpg')} alt="Projet Casa di Lusso" fill sizes="50vw" className={styles.coverImage} />
+						<Image
+							src={sectionImage(settings.project_image_url, '/assets/casa/partner-vby.jpg')}
+							alt="Projet Casa di Lusso"
+							fill
+							sizes="50vw"
+							className={styles.coverImage}
+						/>
 					</div>
 					<div className={styles.projectTall}>
-						<Image src="/assets/casa/partner-images-19.png" alt="Salon contemporain" fill sizes="35vw" className={styles.coverImage} />
+						<Image
+							src="/assets/casa/partner-images-19.png"
+							alt="Salon contemporain"
+							fill
+							sizes="35vw"
+							className={styles.coverImage}
+						/>
 					</div>
 					<div className={styles.projectMobile}>
-						<Image src="/assets/casa/figma/project-mobile.jpg" alt="Salon Casa di Lusso" fill sizes="(max-width: 700px) 100vw, 1px" className={styles.coverImage} />
+						<Image
+							src="/assets/casa/figma/project-mobile.jpg"
+							alt="Salon Casa di Lusso"
+							fill
+							sizes="(max-width: 700px) 100vw, 1px"
+							className={styles.coverImage}
+						/>
 					</div>
 				</div>
-				<a href="#contact" className={styles.filledButton}>CONTACTEZ-NOUS</a>
+				<a href="#contact" className={styles.filledButton}>
+					CONTACTEZ-NOUS
+				</a>
 			</section>
 
 			<section className={styles.metrics} aria-label="Casa di Lusso en chiffres">
@@ -425,7 +534,10 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 
 			<section id="services" className={styles.services}>
-				<header className={styles.sectionHeader}><h2>Nos services</h2><span /></header>
+				<header className={styles.sectionHeader}>
+					<h2>Nos services</h2>
+					<span />
+				</header>
 				<div className={styles.servicesGrid}>
 					{content.services.map((service) => (
 						<article key={service.id}>
@@ -438,7 +550,10 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 
 			<section className={styles.partners}>
-				<header className={styles.sectionHeader}><h2>NOS PARTENAIRES</h2><span /></header>
+				<header className={styles.sectionHeader}>
+					<h2>NOS PARTENAIRES</h2>
+					<span />
+				</header>
 				<p className={styles.partnersIntro}>{settings.partners_intro}</p>
 				<div className={styles.partnerBand}>
 					{partnerMarks.map((partner) => (
@@ -449,36 +564,54 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				</div>
 				<div className={styles.partnerBottom}>
 					<p>{settings.partners_outro}</p>
-					<a className={styles.filledButton} href={settings.catalog_url || '#contact'} download={Boolean(settings.catalog_url)}>DOWNLOAD CATALOG</a>
+					<a
+						className={styles.filledButton}
+						href={settings.catalog_url || '#contact'}
+						download={Boolean(settings.catalog_url)}
+					>
+						DOWNLOAD CATALOG
+					</a>
 				</div>
 			</section>
 
 			<section className={styles.video}>
 				<div className={styles.videoPlayer}>
-					<iframe
-						ref={videoFrameRef}
-						src="https://player.vimeo.com/video/1215215902?badge=0&autopause=0&player_id=0&app_id=58479"
-						title="PROMO VIDEO CDL"
-						frameBorder="0"
-						allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-						referrerPolicy="strict-origin-when-cross-origin"
-						allowFullScreen
-					/>
-					{!videoStarted && (
-						<button
-							type="button"
-							className={styles.videoPlayButton}
-							onClick={playVideo}
-							aria-label="Lire la vidéo Casa di Lusso"
-						>
-							<span aria-hidden="true" />
-						</button>
+					{videoStarted ? (
+						<iframe
+							src="https://player.vimeo.com/video/1215215902?autoplay=1&badge=0&autopause=0&dnt=1&player_id=0&app_id=58479"
+							title="PROMO VIDEO CDL"
+							frameBorder="0"
+							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+							referrerPolicy="strict-origin-when-cross-origin"
+							allowFullScreen
+						/>
+					) : (
+						<>
+							<Image
+								src="/assets/casa/video.png"
+								alt="Aperçu de la vidéo Casa di Lusso"
+								fill
+								sizes="100vw"
+								className={styles.coverImage}
+							/>
+							<button
+								type="button"
+								className={styles.videoPlayButton}
+								onClick={playVideo}
+								aria-label="Lire la vidéo Casa di Lusso"
+							>
+								<span aria-hidden="true" />
+							</button>
+						</>
 					)}
 				</div>
 			</section>
 
 			<section className={styles.testimonials}>
-				<header className={styles.sectionHeader}><h2>témoignage des clients</h2><span /></header>
+				<header className={styles.sectionHeader}>
+					<h2>témoignage des clients</h2>
+					<span />
+				</header>
 				<div className={styles.testimonialGrid}>
 					{content.testimonials.map((testimonial) => (
 						<blockquote key={testimonial.id}>
@@ -491,7 +624,10 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 
 			<section id="contact" className={styles.contact}>
-				<header className={styles.sectionHeader}><h2>CONTACTEZ-NOUS</h2><span /></header>
+				<header className={styles.sectionHeader}>
+					<h2>CONTACTEZ-NOUS</h2>
+					<span />
+				</header>
 				<div className={styles.contactGrid}>
 					<ContactForm />
 					<div className={styles.mapFrame}>
@@ -509,28 +645,41 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div className={styles.footerIdentity}>
 					<p className={styles.footerWordmark}>CASA DI LUSSO</p>
 					<address>{settings.address}</address>
-					<a href={`tel:${settings.phone.replace(/\s/g, '')}`}><PhoneOutlinedIcon />{settings.phone}</a>
-					<a href={`mailto:${settings.email}`}><EmailOutlinedIcon />{settings.email}</a>
+					<a href={`tel:${settings.phone.replace(/\s/g, '')}`}>
+						<PhoneIcon />
+						{settings.phone}
+					</a>
+					<a href={`mailto:${settings.email}`}>
+						<EmailIcon />
+						{settings.email}
+					</a>
 				</div>
 				<div className={styles.footerNewsletter}>
 					<h2>abonnez-vous à notre newsletter</h2>
 					<NewsletterForm />
 					<div className={styles.socials}>
-						<a href={settings.linkedin_url || '#'} aria-label="LinkedIn"><LinkedInIcon /></a>
-						<a href={settings.facebook_url || '#'} aria-label="Facebook"><FacebookOutlinedIcon /></a>
-						<a href={settings.instagram_url || '#'} aria-label="Instagram"><InstagramIcon /></a>
-						<a href="#" aria-label="YouTube"><YouTubeIcon /></a>
-						<a href="#" aria-label="Pinterest"><PinterestIcon /></a>
+						<a href={settings.linkedin_url || '#'} aria-label="LinkedIn">
+							<LinkedInIcon />
+						</a>
+						<a href={settings.facebook_url || '#'} aria-label="Facebook">
+							<FacebookIcon />
+						</a>
+						<a href={settings.instagram_url || '#'} aria-label="Instagram">
+							<InstagramIcon />
+						</a>
+						<a href="#" aria-label="YouTube">
+							<YouTubeIcon />
+						</a>
+						<a href="#" aria-label="Pinterest">
+							<PinterestIcon />
+						</a>
 					</div>
 				</div>
 				<div className={styles.footerBottom}>
 					<p>Copyright {new Date().getFullYear()} © casadilusso</p>
-					<button
-						type="button"
-						className={styles.backToTop}
-						aria-label="Retour en haut"
-						onClick={scrollToTop}
-					>↑</button>
+					<button type="button" className={styles.backToTop} aria-label="Retour en haut" onClick={scrollToTop}>
+						↑
+					</button>
 				</div>
 			</footer>
 		</main>

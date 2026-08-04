@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import type { ComponentProps } from 'react';
-import axios from 'axios';
 import { publicWebsiteApi } from '@/utils/websiteApi';
 import styles from './site.module.sass';
 
@@ -27,7 +26,12 @@ export default function NewsletterForm() {
 		event.preventDefault();
 		setState('loading');
 		try {
-			await axios.post(`${publicWebsiteApi}/newsletter/`, { email });
+			const response = await fetch(`${publicWebsiteApi}/newsletter/`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+				body: JSON.stringify({ email }),
+			});
+			if (!response.ok) throw new Error('Newsletter request failed');
 			setEmail('');
 			setState('success');
 		} catch {

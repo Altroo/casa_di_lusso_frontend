@@ -13,18 +13,9 @@
     "test:coverage": "bun x jest --maxWorkers=20 --coverage --coverageProvider=v8"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^9.1.1",
-    "@mui/material": "^9.1.1",
-    "@mui/material-nextjs": "^9.1.1",
-    "axios": "^1.18.0",
-    "formik": "^2.4.9",
     "next": "^16.2.9",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "zod": "^4.4.3",
-    "zod-formik-adapter": "^2.0.0"
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
