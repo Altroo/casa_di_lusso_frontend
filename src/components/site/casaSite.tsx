@@ -222,11 +222,30 @@ export default function CasaSite({ content }: CasaSiteProps) {
 	const heroAutomaticTransitionActive = useRef(false);
 	const { settings } = content;
 	const heroSlides = [
-		sectionImage(settings.hero_image_url, '/assets/casa/figma/hero-exact.jpg'),
-		'/assets/casa/figma/hero-slide-2.jpg',
-		'/assets/casa/figma/hero-slide-3.jpg',
-		'/assets/casa/figma/hero-slide-4.jpg',
-		'/assets/casa/figma/hero-slide-5.jpg',
+		{
+			src: '/assets/casa/hero-showroom-main.jpg',
+			alt: 'Showroom Casa di Lusso encadré par les arbres',
+		},
+		{
+			src: '/assets/casa/hero-lighting-pendants.jpg',
+			alt: 'Luminaires suspendus en laiton',
+		},
+		{
+			src: '/assets/casa/hero-delta-light.jpg',
+			alt: 'Éclairage architectural Delta Light au crépuscule',
+		},
+		{
+			src: '/assets/casa/hero-dark-interior.jpg',
+			alt: 'Salle à manger contemporaine illuminée',
+		},
+		{
+			src: '/assets/casa/hero-kitchen.jpg',
+			alt: 'Cuisine contemporaine verte',
+		},
+		{
+			src: '/assets/casa/hero-gessi-shower.jpg',
+			alt: 'Salle de douche Gessi',
+		},
 	];
 
 	const closeMenu = () => setMenuOpen(false);
@@ -345,10 +364,10 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			<section id="accueil" className={styles.hero} data-node-id="2379:7052">
 				<div className={styles.heroSlides} style={{ transform: `translateX(-${heroIndex * 100}%)` }}>
 					{heroSlides.map((slide, index) => (
-						<div className={styles.heroSlide} key={slide} aria-hidden={index !== heroIndex}>
+						<div className={styles.heroSlide} key={slide.src} aria-hidden={index !== heroIndex}>
 							<Image
-								src={slide}
-								alt={index === heroIndex ? 'Intérieur raffiné Casa di Lusso' : ''}
+								src={slide.src}
+								alt={index === heroIndex ? slide.alt : ''}
 								fill
 								preload={index === 0}
 								fetchPriority={index === 0 ? 'high' : 'auto'}
@@ -412,7 +431,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 			<div className={styles.heroPagination} aria-hidden="true">
 				{heroSlides.map((slide, index) => (
-					<span key={slide} className={index === heroIndex ? styles.heroDotActive : ''} />
+					<span key={slide.src} className={index === heroIndex ? styles.heroDotActive : ''} />
 				))}
 			</div>
 
