@@ -213,6 +213,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 	const [heroAutoplayEnabled, setHeroAutoplayEnabled] = useState(false);
 	const [heroAutoplayRevision, setHeroAutoplayRevision] = useState(0);
 	const [videoStarted, setVideoStarted] = useState(false);
+	const [mapStarted, setMapStarted] = useState(false);
 	const touchStartX = useRef<number | null>(null);
 	const heroAutoplayTimer = useRef<number | null>(null);
 	const heroUnlockTimer = useRef<number | null>(null);
@@ -443,7 +444,8 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						src={sectionImage(settings.about_image_url, '/assets/casa/figma/about-exact-v2.jpg')}
 						alt="Showroom Casa di Lusso"
 						fill
-						sizes="(max-width: 700px) 100vw, 536px"
+						sizes="(max-width: 700px) 100vw, (max-width: 1440px) 37.5vw, 540px"
+						quality={70}
 						className={styles.coverImage}
 					/>
 				</div>
@@ -461,7 +463,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					src={sectionImage(settings.values_background_url, '/assets/casa/values.jpg')}
 					alt=""
 					fill
-					sizes="100vw"
+					sizes="(max-width: 1440px) 100vw, 1440px"
 					className={styles.valuesBackdrop}
 				/>
 				{content.values.map((value) => (
@@ -482,7 +484,8 @@ export default function CasaSite({ content }: CasaSiteProps) {
 							src={sectionImage(settings.project_image_url, '/assets/casa/partner-vby.jpg')}
 							alt="Projet Casa di Lusso"
 							fill
-							sizes="50vw"
+							sizes="(max-width: 700px) 100vw, (max-width: 1440px) 44vw, 590px"
+							quality={70}
 							className={styles.coverImage}
 						/>
 					</div>
@@ -491,7 +494,8 @@ export default function CasaSite({ content }: CasaSiteProps) {
 							src="/assets/casa/partner-images-19.png"
 							alt="Salon contemporain"
 							fill
-							sizes="35vw"
+							sizes="(max-width: 700px) 100vw, 30vw"
+							quality={70}
 							className={styles.coverImage}
 						/>
 					</div>
@@ -520,17 +524,29 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 
 			<section id="portfolio" className={styles.portfolio} aria-label="Portfolio Casa di Lusso">
-				{portfolioImages.map((item, index) => (
-					<article className={`${styles.portfolioItem} ${styles[`portfolioItem${index + 1}`] ?? ''}`} key={item.src}>
-						<Image
-							src={item.src}
-							alt={item.alt}
-							fill
-							sizes="(max-width: 700px) 100vw, 50vw"
-							className={styles.coverImage}
-						/>
-					</article>
-				))}
+				{portfolioImages.map((item, index) => {
+					const spansTwoColumns = index === 0 || index === 5;
+
+					return (
+						<article
+							className={`${styles.portfolioItem} ${styles[`portfolioItem${index + 1}`] ?? ''}`}
+							key={item.src}
+						>
+							<Image
+								src={item.src}
+								alt={item.alt}
+								fill
+								sizes={
+									spansTwoColumns
+										? '(max-width: 700px) 100vw, 50vw'
+										: '(max-width: 700px) 100vw, 25vw'
+								}
+								quality={70}
+								className={styles.coverImage}
+							/>
+						</article>
+					);
+				})}
 			</section>
 
 			<section id="services" className={styles.services}>
@@ -631,12 +647,30 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div className={styles.contactGrid}>
 					<ContactForm />
 					<div className={styles.mapFrame}>
-						<iframe
-							src={settings.map_embed_url}
-							title="Localisation Casa di Lusso"
-							loading="lazy"
-							referrerPolicy="no-referrer-when-downgrade"
-						/>
+						{mapStarted ? (
+							<iframe
+								src={settings.map_embed_url}
+								title="Localisation Casa di Lusso"
+								loading="lazy"
+								referrerPolicy="no-referrer-when-downgrade"
+							/>
+						) : (
+							<>
+								<Image
+									src="/assets/casa/map.png"
+									alt="Carte indiquant la localisation de Casa di Lusso à Tanger"
+									fill
+									sizes="(max-width: 700px) 100vw, 658px"
+									className={styles.mapPoster}
+								/>
+								<button
+									type="button"
+									className={styles.mapActivator}
+									onClick={() => setMapStarted(true)}
+									aria-label="Afficher la carte Google Maps interactive"
+								/>
+							</>
+						)}
 					</div>
 				</div>
 			</section>
