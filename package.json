@@ -1,0 +1,61 @@
+{
+  "name": "casa_di_lusso_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3008",
+    "debug": "next dev --inspect -p 3008",
+    "build": "next build",
+    "start": "next start -p 3008",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --incremental false",
+    "test:watch": "bun x jest --watch",
+    "test:coverage": "bun x jest --maxWorkers=20 --coverage --coverageProvider=v8"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^9.1.1",
+    "@mui/material": "^9.1.1",
+    "@mui/material-nextjs": "^9.1.1",
+    "axios": "^1.18.0",
+    "formik": "^2.4.9",
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3",
+    "zod-formik-adapter": "^2.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.61.1",
+    "@typescript-eslint/parser": "^8.61.1",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "baseline-browser-mapping": "^2.10.38",
+    "eslint": "9.39.2",
+    "eslint-config-next": "^16.2.9",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "prettier": "^3.8.4",
+    "sass": "^1.101.0",
+    "ts-jest": "^29.4.11",
+    "typescript": "6.0.3"
+  },
+  "resolutions": {
+    "baseline-browser-mapping": "2.10.36"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "sharp",
+    "unrs-resolver"
+  ]
+}

@@ -1,0 +1,1533 @@
+$ink: #1a1a1a
+$paper: #ffffff
+$muted: #f4f4f1
+
+.site
+  width: 100%
+  min-width: 0
+  overflow: hidden
+  background: $paper
+  color: $ink
+  font-family: Poppins, Arial, sans-serif
+
+.header
+  height: clamp(95px, 9.306vw, 134px)
+  position: relative
+  background: $paper
+  z-index: 30
+
+.logoLink
+  position: absolute
+  left: max(clamp(80px, 7.778vw, 112px), calc((100% - 1440px) / 2 + 112px))
+  top: clamp(11px, 1.111vw, 16px)
+  width: clamp(80px, 7.778vw, 112px)
+  height: clamp(71px, 6.944vw, 100px)
+  display: block
+  img
+    width: 100%
+    height: 100%
+    object-fit: contain
+
+.nav
+  position: absolute
+  left: max(42.4%, calc((100% - 1440px) / 2 + 610.56px))
+  right: max(3%, calc((100% - 1440px) / 2 + 43.2px))
+  top: clamp(33px, 3.264vw, 47px)
+  height: clamp(30px, 2.917vw, 42px)
+  display: grid
+  grid-template-columns: 24.4% 23.8% 26% 25.8%
+  align-items: start
+  font-size: clamp(20px, 1.944vw, 28px)
+  font-weight: 500
+  text-transform: uppercase
+  a
+    position: static
+    transition: opacity .2s ease
+    &:hover
+      opacity: .55
+
+.menuButton
+  display: none
+  padding: 0
+  border: 0
+  background: transparent
+  color: $ink
+
+.hero
+  height: 753px
+  position: relative
+  isolation: isolate
+
+.heroSlides
+  position: absolute
+  inset: 0
+  z-index: 0
+  display: flex
+  transition: transform .75s cubic-bezier(.65, 0, .35, 1)
+  will-change: transform
+
+.heroSlide
+  position: relative
+  flex: 0 0 100%
+  height: 100%
+  overflow: hidden
+  .coverImage
+    object-position: 35.5% center
+
+.coverImage, .containImage
+  object-fit: cover
+
+.containImage
+  object-fit: contain
+
+.heroCopy
+  position: absolute
+  z-index: 2
+  left: max(1px, calc((100% - 1440px) / 2 + 1px))
+  top: 136px
+  width: 755px
+  height: 425px
+  padding: 0
+  color: $paper
+  background: rgba(26, 26, 26, .88)
+  h1
+    position: absolute
+    left: 149px
+    top: 129px
+    width: 388px
+    height: 52px
+    margin: 0
+    font-size: 30px
+    line-height: 37.841px
+    font-weight: 500
+    text-transform: capitalize
+  > p:not(.wordmark)
+    position: absolute
+    left: 149px
+    top: 188px
+    width: 445px
+    height: 98px
+    max-width: 445px
+    margin: 0
+    font-size: 24px
+    line-height: 1.48
+    font-weight: 300
+
+.wordmarkArt
+  position: absolute
+  left: 145px
+  top: 55px
+  width: 462px
+  height: 43px
+  span
+    position: absolute
+    top: 0
+  img
+    object-fit: fill
+
+.heroGestureArea
+  position: absolute
+  z-index: 1
+  inset: 0
+
+.textLink
+  position: absolute
+  left: 149px
+  top: 312px
+  width: 151px
+  height: 35px
+  padding-bottom: 5px
+  border-bottom: 1px solid currentColor
+  color: rgba(255, 255, 255, .83)
+  font-size: 24px
+  line-height: 31px
+  font-weight: 400
+
+.heroArrows
+  position: absolute
+  z-index: 2
+  inset: auto 0 0
+  display: flex
+  justify-content: space-between
+  pointer-events: none
+  button
+    pointer-events: auto
+    width: 138px
+    height: 63px
+    padding: 0
+    border: 0
+    cursor: pointer
+    display: grid
+    place-items: center
+    background: rgba(255, 255, 255, .86)
+
+.arrowPrevious img
+  transform: rotate(180deg)
+
+.heroPagination
+  height: 126px
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 6px
+  background: $paper
+  button
+    width: 5px
+    height: 5px
+    padding: 0
+    border: 0
+    border-radius: 50%
+    background: #b8b8b8
+    cursor: pointer
+  .heroDotActive
+    background: $ink
+
+.brandStrip
+  height: 242px
+  overflow: hidden
+
+.brandTrack
+  width: max-content
+  display: flex
+  animation: brand-marquee 20s linear infinite
+  will-change: transform
+
+.brandGroup
+  flex: none
+  height: 242px
+  padding: 58px 50px
+  display: flex
+  align-items: center
+  gap: 44px
+
+.brandMark
+  flex: 0 0 220px
+  height: 120px
+  display: grid
+  place-items: center
+  min-width: 220px
+
+.brandArtwork
+  position: relative
+  width: 200px
+  height: 62px
+
+.brandMark
+  &:nth-child(1)
+    .brandArtwork
+      width: 170px
+      height: 65px
+  &:nth-child(2)
+    .brandArtwork
+      width: 158px
+      height: 120px
+  &:nth-child(3)
+    .brandArtwork
+      width: 216px
+      height: 37px
+      img
+        filter: brightness(0)
+  &:nth-child(4)
+    .brandArtwork
+      width: 206px
+      height: 44px
+  &:nth-child(5)
+    .brandArtwork
+      width: 206px
+      height: 44px
+  &:nth-child(6)
+    margin-left: 60px
+  &:nth-child(8)
+    .brandArtwork
+      width: 210px
+      height: 45px
+      overflow: hidden
+      img
+        // The Figma Flaminia PNG has a large transparent square canvas.
+        // Cropping its canvas keeps the mark large without invading neighbours.
+        object-fit: cover
+  &:nth-child(9)
+    .brandArtwork
+      width: 83px
+      height: 45px
+
+@keyframes brand-marquee
+  from
+    transform: translateX(0)
+  to
+    transform: translateX(-50%)
+
+.about
+  min-height: 653px
+  padding: 76px max(7.778%, calc((100% - 1440px) / 2 + 112px)) 74px
+  display: grid
+  grid-template-columns: 540px 590px
+  gap: 37px
+  justify-content: start
+  align-items: start
+
+.aboutImage
+  position: relative
+  width: 540px
+  height: 503px
+  border-radius: 0
+  overflow: hidden
+  .coverImage
+    object-position: left center
+
+.aboutCopy
+  padding: 0
+  h2
+    margin: 9px 0 0 22px
+    font-size: 64px
+    line-height: 1.1
+    font-weight: 500
+  p
+    width: 590px
+    margin: 70px 0 0
+    font-size: 31px
+    line-height: 1.4
+    font-weight: 400
+    text-transform: capitalize
+    & + p
+      margin-top: 0
+
+.headingLine
+  width: 284px
+  height: 1px
+  margin: 3px 0 0 22px
+  background: $ink
+
+.values
+  min-height: 499px
+  padding: 65px max(9.8%, calc((100% - 1440px) / 2 + 141.12px))
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 8px
+  background-position: center
+  background-size: cover
+  color: $paper
+
+.valueItem
+  display: flex
+  flex-direction: column
+  justify-content: center
+  text-align: center
+  span
+    width: 96px
+    height: 96px
+    margin: 0 auto 15px
+    border: 1px solid rgba(255, 255, 255, .78)
+    border-radius: 50%
+    display: grid
+    place-items: center
+    background: transparent
+    img
+      width: 62px
+      height: 62px
+      object-fit: contain
+  h3
+    margin: 0 auto
+    max-width: 230px
+    font-size: 18px
+    line-height: 1.45
+    font-weight: 500
+
+.project
+  min-height: 864px
+  position: relative
+  padding: 135px max(7.8%, calc((100% - 1440px) / 2 + 112.32px)) 105px
+  h2
+    position: absolute
+    z-index: 3
+    left: max(7.8%, calc((100% - 1440px) / 2 + 112.32px))
+    bottom: 102px
+    width: 450px
+    margin: 0
+    font-size: 40px
+    line-height: 1.55
+    font-weight: 400
+    text-transform: capitalize
+
+.projectCollage
+  height: 614px
+  position: relative
+
+.projectWide, .projectTall
+  position: absolute
+  overflow: hidden
+  border-radius: 16px
+
+.projectMobile
+  position: relative
+  display: none
+
+.projectWide
+  left: 0
+  top: 103px
+  width: 51.8%
+  height: 301px
+
+.projectTall
+  right: 1.7%
+  top: 0
+  width: 34.7%
+  height: 602px
+
+.outlineButton
+  min-width: 227px
+  min-height: 59px
+  padding: 14px 24px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  border: 1px solid $ink
+  font-size: 20px
+  line-height: 1.3
+  background: $paper
+  transition: background-color .25s ease, color .25s ease
+  &:hover, &:focus-visible
+    background: $ink
+    color: $paper
+
+.filledButton
+  min-width: 230px
+  height: 60px
+  padding: 12px 22px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  border: 1px solid $ink
+  background: $paper
+  color: $ink
+  font-size: 14px
+  line-height: 1
+  font-weight: 400
+  text-transform: uppercase
+  transition: background-color .25s ease, color .25s ease
+  &:hover, &:focus-visible
+    background: $ink
+    color: $paper
+
+.project > .filledButton
+  position: absolute
+  left: max(7.8%, calc((100% - 1440px) / 2 + 112.32px))
+  bottom: 29px
+  &::before, &::after
+    content: ''
+    position: absolute
+    background: #9f9f9f
+  &::before
+    left: -14px
+    bottom: -13px
+    width: 96px
+    height: 1px
+  &::after
+    left: -14px
+    bottom: -22px
+    width: 1px
+    height: 49px
+
+.metrics
+  min-height: 255px
+  padding: 66px max(7.5%, calc((100% - 1440px) / 2 + 108px)) 55px
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 45px
+  div
+    display: flex
+    flex-direction: column
+    align-items: center
+    text-align: center
+  strong
+    font-size: 39px
+    line-height: 1.35
+    font-weight: 300
+    color: #aea7a7
+  span
+    margin-top: 9px
+    font-size: 23px
+    font-weight: 300
+    text-transform: capitalize
+
+.portfolio
+  padding: 0 10px
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  grid-template-rows: 336px 336px
+  gap: 24px
+
+.portfolioItem
+  position: relative
+  overflow: hidden
+  &:first-child
+    grid-column: span 2
+  &:nth-child(6)
+    grid-column: span 2
+
+.services
+  min-height: 830px
+  padding: 51px 0 80px
+  .sectionHeader
+    h2
+      font-size: 45px
+      text-transform: capitalize
+    > span
+      display: none
+
+.sectionHeader
+  text-align: center
+  h2
+    margin: 0
+    font-size: 49px
+    line-height: 1.35
+    font-weight: 400
+  > span
+    width: 350px
+    max-width: 80%
+    height: 1px
+    margin: 18px auto 0
+    display: block
+    background: $ink
+
+.servicesGrid
+  width: min(100%, 1440px)
+  margin: 94px auto 0
+  height: 544px
+  position: relative
+  article
+    position: absolute
+    top: 0
+    width: 250px
+    min-height: 180px
+    &:nth-child(1)
+      left: 13%
+    &:nth-child(2)
+      left: 40.7%
+    &:nth-child(3)
+      left: 64.7%
+    &:nth-child(4)
+      left: 29.4%
+      top: 309px
+      width: 230px
+    &:nth-child(5)
+      left: 53.4%
+      top: 309px
+      h3
+        max-width: 155px
+  h3
+    min-height: 89px
+    margin: 0
+    font-size: 30px
+    line-height: 1.45
+    font-weight: 400
+    text-transform: capitalize
+  article > span
+    width: 155px
+    height: 1px
+    display: block
+    margin: 10px 0 20px
+    background: #aaa3a3
+  p
+    margin: 0
+    color: #8f8989
+    font-size: 19px
+    line-height: 1.5
+    font-weight: 300
+
+.partners
+  min-height: 963px
+  padding: 20px 0 95px
+
+.partnersIntro
+  margin: 48px auto 70px
+  max-width: 1030px
+  text-align: center
+  font-size: 30px
+  line-height: 1.4
+  font-weight: 300
+
+.partnerBand
+  height: 418px
+  padding: 65px max(7%, calc((100% - 1440px) / 2 + 100.8px))
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+  grid-template-rows: repeat(3, 1fr)
+  align-items: center
+  gap: 35px
+  background: $muted
+
+.partnerLogo
+  position: relative
+  height: 72px
+  isolation: isolate
+  transition: translate .38s cubic-bezier(.22, 1, .36, 1), scale .38s cubic-bezier(.22, 1, .36, 1), filter .38s ease
+  &::after
+    content: ''
+    position: absolute
+    z-index: -1
+    left: 18%
+    right: 18%
+    bottom: -10px
+    height: 1px
+    background: $ink
+    opacity: .7
+    transform: scaleX(0)
+    transform-origin: center
+    transition: transform .38s cubic-bezier(.22, 1, .36, 1)
+  img
+    filter: brightness(0)
+    transition: filter .38s ease
+  &:nth-child(6)
+    width: 120px
+    height: 65px
+    justify-self: center
+  &:nth-child(11)
+    grid-column: 2 / 3
+    transform: translateX(40%)
+  &:nth-child(12)
+    grid-column: 4 / 5
+    transform: translateX(-40%)
+    img
+      transform: scale(2.5)
+  strong
+    width: 100%
+    height: 100%
+    display: grid
+    place-items: center
+    font-size: 25px
+    font-weight: 500
+
+@media (hover: hover) and (pointer: fine)
+  .partnerLogo:hover
+    translate: 0 -7px
+    scale: 1.04
+    filter: drop-shadow(0 12px 10px rgba(0, 0, 0, .12))
+    &::after
+      transform: scaleX(1)
+
+.partnerBottom
+  padding: 70px max(11.5%, calc((100% - 1440px) / 2 + 165.6px)) 0 max(7.5%, calc((100% - 1440px) / 2 + 108px))
+  display: flex
+  justify-content: space-between
+  align-items: center
+  gap: 50px
+  p
+    max-width: 715px
+    margin: 0
+    font-size: 31px
+    line-height: 1.45
+    font-weight: 300
+    text-transform: capitalize
+  .filledButton
+    position: relative
+    &::before, &::after
+      content: ''
+      position: absolute
+      background: #9f9f9f
+    &::before
+      right: -9px
+      bottom: -11px
+      width: 90px
+      height: 1px
+    &::after
+      right: -9px
+      bottom: -20px
+      width: 1px
+      height: 49px
+
+.video
+  position: relative
+  height: min(742px, 51.528vw)
+  overflow: hidden
+  background: $ink
+
+.videoPlayer
+  position: absolute
+  inset: 0
+  iframe
+    position: absolute
+    left: 50%
+    top: 50%
+    width: 100%
+    height: auto
+    aspect-ratio: 16 / 9
+    display: block
+    border: 0
+    transform: translate(-50%, -50%)
+
+.videoPlayButton
+  position: absolute
+  z-index: 2
+  left: 50%
+  top: 50%
+  width: 112px
+  height: 112px
+  padding: 0
+  display: grid
+  place-items: center
+  border: 1px solid rgba(255, 255, 255, .9)
+  border-radius: 50%
+  background: rgba(24, 24, 24, .55)
+  color: #fff
+  cursor: pointer
+  transform: translate(-50%, -50%)
+  backdrop-filter: blur(3px)
+  transition: background-color .25s ease, transform .25s ease, border-color .25s ease
+  span
+    width: 0
+    height: 0
+    margin-left: 8px
+    border-top: 18px solid transparent
+    border-bottom: 18px solid transparent
+    border-left: 29px solid currentColor
+  &:hover, &:focus-visible
+    border-color: #fff
+    background: rgba(24, 24, 24, .82)
+    transform: translate(-50%, -50%) scale(1.07)
+  &:focus-visible
+    outline: 3px solid rgba(255, 255, 255, .5)
+    outline-offset: 4px
+
+.testimonials
+  min-height: 490px
+  padding: 62px max(11.7%, calc((100% - 1440px) / 2 + 168.48px)) 70px
+  .sectionHeader
+    h2
+      text-transform: capitalize
+    > span
+      width: 288px
+      height: 0
+      border-top: 1px dotted #9c9696
+      background: transparent
+
+.testimonialGrid
+  margin-top: 28px
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 90px
+  blockquote
+    margin: 0
+    position: relative
+    padding-top: 57px
+    border-top: 0
+    > span
+      position: absolute
+      left: 0
+      top: 3px
+      width: 48px
+      height: 31px
+      overflow: hidden
+      font-size: 0
+      &::before, &::after
+        content: ''
+        position: absolute
+        top: 1px
+        width: 15px
+        height: 27px
+        background: $ink
+        transform: skew(-15deg)
+      &::before
+        left: 4px
+      &::after
+        left: 27px
+  p
+    margin: 0
+    color: #8f8989
+    font-size: 17px
+    line-height: 1.5
+    font-weight: 300
+  cite
+    display: block
+    margin-top: 16px
+
+.contact
+  min-height: 630px
+  padding: 34px max(6.7%, calc((100% - 1440px) / 2 + 96.48px)) 104px
+  .sectionHeader > span
+    width: 288px
+    height: 0
+    border-top: 1px dotted #9c9696
+    background: transparent
+
+.contactGrid
+  margin-top: 51px
+  display: grid
+  grid-template-columns: 499px minmax(0, 658px)
+  justify-content: space-between
+  gap: 60px
+
+.contactForm
+  position: relative
+  display: grid
+  grid-template-columns: 1fr
+  gap: 12px
+  :global(.MuiOutlinedInput-root)
+    border-radius: 0
+    font-family: Poppins, Arial, sans-serif
+    background: $paper
+  :global(.MuiInputLabel-root)
+    font-family: Poppins, Arial, sans-serif
+  :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline)
+    border-color: $ink
+  :global(.MuiInputLabel-root.Mui-focused)
+    color: $ink
+
+.submitButton
+  justify-self: start
+  min-width: 227px !important
+  min-height: 59px !important
+  margin: 16px 0 0 14px !important
+  border-radius: 0 !important
+  box-shadow: none !important
+  background: $paper !important
+  color: $ink !important
+  border: 1px solid $ink !important
+  font: 400 14px/1.3 Poppins, Arial, sans-serif !important
+  text-transform: uppercase !important
+  transition: background-color .25s ease, color .25s ease !important
+  &::before, &::after
+    content: ''
+    position: absolute
+    background: #9f9f9f
+  &::before
+    left: -14px
+    bottom: -13px
+    width: 96px
+    height: 1px
+  &::after
+    left: -14px
+    bottom: -22px
+    width: 1px
+    height: 49px
+  &:hover, &:focus-visible
+    background: $ink !important
+    color: $paper !important
+
+.honeypot
+  position: absolute
+  left: -9999px
+  width: 1px
+  height: 1px
+
+.mapFrame
+  position: relative
+  height: 322px
+  overflow: hidden
+  iframe
+    width: 100%
+    height: 100%
+    border: 0
+  a
+    position: absolute
+    right: 12px
+    bottom: 12px
+    padding: 7px 12px
+    background: rgba(255,255,255,.92)
+    font-size: 12px
+
+.footer
+  min-height: clamp(300px, 30.694vw, 442px)
+  position: relative
+  padding: clamp(26px, 2.639vw, 38px) max(3.4%, calc((100% - 1440px) / 2 + 48.96px)) clamp(14px, 1.389vw, 20px)
+  display: grid
+  grid-template-columns: 1fr clamp(278px, 27.083vw, 390px)
+  gap: clamp(35px, 3.472vw, 50px)
+  color: $paper
+  background: $ink
+  font-family: Poppins, Arial, sans-serif
+
+.footerIdentity
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  address
+    margin: clamp(19px, 1.875vw, 27px) 0 clamp(13px, 1.25vw, 18px)
+    white-space: pre-line
+    font-style: normal
+    font-size: clamp(13px, 1.25vw, 18px)
+    line-height: 1.55
+    font-weight: 300
+  > a
+    margin-top: clamp(5px, .486vw, 7px)
+    display: inline-flex
+    align-items: center
+    gap: clamp(9px, .903vw, 13px)
+    font-size: clamp(12px, 1.181vw, 17px)
+    svg
+      width: clamp(14px, 1.319vw, 19px)
+
+.footerWordmark
+  margin: 0
+  font-family: Georgia, 'Times New Roman', serif
+  font-size: clamp(22px, 2.222vw, 32px)
+  line-height: 1.2
+  letter-spacing: .03em
+
+.footerNewsletter
+  h2
+    margin: 0 0 clamp(18px, 1.736vw, 25px)
+    font-size: clamp(17px, 1.667vw, 24px)
+    line-height: 1.35
+    font-weight: 300
+    text-transform: capitalize
+
+.newsletterForm
+  position: relative
+  min-height: clamp(42px, 3.333vw, 48px)
+  label
+    position: absolute
+    z-index: 1
+    left: clamp(9px, .833vw, 12px)
+    top: 50%
+    display: block
+    transform: translateY(-50%)
+    pointer-events: none
+    font-size: clamp(12px, 1.181vw, 17px)
+    font-weight: 300
+    transition: opacity .18s ease
+  > div
+    position: relative
+    height: clamp(34px, 3.333vw, 48px)
+    display: flex
+    align-items: center
+    border: 1px solid rgba(255,255,255,.78)
+  input
+    flex: 1
+    min-width: 0
+    height: 100%
+    padding: 0 0 0 clamp(9px, .833vw, 12px)
+    border: 0
+    outline: 0
+    color: $paper
+    background: transparent
+    font: clamp(13px, 1.25vw, 18px) Poppins, Arial, sans-serif
+  button
+    width: clamp(30px, 2.778vw, 40px)
+    height: 100%
+    padding: 0
+    display: grid
+    place-items: center
+    border: 0
+    color: $paper
+    background: transparent
+    cursor: pointer
+  &:focus-within label,
+  &:has(input:not(:placeholder-shown)) label
+    opacity: 0
+  > span
+    min-height: 24px
+    display: block
+    margin-top: 4px
+    font-size: 13px
+
+.sendIcon
+  position: relative
+  width: clamp(23px, 2.153vw, 31px)
+  height: clamp(23px, 2.153vw, 31px)
+  display: block
+  svg
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    fill: none
+    stroke: currentColor
+    stroke-width: 6
+    stroke-linecap: round
+    stroke-linejoin: round
+
+.footerBottom
+  grid-column: 1 / -1
+  align-self: end
+  min-height: clamp(55px, 5.417vw, 78px)
+  padding-top: clamp(18px, 1.806vw, 26px)
+  border-top: 1px solid rgba(255,255,255,.8)
+  display: flex
+  justify-content: space-between
+  align-items: center
+  p
+    margin: 0
+    font-size: clamp(12px, 1.181vw, 17px)
+
+.socials
+  margin-top: clamp(16px, 1.528vw, 22px)
+  display: flex
+  gap: 10px
+  a
+    width: clamp(23px, 2.222vw, 32px)
+    height: clamp(23px, 2.222vw, 32px)
+    display: grid
+    place-items: center
+    border-radius: 50%
+    background: $paper
+    color: $ink
+    svg
+      width: clamp(14px, 1.389vw, 20px)
+      height: clamp(14px, 1.389vw, 20px)
+
+.backToTop
+  width: clamp(27px, 2.639vw, 38px)
+  height: clamp(27px, 2.639vw, 38px)
+  padding: 0
+  display: grid
+  place-items: center
+  border: 0
+  background: #969696
+  color: $paper
+  font-size: clamp(16px, 1.597vw, 23px)
+  line-height: 1
+  cursor: pointer
+
+@media (max-width: 900px)
+  .header
+    height: 70px
+    padding: 8px 25px
+  .logoLink
+    left: 25px
+    top: 8px
+    width: 55px
+    height: 54px
+  .nav
+    left: 33%
+    right: 4%
+    top: 23px
+    height: 27px
+    grid-template-columns: repeat(4, 1fr)
+    font-size: 17px
+  .about
+    grid-template-columns: 45% 1fr
+    gap: 30px
+    padding-inline: 5%
+  .aboutImage
+    width: 100%
+    height: 440px
+  .aboutCopy h2
+    margin-left: 0
+    font-size: 50px
+  .aboutCopy .headingLine
+    margin-left: 0
+  .aboutCopy p
+    width: auto
+    font-size: 17px
+  .servicesGrid
+    gap: 45px 28px
+  .contactGrid
+    grid-template-columns: 1fr 1fr
+
+@media (max-width: 700px)
+  .site
+    width: 100%
+  .header
+    height: 42px
+    padding: 3px 13px 3px 15px
+  .logoLink
+    left: 15px
+    top: 4px
+    width: 37px
+    height: 33px
+  .menuButton
+    margin-left: auto
+    position: relative
+    z-index: 41
+    display: grid
+    place-items: center
+    svg
+      width: 25px
+      height: 25px
+  .nav
+    position: fixed
+    left: 0
+    right: 0
+    top: 42px
+    bottom: 0
+    z-index: 40
+    width: 100%
+    height: auto
+    margin: 0
+    padding: 48px 35px
+    display: none
+    flex-direction: column
+    align-items: flex-start
+    justify-content: flex-start
+    gap: 30px
+    background: $paper
+    box-shadow: none
+    overflow-y: auto
+    font-size: 24px
+    line-height: 1.25
+    a
+      position: static
+      width: 100%
+  .navOpen
+    display: flex
+  .hero
+    height: 438px
+    padding-top: 227px
+    background: $ink
+  .heroSlides
+    height: 227px
+  .heroCopy
+    top: 227px
+    left: 0
+    width: 100%
+    height: 211px
+    padding: 0
+    background: $ink
+    h1
+      left: 35px
+      top: 52px
+      width: 300px
+      height: 26px
+      margin: 0
+      font-size: 20px
+      line-height: 26px
+    > p:not(.wordmark)
+      left: 35px
+      top: 88px
+      width: 290px
+      height: 72px
+      font-size: 14px
+      line-height: 1.5
+    .textLink
+      left: 35px
+      top: 160px
+      width: 91px
+      height: 25px
+      margin: 0
+      font-size: 12px
+      line-height: 19px
+  .wordmarkArt
+    left: 35px
+    top: 13px
+    width: 263px
+    height: 25px
+    display: block
+    transform: scale(.57)
+    transform-origin: left top
+  .heroArrows
+    top: 195px
+    bottom: auto
+    button
+      width: 38px
+      height: 32px
+      font-size: 20px
+      img
+        width: 23px
+        height: auto
+  .heroPagination
+    height: 19px
+    gap: 3px
+    button
+      width: 3px
+      height: 3px
+  .brandStrip
+    height: 66px
+  .brandGroup
+    height: 66px
+    padding: 14px 18px
+    gap: 13px
+  .brandMark
+    flex-basis: 66px
+    min-width: 66px
+    height: 38px
+    &:nth-child(6)
+      margin-left: 0
+    .brandArtwork
+      width: 66px !important
+      height: 33px !important
+    &:nth-child(8)
+      .brandArtwork
+        width: 76px !important
+        height: 24px !important
+
+  @media (prefers-reduced-motion: reduce)
+    .brandTrack
+      animation: none
+      transform: translateX(0)
+  .about
+    min-height: 558px
+    padding: 12px 0 56px 46px
+    display: flex
+    flex-direction: column
+    gap: 10px
+  .aboutImage
+    order: 2
+    width: 298px
+    height: 277px
+    margin-top: 0
+    border-radius: 0
+  .aboutCopy
+    display: contents
+    h2
+      order: 0
+      margin: 0
+      font-size: 34px
+      line-height: 1.25
+    .headingLine
+      order: 1
+      width: 164px
+      height: 0
+      margin: 0 0 0
+      border-top: 1px dotted #9c9696
+      background: transparent
+    p
+      order: 3
+      width: 298px
+      margin: 7px 0 0
+      font-size: 13px
+      line-height: 1.55
+  .values
+    min-height: 590px
+    padding: 21px 50px 28px
+    grid-template-columns: 1fr
+    gap: 3px
+  .valueItem
+    display: flex
+    flex-direction: column
+    justify-content: center
+    span
+      width: 82px
+      height: 82px
+      margin-bottom: 6px
+      img
+        width: 58px
+        height: 58px
+    h3
+      max-width: 185px
+      font-size: 15px
+      font-weight: 600
+  .project
+    min-height: 395px
+    padding: 35px 19px 27px
+    display: flex
+    flex-direction: column
+    h2
+      position: static
+      order: 0
+      width: 300px
+      margin-bottom: 19px
+      font-size: 20px
+      line-height: 1.35
+      font-weight: 600
+  .projectCollage
+    order: 1
+    height: 213px
+  .projectWide, .projectTall
+    display: none
+  .projectMobile
+    position: relative
+    display: block
+    width: 100%
+    height: 213px
+    overflow: hidden
+    .coverImage
+      object-position: center
+  .project > .filledButton
+    position: static
+    order: 2
+    min-width: 130px
+    height: 34px
+    align-self: flex-start
+    margin: 18px 0 0 8px
+    padding: 7px 12px
+    font-size: 10px
+    &::before, &::after
+      display: block
+  .metrics
+    min-height: 750px
+    padding: 44px 40px 52px
+    grid-template-columns: 1fr
+    gap: 52px
+    strong
+      font-size: 43px
+    span
+      margin-top: 6px
+      font-size: 20px
+      font-weight: 500
+  .portfolio
+    display: none
+  .services
+    min-height: 0
+    padding: 0 24px 54px
+    .sectionHeader
+      text-align: left
+      h2
+        font-size: 31px
+        font-weight: 600
+      > span
+        display: block
+        width: 185px
+        max-width: none
+        height: 0
+        margin: 2px 0 0
+        border-top: 1px dotted #9c9696
+        background: transparent
+  .servicesGrid
+    height: auto
+    position: static
+    display: grid
+    margin-top: 38px
+    grid-template-columns: 1fr
+    gap: 48px
+    article, article:nth-child(4), article:nth-child(5)
+      position: static
+      width: 300px
+      min-height: 0
+      grid-column: auto
+      left: auto
+      top: auto
+      transform: none
+    article:nth-child(5)
+      display: none
+    h3
+      min-height: 0
+      max-width: 190px
+      font-size: 20px
+      line-height: 1.45
+    article > span
+      width: 153px
+      height: 0
+      margin: 5px 0 7px
+      border-top: 1px dotted #9c9696
+      background: transparent
+    p
+      font-size: 19px
+      line-height: 1.52
+  .partners
+    min-height: 0
+    padding: 0 0 30px
+    .sectionHeader
+      padding-left: 29px
+      text-align: left
+      h2
+        font-size: 30px
+        font-weight: 600
+      > span
+        width: 237px
+        height: 0
+        margin: 4px 0 0
+        border-top: 1px dotted #9c9696
+        background: transparent
+  .partnersIntro
+    width: 335px
+    margin: 25px 29px 37px
+    text-align: left
+    font-size: 20px
+    line-height: 1.4
+    font-weight: 500
+  .partnerBand
+    width: 100%
+    height: 250px
+    min-height: 250px
+    padding: 22px 30px
+    grid-template-columns: repeat(3, 1fr)
+    grid-template-rows: repeat(4, 1fr)
+    gap: 3px 12px
+  .partnerLogo
+    width: 100% !important
+    height: 42px !important
+    grid-column: auto !important
+    transform: none !important
+    justify-self: stretch !important
+    &:nth-child(6)
+      img
+        transform: scale(.78)
+    &:nth-child(9)
+      grid-column: 2 !important
+      grid-row: 4 !important
+    &:nth-child(10)
+      grid-column: 3 !important
+      grid-row: 3 !important
+    &:nth-child(11)
+      grid-column: 1 !important
+      grid-row: 4 !important
+    &:nth-child(12)
+      grid-column: 3 !important
+      grid-row: 4 !important
+      img
+        transform: scale(2.1)
+  .partnerBottom
+    min-height: 164px
+    padding: 22px 21px 0
+    display: block
+    p
+      max-width: 310px
+      font-size: 13px
+      line-height: 1.65
+      font-weight: 500
+    .filledButton
+      min-width: 137px
+      height: 36px
+      margin-top: 17px
+      padding: 8px 12px
+      font-size: 9px
+  .video
+    height: 222px
+  .videoPlayButton
+    width: 64px
+    height: 64px
+    span
+      margin-left: 5px
+      border-top-width: 11px
+      border-bottom-width: 11px
+      border-left-width: 18px
+  .testimonials
+    min-height: 500px
+    padding: 28px 28px 35px
+    .sectionHeader
+      text-align: left
+      h2
+        font-size: 20px
+      > span
+        width: 254px
+        margin: 4px 0 0
+  .testimonialGrid
+    margin-top: 22px
+    grid-template-columns: 1fr
+    gap: 27px
+    blockquote
+      width: 255px
+      padding-top: 52px
+      &:nth-child(1)
+        display: none
+      &:nth-child(3)
+        display: block
+      > span
+        width: 48px
+        height: 31px
+    p
+      font-size: 18px
+      line-height: 1.42
+  .contact
+    min-height: 584px
+    padding: 0 16px 55px
+    .sectionHeader
+      padding-left: 11px
+      text-align: left
+      h2
+        font-size: 16px
+        font-weight: 500
+      > span
+        width: 156px
+        margin: 5px 0 0
+  .contactGrid
+    margin-top: 24px
+    display: flex
+    flex-direction: column-reverse
+    gap: 27px
+  .mapFrame
+    height: 165px
+  .contactForm
+    grid-template-columns: 1fr
+    gap: 10px
+    :global(.MuiInputBase-root)
+      height: 43px
+      min-height: 43px
+      font-size: 15px
+    :global(.MuiInputLabel-root)
+      font-size: 15px
+    :global(.MuiFormHelperText-root)
+      font-size: 9px
+      margin-left: 2px
+    .submitButton
+      min-width: 137px !important
+      min-height: 36px !important
+      margin: 16px 0 0 8px !important
+      font-size: 9px !important
+  .footer
+    min-height: 268px
+    padding: 12px 21px 10px
+    grid-template-columns: 176px 1fr
+    grid-template-rows: 121px 77px 37px
+    gap: 0 21px
+  .footerWordmark
+    font-size: 22px
+  .footerIdentity
+    position: static
+    display: block
+    grid-column: 1 / -1
+    .footerWordmark
+      position: absolute
+      left: 21px
+      top: 12px
+    address
+      position: absolute
+      left: 21px
+      top: 45px
+      width: 170px
+      margin: 0
+      font-size: 13px
+      line-height: 1.6
+    > a
+      position: absolute
+      left: 219px
+      gap: 7px
+      margin: 0
+      font-size: 12px
+      &:nth-of-type(1)
+        top: 48px
+      &:nth-of-type(2)
+        top: 77px
+      svg
+        width: 14px
+  .footerNewsletter
+    position: absolute
+    left: 21px
+    top: 147px
+    h2
+      margin-bottom: 8px
+      font-size: 13px
+      font-weight: 400
+  .newsletterForm
+    label
+      position: absolute
+      left: 10px
+      padding: 0
+      font-size: 11px
+    > div
+      width: 197px
+      height: 34px
+      border: 1px solid rgba(255,255,255,.75)
+    input
+      padding-left: 10px
+      font-size: 11px
+    button
+      width: 34px
+      display: grid
+    .sendIcon
+      width: 25px
+      height: 25px
+      svg
+        width: 21px
+        height: 21px
+    > span
+      font-size: 7px
+  .socials
+    position: absolute
+    left: 198px
+    top: -47px
+    right: auto
+    margin: 0
+    gap: 10px
+  .footerBottom
+    position: absolute
+    left: -21px
+    right: -21px
+    bottom: 0
+    min-height: 40px
+    padding: 11px 21px 0
+    p
+      font-size: 11px
+  .socials a
+    width: 24px
+    height: 24px
+    svg
+      width: 15px
+      height: 15px
+  .backToTop
+    width: 38px
+    height: 38px
+    display: grid
+    font-size: 23px
