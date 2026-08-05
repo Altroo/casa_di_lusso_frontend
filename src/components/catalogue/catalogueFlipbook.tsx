@@ -12,6 +12,7 @@ const PAGE_PATHS = Array.from(
 	{ length: PAGE_COUNT },
 	(_, index) => `/assets/casa/catalogue/pages/page-${String(index + 1).padStart(2, '0')}.jpg`,
 );
+const PAGE_PREVIEW_PATHS = PAGE_PATHS.map((path) => path.replace('/pages/', '/pages/previews/'));
 
 interface PageFlipApi {
 	flipNext: () => void;
@@ -32,26 +33,49 @@ interface CataloguePageProps {
 	onReady: (page: number) => void;
 }
 
-const CataloguePage = forwardRef<HTMLDivElement, CataloguePageProps>(({ page, onReady }, ref) => (
-	<div ref={ref} className={styles.page} data-density={page === 1 || page === PAGE_COUNT ? 'hard' : 'soft'}>
-		<Image
-			src={PAGE_PATHS[page - 1]}
-			alt={`Page ${page} du catalogue Casa di Lusso`}
-			fill
-			sizes="(max-width: 760px) 92vw, 44vw"
-			loading="eager"
-			unoptimized
-			draggable={false}
-			onLoad={(event) => {
-				const image = event.currentTarget;
-				void image
-					.decode()
-					.catch(() => undefined)
-					.finally(() => onReady(page));
-			}}
-		/>
-	</div>
-));
+const CataloguePage = forwardRef<HTMLDivElement, CataloguePageProps>(({ page, onReady }, ref) => {
+	const [isHighResolutionReady, setIsHighResolutionReady] = useState(false);
+
+	return (
+		<div ref={ref} className={styles.page} data-density={page === 1 || page === PAGE_COUNT ? 'hard' : 'soft'}>
+			<Image
+				className={styles.pagePreview}
+				src={PAGE_PREVIEW_PATHS[page - 1]}
+				alt=""
+				aria-hidden="true"
+				fill
+				loading="eager"
+				unoptimized
+				draggable={false}
+				onLoad={(event) => {
+					const image = event.currentTarget;
+					void image
+						.decode()
+						.catch(() => undefined)
+						.finally(() => onReady(page));
+				}}
+			/>
+			<Image
+				className={`${styles.pageImage} ${isHighResolutionReady ? styles.pageImageReady : ''}`}
+				src={PAGE_PATHS[page - 1]}
+				alt={`Page ${page} du catalogue Casa di Lusso`}
+				fill
+				sizes="(max-width: 760px) 92vw, 44vw"
+				loading="eager"
+				fetchPriority={page <= 3 ? 'high' : 'auto'}
+				unoptimized
+				draggable={false}
+				onLoad={(event) => {
+					const image = event.currentTarget;
+					void image
+						.decode()
+						.catch(() => undefined)
+						.finally(() => setIsHighResolutionReady(true));
+				}}
+			/>
+		</div>
+	);
+});
 
 CataloguePage.displayName = 'CataloguePage';
 
@@ -138,7 +162,7 @@ export default function CatalogueFlipbook() {
 			});
 
 		void Promise.allSettled(
-			PAGE_PATHS.map(async (src) => {
+			PAGE_PREVIEW_PATHS.map(async (src) => {
 				try {
 					await preloadPage(src);
 				} finally {
