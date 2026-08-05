@@ -606,11 +606,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				</div>
 				<div className={styles.partnerBottom}>
 					<p>{settings.partners_outro}</p>
-					<a
-						className={styles.filledButton}
-						href={settings.catalog_url || '#contact'}
-						download={Boolean(settings.catalog_url)}
-					>
+					<a className={styles.filledButton} href="/catalogue">
 						DOWNLOAD CATALOG
 					</a>
 				</div>
