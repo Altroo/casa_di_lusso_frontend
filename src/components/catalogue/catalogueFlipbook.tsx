@@ -8,6 +8,10 @@ import styles from './catalogue.module.sass';
 
 const PAGE_COUNT = 24;
 const PDF_PATH = '/assets/casa/catalogue/catalogue-casa-di-lusso.pdf';
+const PAGE_PATHS = Array.from(
+	{ length: PAGE_COUNT },
+	(_, index) => `/assets/casa/catalogue/pages/page-${String(index + 1).padStart(2, '0')}.jpg`,
+);
 
 interface PageFlipApi {
 	flipNext: () => void;
@@ -25,18 +29,26 @@ interface FlipEvent {
 
 interface CataloguePageProps {
 	page: number;
+	onReady: (page: number) => void;
 }
 
-const CataloguePage = forwardRef<HTMLDivElement, CataloguePageProps>(({ page }, ref) => (
+const CataloguePage = forwardRef<HTMLDivElement, CataloguePageProps>(({ page, onReady }, ref) => (
 	<div ref={ref} className={styles.page} data-density={page === 1 || page === PAGE_COUNT ? 'hard' : 'soft'}>
 		<Image
-			src={`/assets/casa/catalogue/pages/page-${String(page).padStart(2, '0')}.jpg`}
+			src={PAGE_PATHS[page - 1]}
 			alt={`Page ${page} du catalogue Casa di Lusso`}
 			fill
 			sizes="(max-width: 760px) 92vw, 44vw"
-			quality={75}
-			priority={page === 1}
+			loading="eager"
+			unoptimized
 			draggable={false}
+			onLoad={(event) => {
+				const image = event.currentTarget;
+				void image
+					.decode()
+					.catch(() => undefined)
+					.finally(() => onReady(page));
+			}}
 		/>
 	</div>
 ));
@@ -77,10 +89,17 @@ const DownloadIcon = () => (
 export default function CatalogueFlipbook() {
 	const bookRef = useRef<FlipBookHandle | null>(null);
 	const shellRef = useRef<HTMLElement | null>(null);
+	const renderedPagesRef = useRef(new Set<number>());
 	const [currentPage, setCurrentPage] = useState(0);
-	const [isReady, setIsReady] = useState(false);
+	const [loadedPages, setLoadedPages] = useState(0);
+	const [renderedPages, setRenderedPages] = useState(0);
+	const [arePagesReady, setArePagesReady] = useState(false);
+	const [isBookReady, setIsBookReady] = useState(false);
+	const [preloadFailed, setPreloadFailed] = useState(false);
+	const [preloadAttempt, setPreloadAttempt] = useState(0);
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const [zoom, setZoom] = useState(1);
+	const isReady = arePagesReady && isBookReady && renderedPages === PAGE_COUNT;
 
 	const getBook = useCallback(() => bookRef.current?.pageFlip(), []);
 
@@ -88,19 +107,72 @@ export default function CatalogueFlipbook() {
 	const nextPage = useCallback(() => getBook()?.flipNext(), [getBook]);
 	const firstPage = useCallback(() => getBook()?.turnToPage(0), [getBook]);
 	const lastPage = useCallback(() => getBook()?.turnToPage(PAGE_COUNT - 1), [getBook]);
+	const markPageReady = useCallback((page: number) => {
+		if (renderedPagesRef.current.has(page)) return;
+		renderedPagesRef.current.add(page);
+		setRenderedPages(renderedPagesRef.current.size);
+	}, []);
 
 	useEffect(() => {
+		let cancelled = false;
+
+		setLoadedPages(0);
+		renderedPagesRef.current.clear();
+		setRenderedPages(0);
+		setArePagesReady(false);
+		setIsBookReady(false);
+		setPreloadFailed(false);
+
+		const preloadPage = (src: string) =>
+			new Promise<void>((resolve, reject) => {
+				const image = new window.Image();
+				image.decoding = 'async';
+				image.onload = () => {
+					void image
+						.decode()
+						.catch(() => undefined)
+						.finally(resolve);
+				};
+				image.onerror = () => reject(new Error(`Impossible de charger ${src}`));
+				image.src = src;
+			});
+
+		void Promise.allSettled(
+			PAGE_PATHS.map(async (src) => {
+				try {
+					await preloadPage(src);
+				} finally {
+					if (!cancelled) setLoadedPages((value) => value + 1);
+				}
+			}),
+		).then((results) => {
+			if (cancelled) return;
+			if (results.every((result) => result.status === 'fulfilled')) {
+				setArePagesReady(true);
+			} else {
+				setPreloadFailed(true);
+			}
+		});
+
+		return () => {
+			cancelled = true;
+		};
+	}, [preloadAttempt]);
+
+	useEffect(() => {
+		if (!arePagesReady) return;
+
 		let animationFrame = 0;
 		const detectBook = () => {
 			if (bookRef.current?.pageFlip()) {
-				setIsReady(true);
+				setIsBookReady(true);
 				return;
 			}
 			animationFrame = window.requestAnimationFrame(detectBook);
 		};
 		animationFrame = window.requestAnimationFrame(detectBook);
 		return () => window.cancelAnimationFrame(animationFrame);
-	}, []);
+	}, [arePagesReady]);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -133,6 +205,7 @@ export default function CatalogueFlipbook() {
 	};
 
 	const zoomStyle = { '--catalogue-zoom': zoom } as CSSProperties;
+	const loadingProgress = Math.round((loadedPages / PAGE_COUNT) * 100);
 
 	return (
 		<main ref={shellRef} className={styles.catalogueShell}>
@@ -153,41 +226,66 @@ export default function CatalogueFlipbook() {
 
 			<section className={styles.viewer} aria-label="Catalogue interactif Casa di Lusso" aria-busy={!isReady}>
 				<div className={styles.ambientGlow} aria-hidden="true" />
-				{!isReady && <p className={styles.loading}>Chargement du catalogue…</p>}
-				<div className={styles.bookScale} style={zoomStyle}>
-					<HTMLFlipBook
-						ref={bookRef}
-						className={styles.book}
-						style={{}}
-						width={600}
-						height={842}
-						size="stretch"
-						minWidth={280}
-						maxWidth={720}
-						minHeight={393}
-						maxHeight={1010}
-						startPage={0}
-						drawShadow
-						flippingTime={800}
-						usePortrait
-						startZIndex={10}
-						autoSize
-						maxShadowOpacity={0.48}
-						showCover
-						mobileScrollSupport
-						clickEventForward
-						useMouseEvents
-						swipeDistance={24}
-						showPageCorners
-						disableFlipByClick={false}
-						onUpdate={() => setIsReady(true)}
-						onFlip={(event: FlipEvent) => setCurrentPage(event.data)}
-					>
-						{Array.from({ length: PAGE_COUNT }, (_, index) => (
-							<CataloguePage key={index + 1} page={index + 1} />
-						))}
-					</HTMLFlipBook>
-				</div>
+				{!isReady && (
+					<div className={styles.loadingPanel} role="status" aria-live="polite">
+						<p>{preloadFailed ? 'Le chargement a été interrompu' : 'Préparation du catalogue'}</p>
+						{preloadFailed ? (
+							<button type="button" onClick={() => setPreloadAttempt((value) => value + 1)}>
+								Réessayer
+							</button>
+						) : (
+							<>
+								<div
+									className={styles.loadingTrack}
+									role="progressbar"
+									aria-label="Chargement des pages"
+									aria-valuemin={0}
+									aria-valuemax={PAGE_COUNT}
+									aria-valuenow={loadedPages}
+								>
+									<span style={{ width: `${loadingProgress}%` }} />
+								</div>
+								<span className={styles.loadingCount}>{loadingProgress}%</span>
+							</>
+						)}
+					</div>
+				)}
+				{arePagesReady && (
+					<div className={`${styles.bookScale} ${isBookReady ? styles.bookVisible : ''}`} style={zoomStyle}>
+						<HTMLFlipBook
+							ref={bookRef}
+							className={styles.book}
+							style={{}}
+							width={600}
+							height={842}
+							size="stretch"
+							minWidth={280}
+							maxWidth={720}
+							minHeight={393}
+							maxHeight={1010}
+							startPage={0}
+							drawShadow
+							flippingTime={800}
+							usePortrait
+							startZIndex={10}
+							autoSize
+							maxShadowOpacity={0.48}
+							showCover
+							mobileScrollSupport
+							clickEventForward
+							useMouseEvents
+							swipeDistance={24}
+							showPageCorners
+							disableFlipByClick={false}
+							onUpdate={() => setIsBookReady(true)}
+							onFlip={(event: FlipEvent) => setCurrentPage(event.data)}
+						>
+							{Array.from({ length: PAGE_COUNT }, (_, index) => (
+								<CataloguePage key={index + 1} page={index + 1} onReady={markPageReady} />
+							))}
+						</HTMLFlipBook>
+					</div>
+				)}
 				<p className={styles.gestureHint}>Cliquez sur un coin ou faites glisser la page</p>
 			</section>
 
