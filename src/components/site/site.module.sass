@@ -1542,48 +1542,48 @@ $muted: #f4f4f1
       margin: 16px 0 0 8px !important
       font-size: 9px !important
   .footer
-    min-height: 268px
-    padding: 12px 21px 10px
-    grid-template-columns: 176px 1fr
-    grid-template-rows: 121px 77px 37px
-    gap: 0 21px
+    min-height: 0
+    padding: 20px 21px 0
+    display: flex
+    flex-direction: column
+    gap: 18px
   .footerWordmark
     font-size: 22px
   .footerIdentity
     position: static
-    display: block
-    grid-column: 1 / -1
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: flex-start
     .footerWordmark
-      position: absolute
-      left: 21px
-      top: 12px
+      position: static
+      margin: 0 0 12px
     address
-      position: absolute
-      left: 21px
-      top: 45px
-      width: 170px
-      margin: 0
+      position: static
+      width: 100%
+      margin: 0 0 10px
       font-size: 13px
       line-height: 1.6
     > a
-      position: absolute
-      left: 219px
+      position: static
+      max-width: 100%
+      min-height: 28px
       gap: 7px
       margin: 0
       font-size: 12px
-      &:nth-of-type(1)
-        top: 48px
       &:nth-of-type(2)
-        top: 77px
+        overflow-wrap: anywhere
       svg
+        flex: 0 0 auto
         width: 14px
   .footerNewsletter
-    position: absolute
-    left: 21px
-    top: 147px
+    position: static
+    width: 100%
     h2
       margin-bottom: 8px
+      max-width: 100%
       font-size: 13px
+      line-height: 1.5
       font-weight: 400
   .newsletterForm
     label
@@ -1592,7 +1592,7 @@ $muted: #f4f4f1
       padding: 0
       font-size: 11px
     > div
-      width: 197px
+      width: min(100%, 324px)
       height: 34px
       border: 1px solid rgba(255,255,255,.75)
     input
@@ -1610,19 +1610,18 @@ $muted: #f4f4f1
     > span
       font-size: 7px
   .socials
-    position: absolute
-    left: 198px
-    top: -18px
-    right: auto
-    margin: 0
+    position: static
+    margin: 14px 0 0
     gap: 10px
   .footerBottom
-    position: absolute
-    left: -21px
-    right: -21px
-    bottom: 0
+    position: relative
+    left: auto
+    right: auto
+    bottom: auto
+    width: calc(100% + 42px)
     min-height: 40px
-    padding: 11px 21px 0
+    margin: 2px -21px 0
+    padding: 10px 21px
     p
       font-size: 11px
   .socials a
