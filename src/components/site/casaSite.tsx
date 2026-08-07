@@ -13,7 +13,7 @@ interface CasaSiteProps {
 
 function MenuIcon() {
 	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
+		<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
 			<path d="M3 6h18M3 12h18M3 18h18" />
 		</svg>
 	);
@@ -21,7 +21,7 @@ function MenuIcon() {
 
 function CloseIcon() {
 	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
+		<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
 			<path d="m5 5 14 14M19 5 5 19" />
 		</svg>
 	);
@@ -411,7 +411,8 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						))}
 					</div>
 					<h1>{settings.hero_title}</h1>
-					<p>{settings.hero_text}</p>
+					<p className={styles.heroDescription}>{settings.hero_text}</p>
+					{settings.hero_tagline && <p className={styles.heroTagline}>{settings.hero_tagline}</p>}
 					<a href="#services" className={styles.textLink}>
 						nos services
 					</a>
@@ -554,19 +555,12 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					const spansTwoColumns = index === 0 || index === 5;
 
 					return (
-						<article
-							className={`${styles.portfolioItem} ${styles[`portfolioItem${index + 1}`] ?? ''}`}
-							key={item.src}
-						>
+						<article className={`${styles.portfolioItem} ${styles[`portfolioItem${index + 1}`] ?? ''}`} key={item.src}>
 							<Image
 								src={item.src}
 								alt={item.alt}
 								fill
-								sizes={
-									spansTwoColumns
-										? '(max-width: 700px) 100vw, 50vw'
-										: '(max-width: 700px) 100vw, 25vw'
-								}
+								sizes={spansTwoColumns ? '(max-width: 700px) 100vw, 50vw' : '(max-width: 700px) 100vw, 25vw'}
 								quality={70}
 								className={styles.coverImage}
 							/>
@@ -580,6 +574,10 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					<h2>Nos services</h2>
 					<span />
 				</header>
+				<div className={styles.servicesLead}>
+					<h3>{settings.services_heading}</h3>
+					<p>{settings.services_intro}</p>
+				</div>
 				<div className={styles.servicesGrid}>
 					{content.services.map((service) => (
 						<article key={service.id}>
@@ -589,6 +587,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						</article>
 					))}
 				</div>
+				<p className={styles.servicesTagline}>{settings.services_tagline}</p>
 			</section>
 
 			<section className={styles.partners}>

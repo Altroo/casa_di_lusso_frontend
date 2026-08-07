@@ -8,12 +8,17 @@ export const fallbackContent: SiteContent = {
 		hero_eyebrow: 'CASA DI LUSSO',
 		hero_title: 'L’exception au quotidien',
 		hero_text:
-			'Nous concevons des espaces et des expériences uniques alliant design, élégance et excellence sur mesure.',
+			'Entrez dans un univers où chaque détail sublime votre espace. Casa di Lusso imagine des intérieurs uniques, élégants et entièrement sur mesure, conçus pour refléter votre personnalité et votre art de vivre.',
+		hero_tagline: 'ARCHITECTURE INTÉRIEURE  •  DESIGN  •  MOBILIER  •  SUR MESURE',
 		hero_image_url: asset('hero.jpg'),
-		about_title: 'À propos',
+		about_title: 'À propos de Casa di Lusso',
 		about_text:
-			'Casa di Lusso est une marque dédiée à l’univers du luxe et du design. Nous transformons vos idées en créations uniques, élégantes et raffinées.\n\nOur showroom brings together the world’s most prestigious brands, all under one roof, delivering results that are truly unmatched.',
+			'Casa di Lusso est une maison d’architecture intérieure et de design basée à Tanger, où le savoir-faire italien rencontre l’élégance de l’art de vivre marocain.\n\nNous imaginons et réalisons des espaces résidentiels, commerciaux et hôteliers d’exception, en associant des marques internationales exclusives, des matériaux de haute qualité et des solutions entièrement personnalisées.\n\nDe la conception à la réalisation, Casa di Lusso accompagne chaque projet avec exigence, créativité et précision afin de créer des intérieurs raffinés, fonctionnels et intemporels.',
 		about_image_url: asset('about.png'),
+		services_heading: 'Des espaces pensés dans les moindres détails',
+		services_intro:
+			'Des solutions sur mesure, de la conception à la réalisation, pour créer des espaces élégants, fonctionnels et durables.',
+		services_tagline: 'CONCEPTION  •  SÉLECTION  •  COORDINATION  •  RÉALISATION',
 		project_title: 'Vous avez un projet? Donnons vie à votre vision.',
 		project_image_url: asset('partner-vby.jpg'),
 		values_background_url: asset('values.jpg'),
@@ -48,41 +53,81 @@ export const fallbackContent: SiteContent = {
 	services: [
 		{
 			id: 1,
-			title: 'Design intérieur de luxe',
-			description: 'Création d’espaces élégants et modernes adaptés à votre style de vie.',
+			title: 'Design intérieur d’exception',
+			description:
+				'Nous imaginons des intérieurs raffinés et harmonieux, conçus pour refléter votre personnalité et sublimer votre art de vivre.',
 			order: 0,
 		},
 		{
 			id: 2,
-			title: 'Architecture & conception',
-			description: 'Conception de projets architecturaux uniques et personnalisés',
+			title: 'Architecture et conception',
+			description:
+				'Nous créons des projets architecturaux uniques où l’esthétique, la fonctionnalité et l’innovation s’unissent avec précision.',
 			order: 1,
 		},
 		{
 			id: 3,
 			title: 'Aménagement sur mesure',
-			description: 'Optimisation et transformation de vos espaces.',
+			description:
+				'Nous optimisons et transformons chaque espace grâce à des solutions personnalisées, parfaitement adaptées à vos besoins.',
 			order: 2,
 		},
 		{
 			id: 4,
 			title: 'Conseil en décoration',
-			description: 'Accompagnement dans le choix des matériaux, couleurs et styles.',
+			description:
+				'Nous vous accompagnons dans le choix des matières, des couleurs, du mobilier et des finitions afin de créer une ambiance élégante et cohérente.',
 			order: 3,
 		},
 		{
 			id: 5,
-			title: 'Suivi de projet',
-			description: 'Gestion complète de votre projet du début à la fin.',
+			title: 'Gestion et suivi de projet',
+			description:
+				'De la première esquisse à la livraison finale, nous coordonnons chaque étape avec rigueur pour garantir une réalisation fidèle à votre vision.',
 			order: 4,
 		},
 	],
 	portfolio: [
-		{ id: 1, title: 'Cuisine Kali', image_url: '', fallback_path: asset('partner-kali.jpg'), alt_text: 'Cuisine Kali', order: 0 },
-		{ id: 2, title: 'Bomma', image_url: '', fallback_path: asset('partner-bomma.jpg'), alt_text: 'Collection Bomma', order: 1 },
-		{ id: 3, title: 'Living Collection', image_url: '', fallback_path: asset('partner-images-20.png'), alt_text: 'Living Collection', order: 2 },
-		{ id: 4, title: 'Fragments Lighting', image_url: '', fallback_path: asset('partner-fragments.jpg'), alt_text: 'Fragments Lighting', order: 3 },
-		{ id: 5, title: 'Giessegi Living', image_url: '', fallback_path: asset('partner-giessegi.jpg'), alt_text: 'Giessegi Living', order: 4 },
+		{
+			id: 1,
+			title: 'Cuisine Kali',
+			image_url: '',
+			fallback_path: asset('partner-kali.jpg'),
+			alt_text: 'Cuisine Kali',
+			order: 0,
+		},
+		{
+			id: 2,
+			title: 'Bomma',
+			image_url: '',
+			fallback_path: asset('partner-bomma.jpg'),
+			alt_text: 'Collection Bomma',
+			order: 1,
+		},
+		{
+			id: 3,
+			title: 'Living Collection',
+			image_url: '',
+			fallback_path: asset('partner-images-20.png'),
+			alt_text: 'Living Collection',
+			order: 2,
+		},
+		{
+			id: 4,
+			title: 'Fragments Lighting',
+			image_url: '',
+			fallback_path: asset('partner-fragments.jpg'),
+			alt_text: 'Fragments Lighting',
+			order: 3,
+		},
+		{
+			id: 5,
+			title: 'Giessegi Living',
+			image_url: '',
+			fallback_path: asset('partner-giessegi.jpg'),
+			alt_text: 'Giessegi Living',
+			order: 4,
+		},
 	],
 	partners: ['Flaminia', 'Bomma', 'Kali', 'Giessegi', 'Vibia'].map((title, index) => ({
 		id: index + 1,

@@ -3,10 +3,14 @@ export interface SiteSettings {
 	hero_eyebrow: string;
 	hero_title: string;
 	hero_text: string;
+	hero_tagline: string;
 	hero_image_url: string;
 	about_title: string;
 	about_text: string;
 	about_image_url: string;
+	services_heading: string;
+	services_intro: string;
+	services_tagline: string;
 	project_title: string;
 	project_image_url: string;
 	values_background_url: string;
