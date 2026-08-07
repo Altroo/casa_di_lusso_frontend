@@ -411,11 +411,13 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						))}
 					</div>
 					<h1>{settings.hero_title}</h1>
-					<p className={styles.heroDescription}>{settings.hero_text}</p>
-					{settings.hero_tagline && <p className={styles.heroTagline}>{settings.hero_tagline}</p>}
-					<a href="#services" className={styles.textLink}>
-						nos services
-					</a>
+					<div className={styles.heroBody}>
+						<p className={styles.heroDescription}>{settings.hero_text}</p>
+						{settings.hero_tagline && <p className={styles.heroTagline}>{settings.hero_tagline}</p>}
+						<a href="#services" className={styles.textLink}>
+							nos services
+						</a>
+					</div>
 				</div>
 				<div className={styles.heroArrows}>
 					<button

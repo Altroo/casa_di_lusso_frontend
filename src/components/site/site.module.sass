@@ -11,17 +11,19 @@ $muted: #f4f4f1
   font-family: Poppins, Arial, sans-serif
 
 .header
-  height: clamp(95px, 9.306vw, 134px)
+  height: 100px
   position: relative
+  padding: 0 clamp(48px, 10.347vw, 149px)
+  display: flex
+  align-items: center
   background: $paper
   z-index: 30
 
 .logoLink
-  position: absolute
-  left: max(clamp(80px, 7.778vw, 112px), calc((100% - 1440px) / 2 + 112px))
-  top: clamp(11px, 1.111vw, 16px)
-  width: clamp(80px, 7.778vw, 112px)
-  height: clamp(71px, 6.944vw, 100px)
+  position: static
+  flex: 0 0 auto
+  width: 80px
+  height: 72px
   display: block
   img
     width: 100%
@@ -29,15 +31,12 @@ $muted: #f4f4f1
     object-fit: contain
 
 .nav
-  position: absolute
-  left: max(42.4%, calc((100% - 1440px) / 2 + 610.56px))
-  right: max(3%, calc((100% - 1440px) / 2 + 43.2px))
-  top: clamp(33px, 3.264vw, 47px)
-  height: clamp(30px, 2.917vw, 42px)
-  display: grid
-  grid-template-columns: 24.4% 23.8% 26% 25.8%
-  align-items: start
-  font-size: clamp(20px, 1.944vw, 28px)
+  position: static
+  margin-left: auto
+  display: flex
+  align-items: center
+  gap: clamp(32px, 4.167vw, 60px)
+  font-size: clamp(18px, 1.667vw, 24px)
   font-weight: 500
   text-transform: uppercase
   a
@@ -106,24 +105,27 @@ $muted: #f4f4f1
     line-height: 37.841px
     font-weight: 500
     text-transform: capitalize
-  .heroDescription
-    position: absolute
-    left: 149px
-    top: 188px
-    width: 445px
-    height: auto
-    max-width: 445px
-    margin: 0
-    font-size: 22px
-    line-height: 1
-    font-weight: 400
-
-.heroTagline
+.heroBody
   position: absolute
   left: 149px
-  top: 331px
+  top: 188px
   width: 560px
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+.heroDescription
+  width: 445px
+  height: auto
+  max-width: 445px
   margin: 0
+  font-size: 22px
+  line-height: 1.2
+  font-weight: 400
+
+.heroTagline
+  width: 560px
+  margin: 18px 0 0
   font-size: 11px
   line-height: 1.4
   font-weight: 500
@@ -147,11 +149,9 @@ $muted: #f4f4f1
   inset: 0
 
 .textLink
-  position: absolute
-  left: 149px
-  top: 371px
   width: 151px
   height: 35px
+  margin-top: 24px
   padding-bottom: 5px
   border-bottom: 1px solid currentColor
   color: rgba(255, 255, 255, .83)
@@ -277,12 +277,13 @@ $muted: #f4f4f1
   grid-template-columns: 540px 590px
   gap: 37px
   justify-content: start
-  align-items: start
+  align-items: stretch
 
 .aboutImage
   position: relative
   width: 540px
-  height: 503px
+  height: auto
+  min-height: 503px
   border-radius: 0
   overflow: hidden
   .coverImage
@@ -1143,6 +1144,7 @@ $muted: #f4f4f1
   .aboutImage
     width: 100%
     height: 440px
+    min-height: 0
   .aboutCopy h2
     margin-left: 0
     font-size: 50px
@@ -1238,7 +1240,10 @@ $muted: #f4f4f1
       margin: 0
       font-size: 20px
       line-height: 26px
+    .heroBody
+      display: contents
     .heroDescription
+      position: absolute
       left: 35px
       top: 97px
       width: calc(100% - 70px)
@@ -1247,6 +1252,7 @@ $muted: #f4f4f1
       line-height: 1.4
       font-weight: 400
     .heroTagline
+      position: absolute
       left: 35px
       top: 212px
       width: calc(100% - 70px)
@@ -1254,6 +1260,7 @@ $muted: #f4f4f1
       line-height: 1.5
       letter-spacing: .025em
     .textLink
+      position: absolute
       left: 35px
       top: 267px
       width: 91px
