@@ -156,7 +156,6 @@ const topBrandMarks = [
 	{ src: '/assets/casa/figma/partner-bomma.png', alt: 'Loommo' },
 	{ src: '/assets/casa/figma/partner-flaminia.png', alt: 'Flaminia' },
 	{ src: '/assets/casa/figma/group60.svg', alt: 'Gessi' },
-	{ src: '/assets/casa/figma/partner-henry-glass.png', alt: 'HenryGlass' },
 	{ src: '/assets/casa/figma/partner-marazzi.png', alt: 'Marazzi' },
 ];
 
@@ -188,7 +187,6 @@ const partnerMarks = [
 	{ src: '/assets/casa/figma/brand-jacuzzi.svg', alt: 'Bonaldo' },
 	{ src: '/assets/casa/figma/brand-bonaldo.svg', alt: 'Poliform' },
 	{ src: '/assets/casa/figma/group60.svg', alt: 'Gessi' },
-	{ src: '/assets/casa/figma/partner-henry-glass.png', alt: 'HenryGlass' },
 	{ src: '/assets/casa/figma/partner-marazzi.png', alt: 'Marazzi' },
 	{ src: '/assets/casa/figma/partner-delta-light.png', alt: 'Delta Light' },
 	{ src: '/assets/casa/figma/partner-gessi.png', alt: 'Giessegi' },
