@@ -210,7 +210,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 	const [heroIndex, setHeroIndex] = useState(0);
 	const [heroAutoplayEnabled, setHeroAutoplayEnabled] = useState(false);
 	const [heroAutoplayRevision, setHeroAutoplayRevision] = useState(0);
-	const [videoStarted, setVideoStarted] = useState(false);
 	const [mapStarted, setMapStarted] = useState(false);
 	const touchStartX = useRef<number | null>(null);
 	const heroAutoplayTimer = useRef<number | null>(null);
@@ -291,10 +290,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		};
 		window.requestAnimationFrame(animate);
 	};
-	const playVideo = () => {
-		setVideoStarted(true);
-	};
-
 	useEffect(() => {
 		if (!heroAutoplayEnabled) return;
 		stopHeroAutoplay();
@@ -611,36 +606,16 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				</div>
 			</section>
 
-			<section className={styles.video}>
+			<section className={styles.video} aria-label="Présentation animée Casa di Lusso">
 				<div className={styles.videoPlayer}>
-					{videoStarted ? (
-						<iframe
-							src="https://player.vimeo.com/video/1215215902?autoplay=1&badge=0&autopause=0&dnt=1&player_id=0&app_id=58479"
-							title="PROMO VIDEO CDL"
-							frameBorder="0"
-							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-							referrerPolicy="strict-origin-when-cross-origin"
-							allowFullScreen
-						/>
-					) : (
-						<>
-							<Image
-								src="/assets/casa/video.png"
-								alt="Aperçu de la vidéo Casa di Lusso"
-								fill
-								sizes="100vw"
-								className={styles.coverImage}
-							/>
-							<button
-								type="button"
-								className={styles.videoPlayButton}
-								onClick={playVideo}
-								aria-label="Lire la vidéo Casa di Lusso"
-							>
-								<span aria-hidden="true" />
-							</button>
-						</>
-					)}
+					<Image
+						src="/assets/casa/promo-video-cdl.gif"
+						alt="Présentation animée Casa di Lusso"
+						fill
+						unoptimized
+						sizes="100vw"
+						className={styles.videoGif}
+					/>
 				</div>
 			</section>
 

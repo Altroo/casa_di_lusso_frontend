@@ -691,49 +691,10 @@ $muted: #f4f4f1
 .videoPlayer
   position: absolute
   inset: 0
-  iframe
-    position: absolute
-    left: 50%
-    top: 50%
-    width: 100%
-    height: auto
-    aspect-ratio: 16 / 9
-    display: block
-    border: 0
-    transform: translate(-50%, -50%)
 
-.videoPlayButton
-  position: absolute
-  z-index: 2
-  left: 50%
-  top: 50%
-  width: 112px
-  height: 112px
-  padding: 0
-  display: grid
-  place-items: center
-  border: 1px solid rgba(255, 255, 255, .9)
-  border-radius: 50%
-  background: rgba(24, 24, 24, .55)
-  color: #fff
-  cursor: pointer
-  transform: translate(-50%, -50%)
-  backdrop-filter: blur(3px)
-  transition: background-color .25s ease, transform .25s ease, border-color .25s ease
-  span
-    width: 0
-    height: 0
-    margin-left: 8px
-    border-top: 18px solid transparent
-    border-bottom: 18px solid transparent
-    border-left: 29px solid currentColor
-  &:hover, &:focus-visible
-    border-color: #fff
-    background: rgba(24, 24, 24, .82)
-    transform: translate(-50%, -50%) scale(1.07)
-  &:focus-visible
-    outline: 3px solid rgba(255, 255, 255, .5)
-    outline-offset: 4px
+.videoGif
+  object-fit: cover
+  object-position: center
 
 .testimonials
   min-height: 490px
@@ -1552,14 +1513,6 @@ $muted: #f4f4f1
       font-size: 9px
   .video
     height: 222px
-  .videoPlayButton
-    width: 64px
-    height: 64px
-    span
-      margin-left: 5px
-      border-top-width: 11px
-      border-bottom-width: 11px
-      border-left-width: 18px
   .testimonials
     min-height: 500px
     padding: 28px 28px 35px

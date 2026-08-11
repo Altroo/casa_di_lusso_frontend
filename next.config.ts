@@ -21,7 +21,7 @@ const contentSecurityPolicy = [
 	`connect-src 'self' https://api.casadilusso.ma ${backendOrigin}${
 		isDevelopment ? ' http://localhost:8008 http://127.0.0.1:8008' : ''
 	}`,
-	'frame-src https://www.google.com https://maps.google.com https://player.vimeo.com',
+	'frame-src https://www.google.com https://maps.google.com',
 	"frame-ancestors 'self'",
 	"base-uri 'self'",
 	"form-action 'self'",
