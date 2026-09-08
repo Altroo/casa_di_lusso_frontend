@@ -386,12 +386,26 @@ $muted: #f4f4f1
   top: 103px
   width: 51.8%
   height: 301px
+  .coverImage
+    width: 112.83% !important
+    height: 156.49% !important
+    left: -.08% !important
+    top: -56.49% !important
+    max-width: none
+    object-fit: fill
 
 .projectTall
   right: 1.7%
   top: 0
   width: 34.7%
   height: 602px
+  .coverImage
+    width: 226.41% !important
+    height: 104.19% !important
+    left: -72.02% !important
+    top: -4.19% !important
+    max-width: none
+    object-fit: fill
 
 .outlineButton
   min-width: 227px
@@ -932,7 +946,7 @@ $muted: #f4f4f1
     font-weight: 300
   > a
     margin-top: clamp(5px, .486vw, 7px)
-    min-height: 44px
+    min-height: 21px
     display: inline-flex
     align-items: center
     gap: clamp(9px, .903vw, 13px)
@@ -952,6 +966,10 @@ $muted: #f4f4f1
   font-size: clamp(22px, 1.944vw, 28px)
   line-height: 1.2
   letter-spacing: .03em
+
+@media (min-width: 701px)
+  .footerIdentity > a + a
+    margin-top: 5.27px
 
 .footerNewsletter
   h2
@@ -1609,7 +1627,7 @@ $muted: #f4f4f1
     > a
       position: static
       max-width: 100%
-      min-height: 28px
+      min-height: 25px
       gap: 7px
       margin: 0
       font-size: 12px

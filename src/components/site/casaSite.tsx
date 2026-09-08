@@ -4,87 +4,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import type { SiteContent } from '@/types/websiteTypes';
 import ContactForm from './contactForm';
-import NewsletterForm from './newsletterForm';
+import SiteHeader from './siteHeader';
+import SiteFooter from './siteFooter';
+import { serviceLink } from '@/data/services';
 import styles from './site.module.sass';
 
 interface CasaSiteProps {
 	content: SiteContent;
-}
-
-function MenuIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-			<path d="M3 6h18M3 12h18M3 18h18" />
-		</svg>
-	);
-}
-
-function CloseIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-			<path d="m5 5 14 14M19 5 5 19" />
-		</svg>
-	);
-}
-
-function PhoneIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M7.2 3.5 4.5 4.7c-.8.4-.9 1.2-.7 2.1 1.5 6.4 6 10.9 12.4 12.4.9.2 1.7.1 2.1-.7l1.2-2.7-4.2-2-1.3 2c-2.5-1.1-4.7-3.3-5.8-5.8l2-1.3-2-4.2Z" />
-		</svg>
-	);
-}
-
-function EmailIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<rect x="3" y="5" width="18" height="14" rx="1" />
-			<path d="m4 7 8 6 8-6" />
-		</svg>
-	);
-}
-
-function LinkedInIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M6.4 8.4V18M6.4 5.5v.1M10.5 18v-5.3c0-2.4 4.1-2.6 4.1.2V18M10.5 9.6v1.5" />
-		</svg>
-	);
-}
-
-function FacebookIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M14.6 20v-7h2.6l.4-3h-3V8.1c0-.9.3-1.6 1.6-1.6H18V3.8c-.4-.1-1.4-.2-2.5-.2-2.5 0-4.1 1.5-4.1 4.2V10H9v3h2.4v7" />
-		</svg>
-	);
-}
-
-function InstagramIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<rect x="4" y="4" width="16" height="16" rx="4" />
-			<circle cx="12" cy="12" r="3.5" />
-			<circle cx="17.3" cy="6.8" r=".7" className={styles.socialFill} />
-		</svg>
-	);
-}
-
-function YouTubeIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<rect x="3" y="6" width="18" height="12" rx="3" />
-			<path d="m10 9 5 3-5 3Z" className={styles.socialFill} />
-		</svg>
-	);
-}
-
-function PinterestIcon() {
-	return (
-		<svg viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M9.7 20.5c.8-2.2 1.2-3.4 1.6-5.2-.8-1.3-.1-3.9 1.2-3.9 1 0 1.3.8 1.3 1.6 0 1-.7 2.6-1 3.9-.4 1.7.9 3 2.5 3 3 0 5-3.1 5-7.2 0-3.8-3.1-6.7-7.7-6.7-5.5 0-8.8 4-8.8 8.2 0 3 1.2 5.3 3.7 6.2" />
-		</svg>
-	);
 }
 
 function AnimatedMetricValue({ value }: { value: string }) {
@@ -206,7 +132,6 @@ const portfolioImages = [
 const sectionImage = (apiImage: string, fallback: string) => apiImage || fallback;
 
 export default function CasaSite({ content }: CasaSiteProps) {
-	const [menuOpen, setMenuOpen] = useState(false);
 	const [heroIndex, setHeroIndex] = useState(0);
 	const [heroAutoplayEnabled, setHeroAutoplayEnabled] = useState(false);
 	const [heroAutoplayRevision, setHeroAutoplayRevision] = useState(0);
@@ -251,7 +176,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		},
 	];
 
-	const closeMenu = () => setMenuOpen(false);
 	const stopHeroAutoplay = useCallback(() => {
 		if (heroAutoplayTimer.current !== null) {
 			window.clearTimeout(heroAutoplayTimer.current);
@@ -276,19 +200,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			transitionHero((current) => (current + direction + heroSlides.length) % heroSlides.length);
 		}
 		setHeroAutoplayRevision((revision) => revision + 1);
-	};
-	const scrollToTop = () => {
-		const initialScroll = window.scrollY;
-		const duration = 700;
-		let startedAt: number | null = null;
-		const animate = (timestamp: number) => {
-			startedAt ??= timestamp;
-			const progress = Math.min((timestamp - startedAt) / duration, 1);
-			const eased = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-			window.scrollTo(0, Math.round(initialScroll * (1 - eased)));
-			if (progress < 1) window.requestAnimationFrame(animate);
-		};
-		window.requestAnimationFrame(animate);
 	};
 	useEffect(() => {
 		if (!heroAutoplayEnabled) return;
@@ -315,51 +226,9 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		[],
 	);
 
-	useEffect(() => {
-		if (!menuOpen) return;
-		const previousOverflow = document.body.style.overflow;
-		const closeOnEscape = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') setMenuOpen(false);
-		};
-		document.body.style.overflow = 'hidden';
-		window.addEventListener('keydown', closeOnEscape);
-		return () => {
-			document.body.style.overflow = previousOverflow;
-			window.removeEventListener('keydown', closeOnEscape);
-		};
-	}, [menuOpen]);
-
 	return (
 		<main className={styles.site}>
-			<header className={styles.header}>
-				<a href="#accueil" className={styles.logoLink} aria-label="Casa di Lusso — Accueil">
-					<Image src="/assets/casa/logo.png" alt="Casa di Lusso" width={112} height={100} />
-				</a>
-				<nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`} aria-label="Navigation principale">
-					<a href="#a-propos" onClick={closeMenu}>
-						À propos
-					</a>
-					<a href="#services" onClick={closeMenu}>
-						services
-					</a>
-					<a href="#portfolio" onClick={closeMenu}>
-						portfolio
-					</a>
-					<a href="#contact" onClick={closeMenu}>
-						CONTACT
-					</a>
-				</nav>
-				<button
-					type="button"
-					className={styles.menuButton}
-					onClick={() => setMenuOpen((open) => !open)}
-					aria-expanded={menuOpen}
-					aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-				>
-					{menuOpen ? <CloseIcon /> : <MenuIcon />}
-				</button>
-			</header>
-
+			<SiteHeader />
 			<section id="accueil" className={styles.hero} data-node-id="2379:7052">
 				<div className={styles.heroSlides} style={{ transform: `translateX(-${heroIndex * 100}%)` }}>
 					{heroSlides.map((slide, index) => (
@@ -437,7 +306,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					<span key={slide.src} className={index === heroIndex ? styles.heroDotActive : ''} />
 				))}
 			</div>
-
 			<div className={styles.brandStrip} aria-label="Marques partenaires">
 				<div className={styles.brandTrack}>
 					{[0, 1].map((copy) => (
@@ -459,7 +327,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					))}
 				</div>
 			</div>
-
 			<section id="a-propos" className={styles.about} data-node-id="2358:444">
 				<div className={styles.aboutImage}>
 					<Image
@@ -479,7 +346,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						.map((paragraph, index) => paragraph && <p key={`${paragraph}-${index}`}>{paragraph}</p>)}
 				</div>
 			</section>
-
 			<section className={styles.values}>
 				<Image
 					src={sectionImage(settings.values_background_url, '/assets/casa/values.jpg')}
@@ -497,26 +363,25 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					</article>
 				))}
 			</section>
-
 			<section className={styles.project}>
 				<h2>{settings.project_title}</h2>
 				<div className={styles.projectCollage}>
 					<div className={styles.projectWide}>
 						<Image
-							src={sectionImage(settings.project_image_url, '/assets/casa/partner-vby.jpg')}
-							alt="Projet Casa di Lusso"
+							src="/assets/casa/services/project-overhead.png"
+							alt="Chambre et dressing sur mesure vus de dessus"
 							fill
-							sizes="(max-width: 700px) 100vw, (max-width: 1440px) 44vw, 590px"
+							sizes="(max-width: 700px) 100vw, (max-width: 1440px) 50vw, 720px"
 							quality={70}
 							className={styles.coverImage}
 						/>
 					</div>
 					<div className={styles.projectTall}>
 						<Image
-							src="/assets/casa/partner-images-19.png"
-							alt="Salon contemporain"
+							src="/assets/casa/services/project-lighting.png"
+							alt="Composition de luminaires dans le showroom Casa di Lusso"
 							fill
-							sizes="(max-width: 700px) 100vw, 30vw"
+							sizes="(max-width: 700px) 100vw, 68vw"
 							quality={70}
 							className={styles.coverImage}
 						/>
@@ -535,7 +400,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					CONTACTEZ-NOUS
 				</a>
 			</section>
-
 			<section className={styles.metrics} aria-label="Casa di Lusso en chiffres">
 				{content.metrics.map((metric) => (
 					<div key={metric.id}>
@@ -544,7 +408,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					</div>
 				))}
 			</section>
-
 			<section id="portfolio" className={styles.portfolio} aria-label="Portfolio Casa di Lusso">
 				{portfolioImages.map((item, index) => {
 					const spansTwoColumns = index === 0 || index === 5;
@@ -563,7 +426,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					);
 				})}
 			</section>
-
 			<section id="services" className={styles.services}>
 				<header className={styles.sectionHeader}>
 					<h2>Nos services</h2>
@@ -576,7 +438,9 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div className={styles.servicesGrid}>
 					{content.services.map((service) => (
 						<article key={service.id}>
-							<h3>{service.title}</h3>
+							<h3>
+								{serviceLink(service.title) ? <a href={serviceLink(service.title)}>{service.title}</a> : service.title}
+							</h3>
 							<span />
 							<p>{service.description}</p>
 						</article>
@@ -584,7 +448,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				</div>
 				<p className={styles.servicesTagline}>{settings.services_tagline}</p>
 			</section>
-
 			<section className={styles.partners}>
 				<header className={styles.sectionHeader}>
 					<h2>NOS PARTENAIRES</h2>
@@ -605,7 +468,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					</a>
 				</div>
 			</section>
-
 			<section className={styles.video} aria-label="Présentation animée Casa di Lusso">
 				<div className={styles.videoPlayer}>
 					<Image
@@ -618,7 +480,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					/>
 				</div>
 			</section>
-
 			<section className={styles.testimonials}>
 				<header className={styles.sectionHeader}>
 					<h2>témoignage des clients</h2>
@@ -634,7 +495,6 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					))}
 				</div>
 			</section>
-
 			<section id="contact" className={styles.contact}>
 				<header className={styles.sectionHeader}>
 					<h2>CONTACTEZ-NOUS</h2>
@@ -670,48 +530,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					</div>
 				</div>
 			</section>
-
-			<footer className={styles.footer}>
-				<div className={styles.footerIdentity}>
-					<p className={styles.footerWordmark}>CASA DI LUSSO</p>
-					<address>{settings.address}</address>
-					<a href={`tel:${settings.phone.replace(/\s/g, '')}`}>
-						<PhoneIcon />
-						{settings.phone}
-					</a>
-					<a href={`mailto:${settings.email}`}>
-						<EmailIcon />
-						{settings.email}
-					</a>
-				</div>
-				<div className={styles.footerNewsletter}>
-					<h2>abonnez-vous à notre newsletter</h2>
-					<NewsletterForm />
-					<div className={styles.socials}>
-						<a href={settings.linkedin_url || '#'} aria-label="LinkedIn">
-							<LinkedInIcon />
-						</a>
-						<a href={settings.facebook_url || '#'} aria-label="Facebook">
-							<FacebookIcon />
-						</a>
-						<a href={settings.instagram_url || '#'} aria-label="Instagram">
-							<InstagramIcon />
-						</a>
-						<a href="#" aria-label="YouTube">
-							<YouTubeIcon />
-						</a>
-						<a href="#" aria-label="Pinterest">
-							<PinterestIcon />
-						</a>
-					</div>
-				</div>
-				<div className={styles.footerBottom}>
-					<p>Copyright {new Date().getFullYear()} © casadilusso</p>
-					<button type="button" className={styles.backToTop} aria-label="Retour en haut" onClick={scrollToTop}>
-						↑
-					</button>
-				</div>
-			</footer>
+			<SiteFooter settings={settings} />
 		</main>
 	);
 }

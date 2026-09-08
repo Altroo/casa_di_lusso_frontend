@@ -1,0 +1,819 @@
+@font-face
+  font-family: Inter
+  src: url('/assets/fonts/Inter-Variable.ttf') format('truetype')
+  font-style: normal
+  font-weight: 100 900
+  font-display: swap
+
+@function u($value)
+  @return calc(#{$value} * var(--unit))
+
+.page
+  container-type: inline-size
+  width: 100%
+  overflow: clip
+  background: #fff
+  color: #1f1f1f
+  font-family: Poppins, Arial, sans-serif
+  p, h1, h2, h3, ul
+    margin: 0
+  a:focus-visible, button:focus-visible, summary:focus-visible
+    outline: 2px solid currentColor
+    outline-offset: 4px
+
+.design
+  --unit: .0625cqw
+.architecture
+  --unit: .0520833333cqw
+.bespoke
+  --unit: .0578703704cqw
+
+.layoutSection
+  position: relative
+  height: u(var(--height))
+
+.place
+  position: absolute
+  left: u(var(--x))
+  top: u(var(--y))
+  width: u(var(--w))
+  height: u(var(--h))
+
+.text
+  font-family: var(--family), Arial, sans-serif
+  font-size: u(var(--font))
+  line-height: u(var(--leading))
+  font-weight: var(--weight)
+
+.designTitle span
+  display: block
+  &:first-child
+    line-height: u(43)
+
+.photo
+  overflow: hidden
+  > div
+    position: relative
+    width: 100%
+    height: 100%
+  img
+    object-fit: cover
+    max-width: none
+    width: var(--crop-width, 100%) !important
+    height: var(--crop-height, 100%) !important
+    left: var(--crop-left, 0%) !important
+    top: var(--crop-top, 0%) !important
+
+.dark
+  background: #1a1a1a
+  color: #fff
+
+.rule
+  height: 0
+  border-top: u(1) solid currentColor
+  opacity: .7
+  transform: translateY(-100%)
+.thickRule
+  border-top-width: u(5)
+  opacity: 1
+
+.stepCard
+  padding: u(21) u(22)
+  background: #fff
+  color: #000
+  h3
+    font-size: u(30)
+    line-height: u(25)
+    font-weight: 600
+  p
+    margin-top: u(23)
+    font-size: u(17)
+    line-height: u(25)
+  a
+    display: block
+    text-align: right
+    font-size: u(25)
+    line-height: u(20)
+
+.bulletList
+  padding: 0
+  list-style-position: outside
+
+.more
+  font-size: u(19)
+  line-height: u(25)
+  font-weight: 200
+  a
+    display: flex
+    justify-content: space-between
+
+.architectureHero
+  background: #161616
+  h1
+    letter-spacing: u(-.836)
+.architectureProjects h2
+  letter-spacing: u(-.836)
+.allProjects
+  font-size: u(16)
+  line-height: u(28.5)
+  text-decoration: underline
+  text-underline-offset: u(7)
+
+.projectCarousel
+  position: absolute
+  left: u(173)
+  right: 0
+  top: u(251.75)
+  overflow: hidden
+  cursor: grab
+  touch-action: pan-y
+  &:active
+    cursor: grabbing
+.projectTrack
+  display: flex
+  gap: u(57.6)
+  transition: transform .5s ease
+  article
+    flex: 0 0 u(729.6)
+    min-width: 0
+    font-family: Inter, Arial, sans-serif
+    > div
+      position: relative
+      width: 100%
+      height: u(486.4)
+      margin-bottom: u(28.5)
+      img
+        object-fit: cover
+    h3
+      font-size: u(26.5)
+      line-height: u(35.625)
+      font-weight: 700
+    p
+      margin-top: u(24)
+      font-size: u(17)
+      line-height: u(26.79)
+    p + p
+      margin-top: 0
+      opacity: .5
+    a
+      display: inline-block
+      margin-top: u(26)
+      font-size: u(16)
+      text-decoration: underline
+      text-underline-offset: u(7)
+.dragControl
+  position: absolute
+  left: u(1180.79)
+  top: u(164.92)
+  display: grid
+  place-items: center
+  width: u(152)
+  height: u(152)
+  border-radius: 50%
+  border: 0
+  background: #f2cd00
+  color: #161616
+  font: 400 u(17) Inter, Arial, sans-serif
+  cursor: pointer
+
+.solidLink
+  border-radius: u(4)
+  background: #1f1f1f
+  color: #fff
+  font: 600 u(32) Inter, Arial, sans-serif
+  a
+    display: flex
+    width: 100%
+    height: 100%
+    align-items: center
+    justify-content: center
+    transition: background .2s
+    &:hover
+      background: #3b3b3b
+.bespokeHero .solidLink
+  font-size: u(24)
+.bespokeHero > p, .fittingType > p, .bespokeDream > p, .processStep > p
+  color: #545454
+.outlineAccent
+  border: u(2) solid #1f1f1f
+  border-radius: u(4)
+.downArrow
+  a
+    position: relative
+    display: block
+    width: 100%
+    height: 100%
+.bespokeMetrics
+  display: flex
+  justify-content: space-between
+  color: #545454
+  font-family: Inter, Arial, sans-serif
+  strong
+    display: block
+    font-size: u(70)
+    line-height: 1.755
+    font-weight: 400
+  span
+    display: block
+    margin-top: u(15)
+    font-size: u(24)
+    line-height: 1.33
+  > div:last-child
+    text-align: center
+.fittingType
+  display: contents
+.fittingIcon img
+  object-fit: contain
+.accordionStack
+  > .solidLink
+    position: relative
+    margin-top: u(30.72)
+    width: u(275)
+    height: u(80)
+.accordion
+  display: flow-root
+  z-index: 1
+  font-family: Inter, Arial, sans-serif
+  details
+    border-bottom: 1px solid #dadada
+    background: white
+    margin-bottom: u(38)
+  summary
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0 0 u(24)
+    font-size: u(24)
+    line-height: 1.652
+    font-weight: 600
+    cursor: pointer
+    list-style: none
+    &::-webkit-details-marker
+      display: none
+    img
+      width: u(24)
+      height: u(24)
+      flex: 0 0 auto
+  details[open]
+    box-shadow: 0 u(10) u(16) #0001
+    padding: u(12)
+    summary img
+      transform: rotate(45deg)
+  p
+    padding-bottom: u(20)
+    font-size: u(20)
+    line-height: 1.6
+.processStep
+  display: contents
+.stepIcon
+  border-radius: 50%
+  background: #1f1f1f
+  display: grid
+  place-items: center
+  img
+    width: u(28)
+    height: u(28)
+    filter: brightness(0) invert(1)
+    &[data-complete]
+      width: 100%
+      height: 100%
+      filter: none
+  &::after
+    content: ''
+    position: absolute
+    width: 1px
+    height: u(102)
+    background: #9b9b9b
+    left: 50%
+    top: u(104)
+.processStep:last-of-type .stepIcon::after
+  display: none
+
+.testimonialCards
+  position: absolute
+  top: u(218)
+  left: u(362)
+  display: grid
+  grid-template-columns: repeat(2, u(600))
+  gap: u(57)
+  &::before
+    content: ''
+    position: absolute
+    left: u(-20)
+    top: u(-20)
+    bottom: 0
+    width: u(620)
+    background: white
+  blockquote
+    position: relative
+    width: u(600)
+    height: u(600)
+    margin: 0
+    padding: u(182) u(56) u(48)
+    border-radius: u(4)
+    background: #1f1f1f
+    color: #fff
+    font-family: Inter, Arial, sans-serif
+    > span
+      position: absolute
+      top: u(43)
+      font-size: u(150)
+      line-height: 1.2
+    > p
+      font-size: u(24)
+      font-weight: 500
+      line-height: 1.652
+      width: u(500)
+    &[data-author='bespoke-ahmed'] > p
+      width: u(522)
+    footer
+      position: absolute
+      left: u(56)
+      top: u(412)
+      display: flex
+      gap: u(24)
+      align-items: center
+      strong, small
+        display: block
+        line-height: normal
+      strong
+        font-size: u(24)
+        font-weight: 600
+      small
+        margin-top: u(13)
+        font-size: u(20)
+        color: #929292
+.avatar
+  position: relative
+  display: block
+  flex: 0 0 u(72)
+  width: u(72)
+  height: u(72)
+  overflow: hidden
+  border-radius: 50%
+  background: #e5e6e8
+  img
+    position: absolute
+    width: 244.44%
+    height: 162.5%
+    max-width: none
+    left: -72.22%
+    top: 6.94%
+    object-fit: cover
+[data-author='bespoke-ahmed'] .avatar img
+  width: 211.11%
+  height: 140.28%
+  left: -55.56%
+  top: 4.17%
+.testimonialControls
+  position: absolute
+  left: u(105)
+  top: u(745)
+  display: flex
+  gap: u(38)
+  button
+    position: relative
+    width: u(73)
+    height: u(73)
+    padding: 0
+    border: 0
+    background: transparent
+    cursor: pointer
+    img
+      width: 100%
+      height: 100%
+.bespokeGallery h2, .bespokeInspiration h2
+  text-align: center
+.inspirationOutline
+  border: u(1) solid #1f1f1f
+.inspirationCard
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  padding: u(24) u(26) u(28)
+  background: #1f1f1f
+  color: #fff
+  p
+    font-size: u(32)
+    line-height: 1.5
+    font-weight: 700
+    color: #ffffffcf
+  h3
+    font: 700 u(36) Inter, Arial, sans-serif
+  &:last-child h3
+    text-align: center
+    margin-bottom: u(14)
+  &:last-child p
+    font-family: Inter, Arial, sans-serif
+.surfaceCard
+  p
+    font: 700 u(22)/1.22 Inter, Arial, sans-serif
+  h3
+    text-align: right
+.coffeeCard h3
+  position: absolute
+  top: u(199)
+  left: u(26)
+
+.footer
+  height: u(433)
+  min-height: 0
+  display: block
+  padding: 0
+  [data-footer-identity]
+    position: absolute
+    left: u(122)
+    top: u(34)
+    address
+      margin: u(35) 0 u(30)
+      font-size: u(16.46)
+      line-height: 1.5
+    > a
+      min-height: u(24.69)
+      margin-top: u(3.2)
+      font-size: u(16.46)
+      gap: u(15)
+      svg
+        width: u(19)
+        height: u(19)
+  [data-wordmark]
+    display: flex
+    align-items: center
+    gap: u(14)
+    height: u(30)
+    img
+      height: u(30)
+      width: auto
+      &:nth-child(1)
+        width: u(109)
+      &:nth-child(2)
+        width: u(47)
+      &:nth-child(3)
+        width: u(138)
+  [data-footer-newsletter]
+    position: absolute
+    left: u(1112)
+    top: u(34)
+    width: u(331)
+    h2
+      font-size: u(22.632)
+      line-height: 1.7
+      font-weight: 500
+      margin-bottom: u(37)
+    form
+      label
+        font-size: u(15.431)
+      > div
+        height: u(48)
+      input
+        font-size: u(16)
+    > div
+      margin-top: u(24)
+      gap: u(12)
+      a
+        width: u(32)
+        height: u(32)
+        svg
+          width: u(20)
+          height: u(20)
+  [data-footer-bottom]
+    position: absolute
+    left: u(111)
+    right: u(75)
+    top: u(337)
+    min-height: 0
+    padding-top: u(30)
+    p
+      font-size: u(16.46)
+    button
+      width: u(38)
+      height: u(38)
+.architecture .footer
+  height: u(569)
+  [data-footer-identity]
+    left: u(79)
+    top: u(52)
+    address
+      margin-top: u(62)
+      width: u(286)
+      font-size: u(24)
+  [data-footer-newsletter]
+    left: u(1399)
+    width: u(360)
+  [data-footer-bottom]
+    left: u(66)
+    right: u(61)
+    top: u(452)
+.bespoke .footer
+  height: u(569)
+  [data-footer-identity]
+    left: u(57)
+    top: u(52)
+    address
+      margin-top: u(62)
+      width: u(286)
+      font-size: u(24)
+  [data-footer-newsletter]
+    left: u(1377)
+    width: u(305)
+  [data-footer-bottom]
+    left: u(43)
+    right: u(45)
+    top: u(452)
+
+.architecture .footer, .bespoke .footer
+  [data-wordmark]
+    height: u(39)
+    gap: u(19)
+    img
+      height: u(39)
+      &:nth-child(1)
+        width: u(145)
+      &:nth-child(2)
+        width: u(51.5)
+        margin-right: u(5)
+      &:nth-child(3)
+        width: u(184)
+  [data-footer-identity]
+    address
+      margin-top: u(53)
+    > a
+      position: absolute
+      top: u(265)
+      width: u(360)
+      font-weight: 300
+      &:last-child
+        top: u(301)
+  [data-footer-newsletter]
+    h2
+      line-height: u(50)
+      margin-bottom: u(59)
+
+@media (prefers-reduced-motion: reduce)
+  .projectTrack
+    transition: none
+
+@media (max-width: 700px)
+  .page
+    --unit: 1px
+  .layoutSection
+    height: auto
+    padding: 40px 24px
+    display: flex
+    flex-direction: column
+    gap: 24px
+  .place
+    position: relative
+    left: auto
+    top: auto
+    width: 100%
+    height: auto
+  .text
+    font-size: 16px
+    line-height: 1.6
+    br
+      display: none
+  h1.text
+    font-size: 36px
+    line-height: 1.2
+    br
+      display: block
+  .designTitle span:first-child
+    line-height: 1.2
+  h2.text
+    font-size: 26px
+    line-height: 1.35
+  h3.text
+    font-size: 20px
+    line-height: 1.4
+  .photo
+    > div
+      height: auto
+      aspect-ratio: var(--ratio)
+  .rule
+    margin: 8px 0
+    border-top-width: 1px
+  .thickRule
+    border-top-width: 2px
+  .stepCard
+    padding: 22px
+    h3
+      font-size: 22px
+      line-height: 1.3
+    p
+      margin-top: 16px
+      font-size: 15px
+      line-height: 1.6
+  .bulletList
+    width: calc(100% - 20px)
+    margin-left: 20px !important
+  .designProjects
+    gap: 24px
+  .architectureHero > .text:nth-child(3)
+    p + p
+      margin-top: 16px
+  .architectureHero .showroom
+    margin: 10px -24px -40px
+    width: calc(100% + 48px)
+  .architectureProjects
+    display: flex
+    flex-direction: column
+    gap: 20px
+    margin-top: 36px
+  .projectCarousel
+    position: relative
+    top: auto
+    left: auto
+    right: auto
+    margin-right: -24px
+  .projectTrack
+    gap: 20px
+    article
+      flex-basis: 85%
+      > div
+        height: auto
+        aspect-ratio: 1.5
+        margin-bottom: 14px
+      h3
+        font-size: 20px
+        line-height: 1.4
+      p
+        margin-top: 12px
+        font-size: 15px
+        line-height: 1.5
+      a
+        margin-top: 14px
+        font-size: 15px
+  .dragControl
+    left: auto
+    right: 8px
+    top: 55px
+    width: 62px
+    height: 62px
+    font-size: 12px
+  .solidLink
+    width: max-content
+    max-width: 100%
+    height: auto
+    font-size: 18px
+    a
+      padding: 15px 23px
+  .bespokeHero .solidLink
+    font-size: 16px
+  .outlineAccent, .downArrow, .inspirationOutline
+    display: none
+  .bespokeMetrics
+    gap: 12px
+    margin: 8px 0
+    strong
+      font-size: 32px
+      line-height: 1.5
+    span
+      margin-top: 4px
+      font-size: 12px
+      line-height: 1.5
+  .fittingType
+    display: grid
+    grid-template-columns: 52px 1fr
+    gap: 8px 16px
+    > p
+      grid-column: 2
+  .fittingIcon
+    grid-row: 1 / 3
+    align-self: start
+    margin-top: 4px
+  .accordion
+    details
+      margin-bottom: 20px
+    summary
+      padding-bottom: 14px
+      font-size: 16px
+      gap: 15px
+    p
+      font-size: 15px
+  .accordionStack > .solidLink
+    margin-top: 24px
+    width: max-content
+    height: auto
+  .processStep
+    display: grid
+    grid-template-columns: 48px 1fr
+    column-gap: 16px
+    row-gap: 12px
+    > p
+      grid-column: 2
+  .stepIcon
+    width: 44px
+    height: 44px
+    grid-row: 1 / 3
+    img
+      width: 20px
+      height: 20px
+    &::after
+      display: none
+  .testimonialCards
+    position: relative
+    top: auto
+    left: auto
+    display: grid
+    grid-template-columns: 1fr
+    gap: 20px
+    &::before
+      display: none
+    blockquote
+      width: 100%
+      height: auto
+      min-height: 350px
+      padding: 95px 26px 30px
+      > span
+        top: 16px
+        font-size: 90px
+      > p
+        font-size: 17px
+      > p, &[data-author='bespoke-ahmed'] > p
+        width: auto
+      footer
+        position: static
+        margin-top: 30px
+        gap: 16px
+        .avatar
+          flex-basis: 52px
+          width: 52px
+          height: 52px
+        strong
+          font-size: 16px
+        small
+          margin-top: 6px
+          font-size: 13px
+      &:nth-child(2)
+        display: none
+  .testimonialControls
+    position: static
+    gap: 16px
+    button
+      width: 44px
+      height: 44px
+  .inspirationCard
+    padding: 24px
+    gap: 22px
+    p
+      font-size: 18px
+      line-height: 1.6
+    h3
+      font-size: 23px
+  .coffeeCard h3
+    position: static
+  .bespokeInspiration
+    > .photo
+      margin-bottom: -24px
+    > .surfaceCard
+      margin-bottom: -24px
+      margin-top: 16px
+    > .photo:nth-last-child(2)
+      margin-top: 16px
+  .page .footer
+    height: auto
+    padding: 28px 24px 0
+    display: flex
+    gap: 24px
+    [data-footer-identity], [data-footer-newsletter], [data-footer-bottom]
+      position: static
+      width: 100%
+    [data-footer-identity]
+      address
+        width: 100%
+        margin: 20px 0 14px
+        font-size: 13px
+      > a
+        position: static
+        width: auto
+        min-height: 25px
+        font-size: 13px
+        gap: 10px
+    [data-wordmark]
+      width: 260px
+      height: 25px
+      gap: 10px
+      img
+        height: 25px
+        max-width: 42%
+        &:nth-child(1)
+          width: 87px
+        &:nth-child(2)
+          width: 37px
+          margin: 0
+        &:nth-child(3)
+          width: 110px
+    [data-footer-newsletter]
+      h2
+        font-size: 16px
+        line-height: 1.5
+        margin-bottom: 14px
+      form > div
+        height: 42px
+    [data-footer-bottom]
+      margin: 0
+      min-height: 60px
+      padding: 16px 0
+      p
+        font-size: 12px
