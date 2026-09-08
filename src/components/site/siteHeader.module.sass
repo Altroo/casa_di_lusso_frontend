@@ -56,9 +56,10 @@
 
 @media (min-width: 701px)
   .header[data-variant]
-    --nav-about-x: 692.5
-    --nav-services-x: 939
-    --nav-portfolio-x: 1222.5
+    --nav-about-x: 610
+    --nav-services-x: 835
+    --nav-portfolio-x: 1060
+    --nav-press-x: 1270
     --nav-contact-x: 1456
     --nav-y: 73
     --nav-about-y: 76
@@ -86,14 +87,17 @@
         top: calc(var(--nav-about-y) * var(--unit))
       > .services
         left: calc(var(--nav-services-x) * var(--unit))
-      > a:nth-last-child(2)
+      > a[href$='#portfolio']
         left: calc(var(--nav-portfolio-x) * var(--unit))
+      > a[href='/press']
+        left: calc(var(--nav-press-x) * var(--unit))
       > a:last-child
         left: calc(var(--nav-contact-x) * var(--unit))
   .header[data-variant='architecture']
-    --nav-about-x: 979.5
-    --nav-services-x: 1226
-    --nav-portfolio-x: 1509.5
+    --nav-about-x: 840
+    --nav-services-x: 1080
+    --nav-portfolio-x: 1320
+    --nav-press-x: 1535
     --nav-contact-x: 1743
     --nav-y: 49
     --nav-about-y: 52
@@ -101,9 +105,10 @@
     padding-left: calc(173 * var(--unit))
     padding-right: calc(90 * var(--unit))
   .header[data-variant='bespoke']
-    --nav-about-x: 853.5
-    --nav-services-x: 1076.5
-    --nav-portfolio-x: 1332.5
+    --nav-about-x: 735
+    --nav-services-x: 955
+    --nav-portfolio-x: 1175
+    --nav-press-x: 1370
     --nav-contact-x: 1543.5
     --nav-y: 82
     --nav-about-y: 82
@@ -115,6 +120,25 @@
       top: calc(60 * var(--unit))
       width: calc(113 * var(--unit))
       height: calc(100 * var(--unit))
+
+  .header[data-variant='press']
+    height: calc(122 * var(--unit))
+    padding: 0 calc(50 * var(--unit)) 0 calc(57 * var(--unit))
+    > a
+      width: calc(112 * var(--unit))
+      height: calc(110 * var(--unit))
+    nav
+      inset: auto calc(65 * var(--unit)) auto auto
+      display: flex
+      gap: calc(68 * var(--unit))
+      font-size: calc(28 * var(--unit))
+      > a, > .services
+        position: relative
+        inset: auto
+        transform: none
+      > a:first-child, > .services, > a[href$='#portfolio'], > a[href='/press'], > a:last-child
+        left: auto
+        top: auto
 
 @media (max-width: 700px)
   .services

@@ -42,6 +42,10 @@ const nextConfig: NextConfig = {
 		formats: ['image/avif', 'image/webp'],
 		qualities: [70, 75],
 		remotePatterns: [
+			{ protocol: 'https', hostname: 'api.casadilusso.ma', pathname: '/api/website/press/articles/*/images/*/' },
+			{ protocol: 'http', hostname: '148.251.138.48', port: '8008', pathname: '/api/website/press/articles/*/images/*/' },
+			{ protocol: 'http', hostname: 'localhost', port: '8008', pathname: '/api/website/press/articles/*/images/*/' },
+			{ protocol: 'http', hostname: '127.0.0.1', port: '8008', pathname: '/api/website/press/articles/*/images/*/' },
 			{ protocol: 'https', hostname: 'api.casadilusso.ma', pathname: '/media/**' },
 			{ protocol: 'http', hostname: '148.251.138.48', port: '8008', pathname: '/media/**' },
 			{ protocol: 'http', hostname: 'localhost', port: '8008', pathname: '/media/**' },

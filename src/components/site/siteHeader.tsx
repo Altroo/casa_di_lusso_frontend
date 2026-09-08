@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { servicePages, type ServicePage } from '@/data/services';
 import styles from './site.module.sass';
 import menuStyles from './siteHeader.module.sass';
 
-export default function SiteHeader({ variant, activeSlug }: { variant?: ServicePage['kind']; activeSlug?: string }) {
+export default function SiteHeader({ variant, activeSlug }: { variant?: ServicePage['kind'] | 'press'; activeSlug?: string }) {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [servicesOpen, setServicesOpen] = useState(false);
 	const menuButton = useRef<HTMLButtonElement>(null);
@@ -99,6 +100,9 @@ export default function SiteHeader({ variant, activeSlug }: { variant?: ServiceP
 				<a href={`${home}#portfolio`} onClick={closeMenu}>
 					portfolio
 				</a>
+				<Link href="/press" aria-current={variant === 'press' ? 'page' : undefined} onClick={closeMenu}>
+					Press
+				</Link>
 				<a href={`${home}#contact`} onClick={closeMenu}>
 					CONTACT
 				</a>

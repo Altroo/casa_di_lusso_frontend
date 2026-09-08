@@ -3,6 +3,16 @@ import SiteHeader from './siteHeader';
 import { servicePages } from '@/data/services';
 
 describe('service navigation', () => {
+	it.each([undefined, 'design', 'architecture', 'bespoke', 'press'] as const)('puts Press immediately before Contact for %s', (variant) => {
+		render(<SiteHeader variant={variant} />);
+		const press = screen.getByRole('link', { name: 'Press' });
+		expect(press).toHaveAttribute('href', '/press');
+		expect(press.nextElementSibling).toHaveTextContent('CONTACT');
+		if (variant === 'press') {
+			expect(press).toHaveAttribute('aria-current', 'page');
+			expect(screen.getByRole('link', { name: 'CONTACT' })).toHaveAttribute('href', '/#contact');
+		}
+	});
 	it('exposes the three service routes and identifies the current page', () => {
 		render(<SiteHeader variant="design" activeSlug="design-interieur-de-luxe" />);
 		const toggle = screen.getByRole('button', { name: 'Afficher les services' });
