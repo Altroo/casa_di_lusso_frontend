@@ -387,14 +387,15 @@ function BespokePage() {
 	return (
 		<>
 			<Section height={1036} className={styles.bespokeHero}>
-				<Place as="h1" at={[113, 28, 900]} font={[80, 100, 700]}>
-					Aménagement
-					<br /> sur mesure
+				<Place as="h1" at={[113, 28, 900]} font={[80, 100, 700]} className={styles.bespokeTitle}>
+					<span>Aménagement </span>
+					<span>sur mesure</span>
 				</Place>
 				<Place as="p" at={[117, 281, 687]} font={[24, 42.12, 500]}>
 					L’aménagement sur mesure permet d’exploiter pleinement le potentiel de chaque pièce.
-					<br /> Chez <strong>Casa Di Lusso</strong>, nous concevons des solutions adaptées aux dimensions, aux usages
-					et à l’esthétique de votre intérieur.
+					<br /> Chez <strong>Casa Di Lusso</strong>, nous concevons
+					<br /> des solutions adaptées aux dimensions,
+					<br /> <span className={styles.heroLastLine}>aux usages et à l’esthétique de votre intérieur.</span>
 				</Place>
 				<Place at={[113, 515, 302, 86]} className={styles.solidLink}>
 					<Link href="/#contact">Démarrer votre projet</Link>

@@ -15,6 +15,7 @@
   background: #fff
   color: #1f1f1f
   font-family: Poppins, Arial, sans-serif
+  font-optical-sizing: none
   p, h1, h2, h3, ul
     margin: 0
   a:focus-visible, button:focus-visible, summary:focus-visible
@@ -49,6 +50,16 @@
   display: block
   &:first-child
     line-height: u(43)
+  + span
+    margin-top: u(18.5)
+.bespokeTitle span
+  display: block
+  &:first-child
+    line-height: u(120)
+  + span
+    line-height: u(79.856)
+.heroLastLine
+  letter-spacing: u(-.64)
 
 .photo
   overflow: hidden
@@ -175,6 +186,7 @@
   background: #f2cd00
   color: #161616
   font: 400 u(17) Inter, Arial, sans-serif
+  font-optical-sizing: none
   cursor: pointer
 
 .solidLink
@@ -182,6 +194,7 @@
   background: #1f1f1f
   color: #fff
   font: 600 u(32) Inter, Arial, sans-serif
+  font-optical-sizing: none
   a
     display: flex
     width: 100%
@@ -287,7 +300,7 @@
     background: #9b9b9b
     left: 50%
     top: u(104)
-.processStep:last-of-type .stepIcon::after
+.processStep:nth-last-child(2) .stepIcon::after
   display: none
 
 .testimonialCards
@@ -401,16 +414,28 @@
     color: #ffffffcf
   h3
     font: 700 u(36) Inter, Arial, sans-serif
+    font-optical-sizing: none
   &:last-child h3
+    position: absolute
+    left: u(80)
+    top: u(225)
+    width: u(368)
     text-align: center
-    margin-bottom: u(14)
   &:last-child p
     font-family: Inter, Arial, sans-serif
+    width: u(464)
+    line-height: 1.21
 .surfaceCard
+  padding-top: u(30)
   p
     font: 700 u(22)/1.22 Inter, Arial, sans-serif
+    font-optical-sizing: none
   h3
     text-align: right
+.coffeeCard
+  padding: u(18) u(24)
+  p
+    width: u(434)
 .coffeeCard h3
   position: absolute
   top: u(199)
@@ -581,6 +606,13 @@
       display: block
   .designTitle span:first-child
     line-height: 1.2
+  .designTitle span + span
+    margin-top: 0
+  .bespokeTitle span
+    &:first-child, + span
+      line-height: 1.2
+  .heroLastLine
+    letter-spacing: normal
   h2.text
     font-size: 26px
     line-height: 1.35
@@ -764,6 +796,11 @@
       font-size: 23px
   .coffeeCard h3
     position: static
+  .coffeeCard p, .inspirationCard:last-child p
+    width: auto
+  .inspirationCard:last-child h3
+    position: static
+    width: auto
   .bespokeInspiration
     > .photo
       margin-bottom: -24px
