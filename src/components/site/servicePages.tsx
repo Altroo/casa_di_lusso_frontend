@@ -6,7 +6,9 @@ import type { ServicePage } from '@/data/services';
 import { serviceAssets } from '@/data/serviceAssets';
 import SiteHeader from './siteHeader';
 import SiteFooter from './siteFooter';
+import AnimatedMetricValue from './animatedMetricValue';
 import { ProjectCarousel, ServiceAccordion, ServiceTestimonials } from './serviceInteractions';
+import siteStyles from './site.module.sass';
 import styles from './servicePages.module.sass';
 
 type Coordinates = [number, number, number, number?];
@@ -398,7 +400,9 @@ function BespokePage() {
 					<br /> <span className={styles.heroLastLine}>aux usages et à l’esthétique de votre intérieur.</span>
 				</Place>
 				<Place at={[113, 515, 302, 86]} className={styles.solidLink}>
-					<Link href="/#contact">Démarrer votre projet</Link>
+					<Link className={siteStyles.filledButton} href="/#contact">
+						Démarrer votre projet
+					</Link>
 				</Place>
 				<Photo
 					name="bespoke-hero"
@@ -421,7 +425,7 @@ function BespokePage() {
 						['10+', 'années d’expérience'],
 					].map(([value, label]) => (
 						<div key={value}>
-							<strong>{value}</strong>
+							<AnimatedMetricValue value={value} bracketed={false} />
 							<span>{label}</span>
 						</div>
 					))}
@@ -476,7 +480,9 @@ function BespokePage() {
 						<ServiceAccordion />
 					</div>
 					<div className={styles.solidLink}>
-						<Link href="/#contact">Voir plus</Link>
+						<Link className={siteStyles.filledButton} href="/#contact">
+							Voir plus
+						</Link>
 					</div>
 				</Place>
 			</Section>

@@ -190,22 +190,10 @@
   cursor: pointer
 
 .solidLink
-  border-radius: u(4)
-  background: #1f1f1f
-  color: #fff
-  font: 600 u(32) Inter, Arial, sans-serif
-  font-optical-sizing: none
   a
-    display: flex
     width: 100%
     height: 100%
-    align-items: center
-    justify-content: center
-    transition: background .2s
-    &:hover
-      background: #3b3b3b
-.bespokeHero .solidLink
-  font-size: u(24)
+    min-width: 0
 .bespokeHero > p, .fittingType > p, .bespokeDream > p, .processStep > p
   color: #545454
 .outlineAccent
@@ -218,18 +206,18 @@
     width: 100%
     height: 100%
 .bespokeMetrics
-  display: flex
-  justify-content: space-between
+  display: grid
+  grid-template-columns: u(253) u(240) 1fr
   color: #545454
   font-family: Inter, Arial, sans-serif
   strong
     display: block
     font-size: u(70)
-    line-height: 1.755
+    line-height: 1.21
     font-weight: 400
   span
     display: block
-    margin-top: u(15)
+    margin-top: u(2)
     font-size: u(24)
     line-height: 1.33
   > div:last-child
@@ -688,14 +676,14 @@
     width: max-content
     max-width: 100%
     height: auto
-    font-size: 18px
     a
-      padding: 15px 23px
-  .bespokeHero .solidLink
-    font-size: 16px
+      min-width: 230px
+      min-height: 60px
   .outlineAccent, .downArrow, .inspirationOutline
     display: none
   .bespokeMetrics
+    display: flex
+    justify-content: space-between
     gap: 12px
     margin: 8px 0
     strong
