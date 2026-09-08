@@ -46,58 +46,60 @@ export function ProjectCarousel() {
 		});
 	};
 	return (
-		<div
-			ref={viewport}
-			className={styles.projectCarousel}
-			role="region"
-			aria-label="Projets d’architecture"
-			tabIndex={0}
-			onKeyDown={(event) => {
-				if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-					event.preventDefault();
-					move(event.key === 'ArrowRight' ? 1 : -1);
-				}
-			}}
-			onPointerDown={(event) => {
-				if ((event.target as HTMLElement).closest('a, button')) return;
-				gesture.current = { x: event.clientX, scroll: event.currentTarget.scrollLeft, moved: false };
-				event.currentTarget.setPointerCapture(event.pointerId);
-			}}
-			onPointerMove={(event) => {
-				if (!gesture.current) return;
-				const distance = event.clientX - gesture.current.x;
-				if (Math.abs(distance) > 5) gesture.current.moved = true;
-				event.currentTarget.scrollLeft = gesture.current.scroll - distance;
-			}}
-			onPointerUp={() => {
-				gesture.current = null;
-			}}
-			onPointerCancel={() => {
-				gesture.current = null;
-			}}
-		>
-			<div className={styles.projectTrack}>
-				{projects.map((project) => (
-					<article key={project.name}>
-						<div>
-							<Image
-								src={serviceAssets[project.image]}
-								alt={`${project.name}, ${project.place}`}
-								fill
-								sizes="(max-width: 700px) 85vw, 38vw"
-								draggable={false}
-							/>
-						</div>
-						<h3>
-							{project.name}
-							<br />
-							{project.place}
-						</h3>
-						<p>{project.type}</p>
-						<p>{project.details}</p>
-						<Link href="/#contact">Voir →</Link>
-					</article>
-				))}
+		<div className={styles.projectCarousel}>
+			<div
+				ref={viewport}
+				className={styles.projectViewport}
+				role="region"
+				aria-label="Projets d’architecture"
+				tabIndex={0}
+				onKeyDown={(event) => {
+					if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+						event.preventDefault();
+						move(event.key === 'ArrowRight' ? 1 : -1);
+					}
+				}}
+				onPointerDown={(event) => {
+					if ((event.target as HTMLElement).closest('a, button')) return;
+					gesture.current = { x: event.clientX, scroll: event.currentTarget.scrollLeft, moved: false };
+					event.currentTarget.setPointerCapture(event.pointerId);
+				}}
+				onPointerMove={(event) => {
+					if (!gesture.current) return;
+					const distance = event.clientX - gesture.current.x;
+					if (Math.abs(distance) > 5) gesture.current.moved = true;
+					event.currentTarget.scrollLeft = gesture.current.scroll - distance;
+				}}
+				onPointerUp={() => {
+					gesture.current = null;
+				}}
+				onPointerCancel={() => {
+					gesture.current = null;
+				}}
+			>
+				<div className={styles.projectTrack}>
+					{projects.map((project) => (
+						<article key={project.name}>
+							<div>
+								<Image
+									src={serviceAssets[project.image]}
+									alt={`${project.name}, ${project.place}`}
+									fill
+									sizes="(max-width: 700px) 85vw, 38vw"
+									draggable={false}
+								/>
+							</div>
+							<h3>
+								{project.name}
+								<br />
+								{project.place}
+							</h3>
+							<p>{project.type}</p>
+							<p>{project.details}</p>
+							<Link href="/#contact">Voir →</Link>
+						</article>
+					))}
+				</div>
 			</div>
 			<button type="button" className={styles.dragControl} onClick={() => move(1)} aria-label="Projet suivant">
 				Glisser
