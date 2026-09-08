@@ -621,16 +621,18 @@ function BespokePage() {
 
 export default function ServicePageView({ service, settings }: { service: ServicePage; settings: SiteSettings }) {
 	return (
-		<main className={`${styles.page} ${styles[service.kind]}`}>
+		<div className={siteStyles.site}>
 			<SiteHeader variant={service.kind} activeSlug={service.slug} />
-			{service.kind === 'design' ? (
-				<DesignPage />
-			) : service.kind === 'architecture' ? (
-				<ArchitecturePage />
-			) : (
-				<BespokePage />
-			)}
-			<SiteFooter settings={settings} className={styles.footer} exactWordmark />
-		</main>
+			<main className={`${styles.page} ${styles[service.kind]}`}>
+				{service.kind === 'design' ? (
+					<DesignPage />
+				) : service.kind === 'architecture' ? (
+					<ArchitecturePage />
+				) : (
+					<BespokePage />
+				)}
+			</main>
+			<SiteFooter settings={settings} />
+		</div>
 	);
 }

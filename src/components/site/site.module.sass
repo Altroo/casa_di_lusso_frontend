@@ -2,6 +2,12 @@ $ink: #1a1a1a
 $paper: #ffffff
 $muted: #f4f4f1
 
+:global(:root)
+  --site-header-height: 100px
+
+:global(html):has(.header)
+  scroll-padding-top: var(--site-header-height)
+
 .site
   width: 100%
   min-width: 0
@@ -10,9 +16,13 @@ $muted: #f4f4f1
   color: $ink
   font-family: Poppins, Arial, sans-serif
 
+.headerSpace
+  height: var(--site-header-height)
+
 .header
-  height: 100px
-  position: relative
+  height: var(--site-header-height)
+  position: fixed
+  inset: 0 0 auto
   padding: 0 clamp(48px, 10.347vw, 149px)
   display: flex
   align-items: center
@@ -1097,8 +1107,9 @@ $muted: #f4f4f1
   cursor: pointer
 
 @media (max-width: 900px)
+  :global(:root)
+    --site-header-height: 70px
   .header
-    height: 70px
     padding: 8px 25px
   .logoLink
     left: 25px
@@ -1134,10 +1145,11 @@ $muted: #f4f4f1
     grid-template-columns: 1fr 1fr
 
 @media (max-width: 700px)
+  :global(:root)
+    --site-header-height: 42px
   .site
     width: 100%
   .header
-    height: 42px
     padding: 3px 13px 3px 15px
   .logoLink
     left: 15px
@@ -1172,7 +1184,7 @@ $muted: #f4f4f1
     position: fixed
     left: 0
     right: 0
-    top: 42px
+    top: var(--site-header-height)
     bottom: 0
     z-index: 40
     width: 100%

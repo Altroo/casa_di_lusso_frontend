@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import type { SiteSettings } from '@/types/websiteTypes';
 import NewsletterForm from './newsletterForm';
 import styles from './site.module.sass';
@@ -67,12 +66,8 @@ function PinterestIcon() {
 
 export default function SiteFooter({
 	settings,
-	className = '',
-	exactWordmark = false,
 }: {
 	settings: SiteSettings;
-	className?: string;
-	exactWordmark?: boolean;
 }) {
 	const scrollToTop = () => {
 		const initialScroll = window.scrollY;
@@ -88,23 +83,9 @@ export default function SiteFooter({
 		window.requestAnimationFrame(animate);
 	};
 	return (
-		<footer className={`${styles.footer} ${className}`}>
+		<footer className={styles.footer}>
 			<div className={styles.footerIdentity} data-footer-identity>
-				{exactWordmark ? (
-					<div className={styles.footerWordmark} data-wordmark aria-label="Casa di Lusso">
-						{[1, 2, 3].map((part) => (
-							<Image
-								key={part}
-								src={`/assets/casa/services/design-wordmark${part}.svg`}
-								alt=""
-								width={part === 1 ? 109 : part === 2 ? 47 : 138}
-								height={30}
-							/>
-						))}
-					</div>
-				) : (
-					<p className={styles.footerWordmark}>CASA DI LUSSO</p>
-				)}
+				<p className={styles.footerWordmark}>CASA DI LUSSO</p>
 				<address>{settings.address}</address>
 				<a href={`tel:${settings.phone.replace(/\s/g, '')}`}>
 					<PhoneIcon />

@@ -30,9 +30,9 @@ function PressBrands() {
 export function PressList({ articles, categories, settings }: {
 	articles: PressArticle[]; categories: PressCategory[]; settings: SiteSettings;
 }) {
-	return <div className={styles.page}>
+	return <div className={siteStyles.site}>
 		<SiteHeader variant="press" />
-		<main>
+		<main className={styles.page}>
 			<section className={styles.listHero}>
 				<Image src="/assets/casa/press/list-hero.png" alt="Catalogue Casa di Lusso ouvert" fill preload sizes="100vw" />
 				<div className={styles.heroCopy}>
@@ -61,14 +61,14 @@ export function PressList({ articles, categories, settings }: {
 			</div>
 			<PressBrands />
 		</main>
-		<SiteFooter settings={settings} className={styles.footer} />
+		<SiteFooter settings={settings} />
 	</div>;
 }
 
 export function PressDetail({ article, settings }: { article: PressArticleDetail; settings: SiteSettings }) {
-	return <div className={styles.page}>
+	return <div className={siteStyles.site}>
 		<SiteHeader variant="press" />
-		<main>
+		<main className={styles.page}>
 			<article>
 				<header className={styles.detailHero}>
 					<Image src={article.hero_image_url || '/assets/casa/press/detail-hero.png'} alt="" fill preload sizes="100vw" unoptimized={!!article.hero_image_url && process.env.NODE_ENV === 'development'} />
@@ -96,6 +96,6 @@ export function PressDetail({ article, settings }: { article: PressArticleDetail
 				<Link href="/#contact" className={siteStyles.filledButton}>Contactez-nous</Link>
 			</section>
 		</main>
-		<SiteFooter settings={settings} className={styles.footer} />
+		<SiteFooter settings={settings} />
 	</div>;
 }
