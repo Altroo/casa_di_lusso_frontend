@@ -9,6 +9,13 @@ $muted: #f4f4f1
   scroll-padding-top: var(--site-header-height)
 
 .site
+  // Shared type scale, taken from the existing index page.
+  --site-body-size: 16px
+  --site-lead-size: 18px
+  --site-hero-size: 26px
+  --site-hero-leading: 37.841px
+  --site-section-size: 32px
+  --site-card-size: 24px
   width: 100%
   min-width: 0
   overflow: hidden
@@ -111,8 +118,8 @@ $muted: #f4f4f1
     width: 388px
     height: 52px
     margin: 0
-    font-size: 26px
-    line-height: 37.841px
+    font-size: var(--site-hero-size)
+    line-height: var(--site-hero-leading)
     font-weight: 500
     text-transform: capitalize
 .heroBody
@@ -129,7 +136,7 @@ $muted: #f4f4f1
   height: auto
   max-width: 445px
   margin: 0
-  font-size: 18px
+  font-size: var(--site-lead-size)
   line-height: 1.2
   font-weight: 400
 
@@ -582,7 +589,7 @@ $muted: #f4f4f1
   h3
     min-height: 89px
     margin: 0
-    font-size: 24px
+    font-size: var(--site-card-size)
     line-height: 1.45
     font-weight: 400
     text-transform: none
@@ -595,7 +602,7 @@ $muted: #f4f4f1
   p
     margin: 0
     color: #767676
-    font-size: 16px
+    font-size: var(--site-body-size)
     line-height: 1.5
     font-weight: 300
 
@@ -1148,6 +1155,11 @@ $muted: #f4f4f1
   :global(:root)
     --site-header-height: 42px
   .site
+    --site-lead-size: 16px
+    --site-hero-size: 18px
+    --site-hero-leading: 26px
+    --site-section-size: 26px
+    --site-card-size: 18px
     width: 100%
   .header
     padding: 3px 13px 3px 15px

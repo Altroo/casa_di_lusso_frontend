@@ -34,6 +34,8 @@
   height: u(var(--height))
 
 .place
+  // Nested text blocks must not inherit a parent canvas height.
+  --h: initial
   position: absolute
   left: u(var(--x))
   top: u(var(--y))
@@ -41,25 +43,58 @@
   height: u(var(--h))
 
 .text
-  font-family: var(--family), Arial, sans-serif
-  font-size: u(var(--font))
-  line-height: u(var(--leading))
-  font-weight: var(--weight)
+  font-size: var(--site-body-size)
+  line-height: 1.5
+  font-weight: 400
+
+h1.text
+  font-size: var(--site-hero-size)
+  line-height: var(--site-hero-leading)
+  font-weight: 500
+h2.text
+  font-size: var(--site-section-size)
+  line-height: 1.35
+  font-weight: 400
+h3.text
+  font-size: var(--site-card-size)
+  line-height: 1.45
+  font-weight: 400
+
+.heroCopy
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  gap: 24px
+  h1
+    font-size: var(--site-hero-size)
+    line-height: var(--site-hero-leading)
+    font-weight: 500
+    letter-spacing: normal
+  > p
+    font-size: var(--site-lead-size)
+    line-height: 1.5
+    font-weight: 400
+  > div
+    font-size: var(--site-body-size)
+    line-height: 1.5
+    p + p
+      margin-top: 16px
+
+.bodyCopy
+  h3
+    font-size: var(--site-card-size)
+    line-height: 1.45
+    font-weight: 400
+  p
+    margin-top: 16px
+    font-size: var(--site-body-size)
+    line-height: 1.5
+    color: #545454
 
 .designTitle span
   display: block
-  &:first-child
-    line-height: u(43)
-  + span
-    margin-top: u(18.5)
 .bespokeTitle span
   display: block
-  &:first-child
-    line-height: u(120)
-  + span
-    line-height: u(79.856)
-.heroLastLine
-  letter-spacing: u(-.64)
 
 .photo
   overflow: hidden
@@ -89,17 +124,20 @@
   opacity: 1
 
 .stepCard
+  top: auto
+  bottom: u(37)
+  height: auto
   padding: u(21) u(22)
   background: #fff
   color: #000
   h3
-    font-size: u(30)
-    line-height: u(25)
-    font-weight: 600
+    font-size: var(--site-card-size)
+    line-height: 1.45
+    font-weight: 400
   p
     margin-top: u(23)
-    font-size: u(17)
-    line-height: u(25)
+    font-size: var(--site-body-size)
+    line-height: 1.5
   a
     display: block
     text-align: right
@@ -120,10 +158,6 @@
 
 .architectureHero
   background: #161616
-  h1
-    letter-spacing: u(-.836)
-.architectureProjects h2
-  letter-spacing: u(-.836)
 .allProjects
   font-size: u(16)
   line-height: u(28.5)
@@ -148,7 +182,6 @@
   article
     flex: 0 0 u(729.6)
     min-width: 0
-    font-family: Inter, Arial, sans-serif
     > div
       position: relative
       width: 100%
@@ -157,13 +190,13 @@
       img
         object-fit: cover
     h3
-      font-size: u(26.5)
-      line-height: u(35.625)
-      font-weight: 700
+      font-size: var(--site-card-size)
+      line-height: 1.45
+      font-weight: 400
     p
       margin-top: u(24)
-      font-size: u(17)
-      line-height: u(26.79)
+      font-size: var(--site-body-size)
+      line-height: 1.5
     p + p
       margin-top: 0
       opacity: .5
@@ -194,7 +227,7 @@
     width: 100%
     height: 100%
     min-width: 0
-.bespokeHero > p, .fittingType > p, .bespokeDream > p, .processStep > p
+.bespokeHero .heroCopy > p, .fittingType > p, .bespokeDream > p, .processStep > p
   color: #545454
 .outlineAccent
   border: u(2) solid #1f1f1f
@@ -212,13 +245,13 @@
   font-family: Inter, Arial, sans-serif
   strong
     display: block
-    font-size: u(70)
+    font-size: 34px
     line-height: 1.21
     font-weight: 400
   span
     display: block
     margin-top: u(2)
-    font-size: u(24)
+    font-size: var(--site-lead-size)
     line-height: 1.33
   > div:last-child
     text-align: center
@@ -245,7 +278,7 @@
     justify-content: space-between
     align-items: center
     padding: 0 0 u(24)
-    font-size: u(24)
+    font-size: var(--site-lead-size)
     line-height: 1.652
     font-weight: 600
     cursor: pointer
@@ -263,7 +296,7 @@
       transform: rotate(45deg)
   p
     padding-bottom: u(20)
-    font-size: u(20)
+    font-size: var(--site-body-size)
     line-height: 1.6
 .processStep
   display: contents
@@ -322,9 +355,9 @@
       font-size: u(150)
       line-height: 1.2
     > p
-      font-size: u(24)
-      font-weight: 500
-      line-height: 1.652
+      font-size: var(--site-body-size)
+      font-weight: 400
+      line-height: 1.5
       width: u(500)
     &[data-author='bespoke-ahmed'] > p
       width: u(522)
@@ -339,11 +372,11 @@
         display: block
         line-height: normal
       strong
-        font-size: u(24)
+        font-size: var(--site-body-size)
         font-weight: 600
       small
         margin-top: u(13)
-        font-size: u(20)
+        font-size: 13px
         color: #929292
 .avatar
   position: relative
@@ -392,49 +425,39 @@
   display: flex
   flex-direction: column
   justify-content: space-between
+  gap: 20px
+  height: auto
+  min-height: max(u(285), 260px)
   padding: u(24) u(26) u(28)
   background: #1f1f1f
   color: #fff
   p
-    font-size: u(32)
+    font-size: var(--site-body-size)
     line-height: 1.5
-    font-weight: 700
+    font-weight: 400
     color: #ffffffcf
   h3
-    font: 700 u(36) Inter, Arial, sans-serif
-    font-optical-sizing: none
+    font-size: var(--site-card-size)
+    line-height: 1.45
+    font-weight: 400
   &:last-child h3
-    position: absolute
-    left: u(80)
-    top: u(225)
-    width: u(368)
     text-align: center
-  &:last-child p
-    font-family: Inter, Arial, sans-serif
-    width: u(464)
-    line-height: 1.21
 .surfaceCard
   padding-top: u(30)
-  p
-    font: 700 u(22)/1.22 Inter, Arial, sans-serif
-    font-optical-sizing: none
+  + .photo
+    top: calc(#{u(158)} + max(#{u(285)}, 260px))
   h3
     text-align: right
 .coffeeCard
   padding: u(18) u(24)
-  p
-    width: u(434)
-.coffeeCard h3
-  position: absolute
-  top: u(199)
-  left: u(26)
 
 
 @media (prefers-reduced-motion: reduce)
   .projectTrack
     transition: none
 
-@media (max-width: 700px)
+// Keep readable index-sized text when the original two-column canvas gets narrow.
+@media (max-width: 1200px)
   .page
     --unit: 1px
   .layoutSection
@@ -455,24 +478,15 @@
     br
       display: none
   h1.text
-    font-size: 36px
-    line-height: 1.2
+    font-size: var(--site-hero-size)
+    line-height: var(--site-hero-leading)
     br
       display: block
-  .designTitle span:first-child
-    line-height: 1.2
-  .designTitle span + span
-    margin-top: 0
-  .bespokeTitle span
-    &:first-child, + span
-      line-height: 1.2
-  .heroLastLine
-    letter-spacing: normal
   h2.text
-    font-size: 26px
+    font-size: var(--site-section-size)
     line-height: 1.35
   h3.text
-    font-size: 20px
+    font-size: var(--site-card-size)
     line-height: 1.4
   .photo
     > div
@@ -484,9 +498,10 @@
   .thickRule
     border-top-width: 2px
   .stepCard
+    bottom: auto
     padding: 22px
     h3
-      font-size: 22px
+      font-size: var(--site-card-size)
       line-height: 1.3
     p
       margin-top: 16px
@@ -497,9 +512,6 @@
     margin-left: 20px !important
   .designProjects
     gap: 24px
-  .architectureHero > .text:nth-child(3)
-    p + p
-      margin-top: 16px
   .architectureHero .showroom
     margin: 10px -24px -40px
     width: calc(100% + 48px)
@@ -523,7 +535,7 @@
         aspect-ratio: 1.5
         margin-bottom: 14px
       h3
-        font-size: 20px
+        font-size: var(--site-card-size)
         line-height: 1.4
       p
         margin-top: 12px
@@ -617,7 +629,7 @@
         top: 16px
         font-size: 90px
       > p
-        font-size: 17px
+        font-size: var(--site-body-size)
       > p, &[data-author='bespoke-ahmed'] > p
         width: auto
       footer
@@ -645,17 +657,12 @@
     padding: 24px
     gap: 22px
     p
-      font-size: 18px
+      font-size: var(--site-body-size)
       line-height: 1.6
     h3
-      font-size: 23px
-  .coffeeCard h3
-    position: static
-  .coffeeCard p, .inspirationCard:last-child p
-    width: auto
-  .inspirationCard:last-child h3
-    position: static
-    width: auto
+      font-size: var(--site-card-size)
+  .surfaceCard + .photo
+    top: auto
   .bespokeInspiration
     > .photo
       margin-bottom: -24px

@@ -16,26 +16,26 @@
 
 .listHero
   position: relative
-  height: u(644)
+  min-height: max(u(644), 520px)
   color: white
   > img
     object-fit: cover
 .heroCopy
   position: relative
   padding-top: u(92)
+  padding-bottom: 60px
   margin-left: u(50)
-  width: u(462)
+  width: min(462px, calc(100% - 48px))
   h1
-    font-size: u(56)
-    line-height: 1.1
-    letter-spacing: u(2)
+    font-size: var(--site-hero-size)
+    line-height: var(--site-hero-leading)
     text-transform: uppercase
-    font-weight: 700
+    font-weight: 500
   p
-    width: u(455)
-    margin-top: u(44)
-    font-size: u(20)
-    line-height: 1.3
+    width: 100%
+    margin-top: 24px
+    font-size: var(--site-lead-size)
+    line-height: 1.5
     font-weight: 400
 
 .categories
@@ -45,10 +45,9 @@
   h2
     max-width: u(1050)
     margin-bottom: u(25)
-    font-size: u(56)
-    line-height: 1.5
-    letter-spacing: u(2.8)
-    font-weight: 700
+    font-size: var(--site-section-size)
+    line-height: 1.35
+    font-weight: 400
     text-transform: uppercase
 .grid
   display: grid
@@ -58,14 +57,14 @@
   display: block
   h3
     margin-top: u(28)
-    font-size: u(36)
-    line-height: 1.5
-    font-weight: 700
+    font-size: var(--site-card-size)
+    line-height: 1.45
+    font-weight: 400
     text-transform: uppercase
   p
     margin-top: u(10)
     max-width: u(395)
-    font-size: u(20)
+    font-size: var(--site-body-size)
     line-height: 1.5
     color: #7b7b7b
   &:hover h3
@@ -113,16 +112,16 @@
   position: relative
   padding: u(110) u(57) u(440)
   h1
-    font-size: u(60)
-    line-height: 1.2
-    font-weight: 700
+    font-size: var(--site-hero-size)
+    line-height: var(--site-hero-leading)
+    font-weight: 500
     text-transform: uppercase
     max-width: u(1260)
   p
     margin-top: u(15)
     max-width: u(575)
-    font-size: u(17)
-    line-height: 2
+    font-size: var(--site-body-size)
+    line-height: 1.5
 .articlePanel
   position: relative
   background: white
@@ -135,30 +134,37 @@
   .cover
     aspect-ratio: 457 / 373
   h2
-    font-size: u(44)
-    line-height: 1.5
-    letter-spacing: u(1.5)
-    font-weight: 700
+    font-size: var(--site-section-size)
+    line-height: 1.35
+    font-weight: 400
     text-transform: uppercase
   p
     margin-top: u(22)
     color: #7b7b7b
-    font-size: u(17)
+    font-size: var(--site-body-size)
     line-height: 1.55
     font-style: italic
     font-weight: 500
 .articleBody
   margin-top: u(92)
   color: #7b7b7b
-  font-size: u(17)
+  font-size: var(--site-body-size)
   line-height: 1.5
-  font-weight: 500
+  font-weight: 400
   overflow-wrap: anywhere
   p + p, ul, ol, blockquote, table
     margin-top: 1em
   h2, h3, h4
     margin: 1.5em 0 .7em
     color: #1a1a1a
+    font-weight: 400
+    line-height: 1.45
+  h2
+    font-size: var(--site-section-size)
+  h3
+    font-size: var(--site-card-size)
+  h4
+    font-size: var(--site-lead-size)
   a
     text-decoration: underline
   blockquote
@@ -175,22 +181,24 @@
 .back
   display: inline-block
   margin-top: u(40)
-  font-size: u(17)
+  font-size: var(--site-body-size)
 .contact
   background: #1a1a1a
   color: white
   padding: u(65) u(164)
   h2
     max-width: u(1000)
-    font-size: u(56)
-    line-height: 1.2
+    font-size: var(--site-section-size)
+    line-height: 1.35
+    font-weight: 400
     text-transform: uppercase
     margin-bottom: u(36)
 .empty
   padding: 70px 0
   min-height: 300px
   h2
-    font-size: 28px
+    font-size: var(--site-section-size)
+    font-weight: 400
     margin-bottom: 18px
 .error
   max-width: 800px
@@ -218,9 +226,8 @@
     margin: 0
     width: auto
     h1
-      font-size: 36px
-      line-height: 1.2
-      letter-spacing: 1px
+      font-size: var(--site-hero-size)
+      line-height: var(--site-hero-leading)
     p
       width: auto
       max-width: 420px
@@ -232,15 +239,14 @@
   .category
     margin-bottom: 48px
     h2
-      font-size: 28px
-      line-height: 1.3
-      letter-spacing: 1px
+      font-size: var(--site-section-size)
+      line-height: 1.35
   .grid
     grid-template-columns: 1fr
     gap: 36px
   .cardLink
     h3
-      font-size: 24px
+      font-size: var(--site-card-size)
       margin-top: 18px
     p
       font-size: 16px
@@ -262,7 +268,7 @@
   .detailHeroCopy
     padding: 65px 24px 125px
     h1
-      font-size: 36px
+      font-size: var(--site-hero-size)
     p
       margin-top: 20px
       font-size: 16px
@@ -274,9 +280,8 @@
     grid-template-columns: 1fr
     gap: 24px
     h2
-      font-size: 28px
-      line-height: 1.3
-      letter-spacing: .5px
+      font-size: var(--site-section-size)
+      line-height: 1.35
     p
       font-size: 16px
       margin-top: 16px
@@ -290,4 +295,4 @@
   .contact
     padding: 40px 24px
     h2
-      font-size: 28px
+      font-size: var(--site-section-size)

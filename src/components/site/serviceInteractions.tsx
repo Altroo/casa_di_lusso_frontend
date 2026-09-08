@@ -85,7 +85,7 @@ export function ProjectCarousel() {
 									src={serviceAssets[project.image]}
 									alt={`${project.name}, ${project.place}`}
 									fill
-									sizes="(max-width: 700px) 85vw, 38vw"
+									sizes="(max-width: 1200px) 85vw, 38vw"
 									draggable={false}
 								/>
 							</div>

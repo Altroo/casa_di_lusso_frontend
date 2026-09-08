@@ -68,7 +68,7 @@ function Photo({
 					src={serviceAssets[name]}
 					alt={alt}
 					fill
-					sizes={`(max-width: 700px) ${imageScale}vw, ${(at[2] / designWidth) * imageScale}vw`}
+					sizes={`(max-width: 1200px) ${imageScale}vw, ${(at[2] / designWidth) * imageScale}vw`}
 					preload={priority}
 					style={
 						crop
@@ -109,13 +109,15 @@ function DesignPage() {
 	return (
 		<>
 			<Section height={624} className={styles.designHero}>
-				<Place as="h1" at={[77, 56, 532]} font={[64, 80, 600]} className={styles.designTitle}>
-					<span>Design intérieur </span>
-					<span>de luxe</span>
-				</Place>
-				<Place as="p" at={[77, 245, 532]} font={[32, 43, 300]}>
-					Nous concevons des intérieurs élégants, fonctionnels et intemporels, pensés pour
-					<br /> refléter votre style de vie et valoriser chaque espace.
+				<Place at={[77, 56, 532]} className={styles.heroCopy}>
+					<h1 className={styles.designTitle}>
+						<span>Design intérieur </span>
+						<span>de luxe</span>
+					</h1>
+					<p>
+						Nous concevons des intérieurs élégants, fonctionnels et intemporels, pensés pour refléter votre style de vie
+						et valoriser chaque espace.
+					</p>
 				</Place>
 				<Photo
 					name="design-hero"
@@ -230,25 +232,27 @@ function ArchitecturePage() {
 	return (
 		<>
 			<Section height={2003} className={`${styles.architectureHero} ${styles.dark}`}>
-				<Place as="h1" at={[176, 125, 900]} font={[96, 95, 700]}>
-					Architecture
-					<br /> &amp; conception
-				</Place>
-				<Place as="p" at={[175, 332, 1000]} font={[24, 43, 300]}>
-					Nous transformons vos idées en projets architecturaux
-					<br /> uniques, pensés avec précision, équilibre et exigence.
-				</Place>
-				<Place at={[175, 461, 1030]} font={[32, 43, 500]}>
+				<Place at={[175, 125, 860]} className={styles.heroCopy}>
+					<h1>
+						Architecture
+						<br /> &amp; conception
+					</h1>
 					<p>
-						Notre service d’architecture et de conception permet de donner forme à vos ambitions à travers une vision
-						claire, technique et esthétique. Nous travaillons sur l’organisation des volumes, la circulation, la
-						lumière, les matériaux et l’identité globale du lieu.
+						Nous transformons vos idées en projets architecturaux uniques, pensés avec précision, équilibre et exigence.
 					</p>
-					<p>
-						Chaque projet commence par une étude approfondie de l’espace existant ou du terrain, suivie d’une phase de
-						conception permettant de définir les lignes directrices du projet. L’objectif est de créer des espaces
-						fonctionnels, élégants et durables, tout en respectant les contraintes techniques et les attentes du client.
-					</p>
+					<div>
+						<p>
+							Notre service d’architecture et de conception permet de donner forme à vos ambitions à travers une vision
+							claire, technique et esthétique. Nous travaillons sur l’organisation des volumes, la circulation, la
+							lumière, les matériaux et l’identité globale du lieu.
+						</p>
+						<p>
+							Chaque projet commence par une étude approfondie de l’espace existant ou du terrain, suivie d’une phase de
+							conception permettant de définir les lignes directrices du projet. L’objectif est de créer des espaces
+							fonctionnels, élégants et durables, tout en respectant les contraintes techniques et les attentes du
+							client.
+						</p>
+					</div>
 				</Place>
 				<Photo
 					name="architecture-hero"
@@ -389,17 +393,16 @@ function BespokePage() {
 	return (
 		<>
 			<Section height={1036} className={styles.bespokeHero}>
-				<Place as="h1" at={[113, 28, 900]} font={[80, 100, 700]} className={styles.bespokeTitle}>
-					<span>Aménagement </span>
-					<span>sur mesure</span>
-				</Place>
-				<Place as="p" at={[117, 281, 687]} font={[24, 42.12, 500]}>
-					L’aménagement sur mesure permet d’exploiter pleinement le potentiel de chaque pièce.
-					<br /> Chez <strong>Casa Di Lusso</strong>, nous concevons
-					<br /> des solutions adaptées aux dimensions,
-					<br /> <span className={styles.heroLastLine}>aux usages et à l’esthétique de votre intérieur.</span>
-				</Place>
-				<Place at={[113, 515, 302, 86]} className={styles.solidLink}>
+				<Place at={[113, 28, 687]} className={styles.heroCopy}>
+					<h1 className={styles.bespokeTitle}>
+						<span>Aménagement </span>
+						<span>sur mesure</span>
+					</h1>
+					<p>
+						L’aménagement sur mesure permet d’exploiter pleinement le potentiel de chaque pièce. Chez{' '}
+						<strong>Casa Di Lusso</strong>, nous concevons des solutions adaptées aux dimensions, aux usages et à
+						l’esthétique de votre intérieur.
+					</p>
 					<Link className={siteStyles.filledButton} href="/#contact">
 						Démarrer votre projet
 					</Link>
@@ -443,20 +446,9 @@ function BespokePage() {
 							at={[item.iconAt[0], item.iconAt[1] + 77, item.iconAt[2], item.iconAt[3]]}
 							className={styles.fittingIcon}
 						/>
-						<Place
-							as="h3"
-							at={[item.x, item.y + 77, item.width]}
-							font={[30, 45, 600]}
-							family={item.y === 74 ? 'Inter' : 'Poppins'}
-						>
-							{item.title}
-						</Place>
-						<Place
-							as="p"
-							at={[item.x, item.y + (item.y === 74 ? 148 : 178), item.icon === 'roomIcon' ? 359 : item.width]}
-							font={[22, 36.344, 500]}
-						>
-							{item.text}
+						<Place at={[item.x, item.y + 77, item.width]} className={styles.bodyCopy}>
+							<h3>{item.title}</h3>
+							<p>{item.text}</p>
 						</Place>
 					</div>
 				))}
@@ -511,11 +503,9 @@ function BespokePage() {
 								data-complete={index === 2 || undefined}
 							/>
 						</Place>
-						<Place as="h3" at={[232, 217 + 237 * index, 620]} font={[30, 36.3, 700]} family="Inter">
-							{title}
-						</Place>
-						<Place as="p" at={[232, 274 + 237 * index, 569]} font={[24, 39.648, 500]} family="Inter">
-							{text}
+						<Place at={[232, 217 + 237 * index, 569]} className={styles.bodyCopy}>
+							<h3>{title}</h3>
+							<p>{text}</p>
 						</Place>
 					</div>
 				))}
