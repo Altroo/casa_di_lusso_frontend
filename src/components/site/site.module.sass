@@ -1,3 +1,5 @@
+@use './carouselTypography' as carousel
+
 $ink: #1a1a1a
 $paper: #ffffff
 $muted: #f4f4f1
@@ -118,9 +120,7 @@ $muted: #f4f4f1
     width: 388px
     height: 52px
     margin: 0
-    font-size: var(--site-hero-size)
-    line-height: var(--site-hero-leading)
-    font-weight: 500
+    @include carousel.title
     text-transform: capitalize
 .heroBody
   position: absolute
@@ -136,9 +136,7 @@ $muted: #f4f4f1
   height: auto
   max-width: 445px
   margin: 0
-  font-size: var(--site-lead-size)
-  line-height: 1.2
-  font-weight: 400
+  @include carousel.paragraph
 
 .heroTagline
   width: 560px
@@ -1237,8 +1235,6 @@ $muted: #f4f4f1
       width: 300px
       height: 26px
       margin: 0
-      font-size: 18px
-      line-height: 26px
     .heroBody
       display: contents
     .heroDescription
@@ -1247,9 +1243,6 @@ $muted: #f4f4f1
       top: 97px
       width: calc(100% - 70px)
       height: auto
-      font-size: 13px
-      line-height: 1.4
-      font-weight: 400
     .heroTagline
       position: absolute
       left: 35px

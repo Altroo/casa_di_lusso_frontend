@@ -1,7 +1,14 @@
+@use './carouselTypography' as carousel
+
 @function u($value)
   @return calc(#{$value} * var(--unit))
 
 .page
+  @include carousel.paragraph
+  h1, h2, h3, h4, h5, h6
+    @include carousel.title
+  p
+    @include carousel.paragraph
   --unit: .0694444444cqw
   container-type: inline-size
   background: white
@@ -20,6 +27,7 @@
   color: white
   > img
     object-fit: cover
+
 .heroCopy
   position: relative
   padding-top: u(92)
@@ -27,49 +35,39 @@
   margin-left: u(50)
   width: min(462px, calc(100% - 48px))
   h1
-    font-size: var(--site-hero-size)
-    line-height: var(--site-hero-leading)
     text-transform: uppercase
-    font-weight: 500
   p
     width: 100%
     margin-top: 24px
-    font-size: var(--site-lead-size)
-    line-height: 1.5
-    font-weight: 400
 
 .categories
   padding: u(40) u(50) 0
+
 .category
   margin-bottom: u(95)
   h2
     max-width: u(1050)
     margin-bottom: u(25)
-    font-size: var(--site-section-size)
-    line-height: 1.35
-    font-weight: 400
     text-transform: uppercase
+
 .grid
   display: grid
   grid-template-columns: repeat(3, minmax(0, 1fr))
   gap: u(30)
+
 .cardLink
   display: block
   h3
     margin-top: u(28)
-    font-size: var(--site-card-size)
-    line-height: 1.45
-    font-weight: 400
     text-transform: uppercase
   p
     margin-top: u(10)
     max-width: u(395)
-    font-size: var(--site-body-size)
-    line-height: 1.5
     color: #7b7b7b
   &:hover h3
     text-decoration: underline
     text-underline-offset: .2em
+
 .cover
   position: relative
   aspect-ratio: 426 / 350
@@ -77,6 +75,7 @@
   background: #f2f1ed
   img
     object-fit: cover
+
 .noImage
   display: grid
   place-items: center
@@ -84,6 +83,7 @@
   padding: 20px
   color: #777
   font-family: Georgia, serif
+
 .brands
   min-height: u(260)
   padding: u(45) u(245) u(90)
@@ -104,29 +104,28 @@
   color: white
   > img
     object-fit: cover
+
 .heroShade
   position: absolute
   inset: 0
   background: #0008
+
 .detailHeroCopy
   position: relative
   padding: u(110) u(57) u(440)
   h1
-    font-size: var(--site-hero-size)
-    line-height: var(--site-hero-leading)
-    font-weight: 500
     text-transform: uppercase
     max-width: u(1260)
   p
     margin-top: u(15)
     max-width: u(575)
-    font-size: var(--site-body-size)
-    line-height: 1.5
+
 .articlePanel
   position: relative
   background: white
   margin: u(-405) u(50) 0
   padding: u(32) u(84) u(70)
+
 .articleIntro
   display: grid
   grid-template-columns: u(457) minmax(0, 1fr)
@@ -134,37 +133,20 @@
   .cover
     aspect-ratio: 457 / 373
   h2
-    font-size: var(--site-section-size)
-    line-height: 1.35
-    font-weight: 400
     text-transform: uppercase
   p
     margin-top: u(22)
     color: #7b7b7b
-    font-size: var(--site-body-size)
-    line-height: 1.55
-    font-style: italic
-    font-weight: 500
+
 .articleBody
   margin-top: u(92)
   color: #7b7b7b
-  font-size: var(--site-body-size)
-  line-height: 1.5
-  font-weight: 400
   overflow-wrap: anywhere
   p + p, ul, ol, blockquote, table
     margin-top: 1em
   h2, h3, h4
     margin: 1.5em 0 .7em
     color: #1a1a1a
-    font-weight: 400
-    line-height: 1.45
-  h2
-    font-size: var(--site-section-size)
-  h3
-    font-size: var(--site-card-size)
-  h4
-    font-size: var(--site-lead-size)
   a
     text-decoration: underline
   blockquote
@@ -178,28 +160,27 @@
   td, th
     border: 1px solid #ccc
     padding: .5em
+
 .back
   display: inline-block
   margin-top: u(40)
   font-size: var(--site-body-size)
+
 .contact
   background: #1a1a1a
   color: white
   padding: u(65) u(164)
   h2
     max-width: u(1000)
-    font-size: var(--site-section-size)
-    line-height: 1.35
-    font-weight: 400
     text-transform: uppercase
     margin-bottom: u(36)
+
 .empty
   padding: 70px 0
   min-height: 300px
   h2
-    font-size: var(--site-section-size)
-    font-weight: 400
     margin-bottom: 18px
+
 .error
   max-width: 800px
   margin: 100px auto
@@ -225,31 +206,21 @@
     padding: 60px 24px
     margin: 0
     width: auto
-    h1
-      font-size: var(--site-hero-size)
-      line-height: var(--site-hero-leading)
     p
       width: auto
       max-width: 420px
-      font-size: 16px
-      line-height: 1.6
       margin-top: 28px
   .categories
     padding: 40px 24px 0
   .category
     margin-bottom: 48px
-    h2
-      font-size: var(--site-section-size)
-      line-height: 1.35
   .grid
     grid-template-columns: 1fr
     gap: 36px
   .cardLink
     h3
-      font-size: var(--site-card-size)
       margin-top: 18px
     p
-      font-size: 16px
       max-width: none
   .brands
     min-height: 0
@@ -267,32 +238,20 @@
     min-height: 440px
   .detailHeroCopy
     padding: 65px 24px 125px
-    h1
-      font-size: var(--site-hero-size)
     p
       margin-top: 20px
-      font-size: 16px
-      line-height: 1.6
   .articlePanel
     margin: -50px 16px 0
     padding: 24px 16px 30px
   .articleIntro
     grid-template-columns: 1fr
     gap: 24px
-    h2
-      font-size: var(--site-section-size)
-      line-height: 1.35
     p
-      font-size: 16px
       margin-top: 16px
   .articleBody
-    font-size: 16px
-    line-height: 1.7
     margin-top: 35px
   .back
     font-size: 16px
     margin-top: 30px
   .contact
     padding: 40px 24px
-    h2
-      font-size: var(--site-section-size)
