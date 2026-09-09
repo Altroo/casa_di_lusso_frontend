@@ -1,0 +1,265 @@
+@font-face
+  font-family: 'Poppins Detail Display'
+  src: url('/assets/fonts/Poppins-Black.ttf') format('truetype')
+  font-style: normal
+  font-weight: 900
+  font-display: swap
+
+@font-face
+  font-family: 'Poppins Detail Italic'
+  src: url('/assets/fonts/Poppins-MediumItalic.ttf') format('truetype')
+  font-style: italic
+  font-weight: 500
+  font-display: swap
+
+@font-face
+  font-family: 'Poppins Detail Italic'
+  src: url('/assets/fonts/Poppins-ExtraBoldItalic.ttf') format('truetype')
+  font-style: italic
+  font-weight: 800
+  font-display: swap
+
+@function u($value)
+  @return calc(#{$value} * var(--unit))
+
+// Blog detail, 1440px Figma frame 2587:861. This scope deliberately
+// excludes the approved Press list, service pages, and shared site chrome.
+.detailPage
+  -webkit-font-smoothing: antialiased
+  .hero
+    min-height: u(782)
+    > img
+      object-position: center bottom
+  .heroCopy
+    padding: u(103) u(57) u(440)
+    h1
+      font: 700 u(64)/1.5 Poppins, Arial, sans-serif
+      letter-spacing: 0
+      overflow-wrap: anywhere
+    p
+      margin-top: u(-4)
+      max-width: u(655)
+      font: 400 u(17)/2 Poppins, Arial, sans-serif
+      white-space: pre-line
+      overflow-wrap: anywhere
+  .panel
+    margin: u(-405) u(50) 0
+    padding: u(32) u(84) u(65)
+  .intro
+    align-items: start
+    grid-template-columns: u(457) minmax(0, 1fr)
+    gap: u(30)
+    > div
+      min-width: 0
+    h2
+      margin-top: u(-2)
+      color: #1b1717
+      font: 900 u(45)/1.5 'Poppins Detail Display', Poppins, Arial, sans-serif
+      letter-spacing: .07em
+      overflow-wrap: anywhere
+    p
+      margin-top: u(16)
+      color: #6e6e6e
+      font: italic 500 u(17)/1.5 'Poppins Detail Italic', Poppins, Arial, sans-serif
+      white-space: pre-line
+      overflow-wrap: anywhere
+      strong
+        font-weight: 800
+  .cover img
+    // Figma's bottom-anchored crop, also valid for Django's versioned URLs.
+    // Keep object-fit to preserve the proportions of any managed photograph.
+    object-position: 43.26% 100%
+    transform: scale(1.1)
+    transform-origin: 43.26% 100%
+  .body
+    margin-top: u(90)
+    max-width: u(996)
+    color: #6e6e6e
+    font: 600 u(17)/calc(25 / 17) Poppins, Arial, sans-serif
+    p, li, blockquote, td, th
+      font: inherit
+      letter-spacing: 0
+    p + p
+      margin-top: 0
+    h2, h3, h4, h5, h6
+      font-family: Poppins, Arial, sans-serif
+      font-weight: 700
+      line-height: 1.4
+      letter-spacing: 0
+    h2
+      font-size: u(36)
+    h3
+      font-size: u(30)
+    h4, h5, h6
+      font-size: u(24)
+    strong
+      font-weight: 700
+    em
+      font-family: 'Poppins Detail Italic', Poppins, Arial, sans-serif
+      font-style: italic
+    strong em, em strong
+      font-weight: 800
+    img, video
+      max-width: 100%
+      height: auto
+    table
+      max-width: 100%
+    pre
+      white-space: pre-wrap
+      overflow-wrap: anywhere
+  .back
+    margin-top: u(32)
+    font: 400 u(17)/1.5 Poppins, Arial, sans-serif
+    text-underline-offset: .2em
+    &:hover
+      text-decoration: underline
+  .outro
+    position: relative
+    isolation: isolate
+    background: #1a1a1a
+    &::before, &::after
+      content: ''
+      position: absolute
+      z-index: -1
+      pointer-events: none
+    &::before
+      inset: 0 0 auto
+      height: u(221)
+      background: white
+    &::after
+      top: u(100)
+      left: u(50)
+      right: u(50)
+      height: u(121)
+      background: #1a1a1a
+  .brands
+    position: relative
+    margin: 0 u(164)
+    min-height: u(172)
+    padding: u(25) u(75) u(47)
+    background: white
+    gap: u(55)
+    img
+      flex-shrink: 0
+      width: u(190)
+      height: u(60)
+      &:first-child
+        width: u(83)
+  .contact
+    position: relative
+    background: transparent
+    padding: u(41) u(164) u(70)
+    h2
+      max-width: u(1112)
+      font: 900 u(60)/calc(70 / 60) 'Poppins Detail Display', Poppins, Arial, sans-serif
+      letter-spacing: .07em
+      margin-bottom: u(36)
+
+@media (min-width: 701px) and (max-width: 1100px)
+  .detailPage
+    .heroCopy p
+      font-size: 16px
+      line-height: 1.6
+    .intro
+      grid-template-columns: 40% minmax(0, 1fr)
+      h2
+        font-size: 30px
+        line-height: 1.4
+        letter-spacing: .04em
+      p
+        font-size: 16px
+        line-height: 1.6
+    .panel
+      padding-left: 40px
+      padding-right: 40px
+    .body
+      max-width: none
+      font-size: 16px
+      line-height: 1.65
+    .back
+      font-size: 16px
+    .brands
+      margin: 0 8%
+      padding: 24px
+      gap: 20px
+      img
+        width: 125px
+        &:first-child
+          width: 65px
+
+@media (max-width: 700px)
+  .detailPage
+    .hero
+      min-height: 370px
+      > img
+        object-position: center
+    .heroCopy
+      padding: 55px 24px 96px
+      h1
+        font-size: clamp(32px, 8.8vw, 48px)
+        line-height: 1.25
+      p
+        max-width: none
+        margin-top: 22px
+        font-size: 18px
+        line-height: 1.6
+        white-space: normal
+    .panel
+      margin: -40px 16px 0
+      padding: 20px 16px 48px
+    .intro
+      grid-template-columns: minmax(0, 1fr)
+      gap: 24px
+      h2
+        font-size: clamp(26px, 6.9vw, 34px)
+        line-height: 1.35
+        letter-spacing: .04em
+      p
+        margin-top: 18px
+        font-size: 17px
+        line-height: 1.65
+        white-space: normal
+    .body
+      max-width: none
+      margin-top: 36px
+      font-size: 17px
+      line-height: 1.65
+      p + p
+        margin-top: 1em
+      h2
+        font-size: 28px
+      h3
+        font-size: 24px
+      h4, h5, h6
+        font-size: 21px
+    .back
+      margin-top: 28px
+      font-size: 16px
+      line-height: 1.5
+    .outro
+      &::before
+        height: 204px
+      &::after
+        top: 156px
+        left: 16px
+        right: 16px
+        height: 48px
+    .brands
+      min-height: 0
+      margin: 0 32px
+      padding: 8px 0 32px
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+      gap: 24px 16px
+      img
+        width: min(125px, 100%)
+        height: 48px
+        &:first-child
+          width: 75px
+    .contact
+      padding: 48px 24px 48px
+      h2
+        max-width: none
+        font-size: clamp(28px, 7.6vw, 40px)
+        line-height: 1.3
+        letter-spacing: .04em
+        margin-bottom: 28px

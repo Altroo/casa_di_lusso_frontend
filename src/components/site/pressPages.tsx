@@ -6,6 +6,7 @@ import SiteHeader from './siteHeader';
 import SiteFooter from './siteFooter';
 import styles from './pressPages.module.sass';
 import siteStyles from './site.module.sass';
+import detailStyles from './pressDetail.module.sass';
 
 const introduction = 'À travers notre blog, Casa Di Lusso partage ses conseils, inspirations et actualités autour du design intérieur, de l’architecture et de l’aménagement haut de gamme. Découvrez les tendances déco, les nouveautés de nos marques partenaires et nos recommandations pour créer des espaces élégants, fonctionnels et personnalisés.';
 
@@ -17,16 +18,16 @@ function Excerpt({ text }: { text: string }) {
 		: <>{text}</>;
 }
 
-function Cover({ article, className }: { article: PressArticle; className?: string }) {
+function Cover({ article, detail = false }: { article: PressArticle; detail?: boolean }) {
 	const figmaImage = article.image_url.match(/\/bespoke-blog([123])(?:_[a-zA-Z0-9]+)?\.png(?:[?#]|$)/)?.[1];
-	return <div className={`${styles.cover} ${figmaImage ? styles[`listCover${figmaImage}`] : ''} ${className ?? ''}`}>
+	return <div className={`${styles.cover} ${figmaImage ? styles[`listCover${figmaImage}`] : ''} ${detail ? detailStyles.cover : ''}`}>
 		{article.image_url ? <Image src={article.image_url} alt={article.image_alt || article.title} fill unoptimized={process.env.NODE_ENV === 'development'}
 			sizes="(max-width: 700px) 100vw, 34vw" /> : <span className={styles.noImage}>Casa di Lusso</span>}
 	</div>;
 }
 
-function PressBrands() {
-	return <section className={styles.brands} aria-label="Marques partenaires">
+function PressBrands({ className = '' }: { className?: string }) {
+	return <section className={`${styles.brands} ${className}`} aria-label="Marques partenaires">
 		{[
 			['/assets/casa/figma/group60.svg', 'Gessi'],
 			['/assets/casa/press/ariostea.png', 'Ariostea'],
@@ -75,35 +76,39 @@ export function PressList({ articles, categories, settings }: {
 }
 
 export function PressDetail({ article, settings }: { article: PressArticleDetail; settings: SiteSettings }) {
+	const intro = article.introduction || article.excerpt;
+	const introLabel = 'Chez Casa di Lusso';
 	return <div className={siteStyles.site}>
 		<SiteHeader variant="press" />
-		<main className={styles.page}>
+		<main className={`${styles.page} ${detailStyles.detailPage}`}>
 			<article>
-				<header className={styles.detailHero}>
+				<header className={`${styles.detailHero} ${detailStyles.hero}`}>
 					<Image src={article.hero_image_url || '/assets/casa/press/detail-hero.png'} alt="" fill preload sizes="100vw" unoptimized={!!article.hero_image_url && process.env.NODE_ENV === 'development'} />
 					{article.hero_image_url && <div className={styles.heroShade} />}
-					<div className={styles.detailHeroCopy}>
+					<div className={`${styles.detailHeroCopy} ${detailStyles.heroCopy}`}>
 						<h1>{article.title}</h1>
 						<p>{article.excerpt}</p>
 					</div>
 				</header>
-				<div className={styles.articlePanel}>
-					<section className={styles.articleIntro}>
-						<Cover article={article} />
+				<div className={`${styles.articlePanel} ${detailStyles.panel}`}>
+					<section className={`${styles.articleIntro} ${detailStyles.intro}`}>
+						<Cover article={article} detail />
 						<div>
 							<h2>{article.content_title || article.title}</h2>
-							<p>{article.introduction || article.excerpt}</p>
+							<p>{intro.startsWith(introLabel) ? <><strong>{introLabel}</strong>{intro.slice(introLabel.length)}</> : intro}</p>
 						</div>
 					</section>
-					<div className={styles.articleBody} dangerouslySetInnerHTML={{ __html: article.body_html }} />
-					<Link href="/press" className={styles.back}>← Tous les articles</Link>
+					<div className={`${styles.articleBody} ${detailStyles.body}`} dangerouslySetInnerHTML={{ __html: article.body_html }} />
+					<Link href="/press" className={`${styles.back} ${detailStyles.back}`}>← Tous les articles</Link>
 				</div>
 			</article>
-			<PressBrands />
-			<section className={styles.contact}>
-				<h2>Donnons vie à votre projet d’intérieur</h2>
-				<Link href="/#contact" className={siteStyles.filledButton}>Contactez-nous</Link>
-			</section>
+			<div className={detailStyles.outro}>
+				<PressBrands className={detailStyles.brands} />
+				<section className={`${styles.contact} ${detailStyles.contact}`}>
+					<h2>Donnons vie à votre projet d’intérieur</h2>
+					<Link href="/#contact" className={siteStyles.filledButton}>Contactez-nous</Link>
+				</section>
+			</div>
 		</main>
 		<SiteFooter settings={settings} />
 	</div>;
