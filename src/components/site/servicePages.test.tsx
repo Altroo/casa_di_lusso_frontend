@@ -36,3 +36,24 @@ describe('Architecture page', () => {
 		expect(main.queryByText('Glisser')).not.toBeInTheDocument();
 	});
 });
+
+describe('Aménagement page', () => {
+	const originalMatchMedia = window.matchMedia;
+	beforeEach(() => {
+		window.matchMedia = jest.fn().mockReturnValue({ matches: true });
+	});
+	afterEach(() => {
+		window.matchMedia = originalMatchMedia;
+	});
+	it('keeps the Figma option rows static and the approved contact buttons', () => {
+		render(<ServicePageView service={servicePages[2]} settings={fallbackContent.settings} />);
+		const main = within(screen.getByRole('main'));
+		const options = main.getByRole('list', { name: 'Aménagements intérieurs' });
+		expect(within(options).getAllByRole('listitem')).toHaveLength(2);
+		expect(within(options).queryByRole('button')).not.toBeInTheDocument();
+		expect(options.querySelector('details')).not.toBeInTheDocument();
+		expect(main.getByRole('link', { name: 'Démarrer votre projet' })).toHaveAttribute('href', '/#contact');
+		expect(main.getByRole('link', { name: 'Voir plus' })).toHaveAttribute('href', '/#contact');
+		expect(main.getByRole('button', { name: 'Témoignage suivant' })).toBeInTheDocument();
+	});
+});
