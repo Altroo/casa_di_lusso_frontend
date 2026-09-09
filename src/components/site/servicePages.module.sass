@@ -31,6 +31,8 @@
 
 .design
   --unit: .0625cqw
+  color: #000
+  -webkit-font-smoothing: antialiased
 
 .architecture
   --unit: .0520833333cqw
@@ -649,7 +651,8 @@ h3.text
     > .photo:nth-last-child(2)
       margin-top: 16px
 
-// Design intérieur only: literal Figma font sizes, independent of canvas width.
+// Design intérieur: native 1600px Figma measurements, proportional desktop
+// layout, and readable flowing typography below the desktop breakpoint.
 // Keep the index, shared chrome, and the other service pages unchanged.
 .design .text
   font-family: var(--family), Arial, sans-serif
@@ -710,6 +713,20 @@ h3.text
     margin-top: 24px
 
 @media (min-width: 1201px)
+  .design .text
+    font-size: u(var(--font))
+    line-height: u(var(--leading))
+  .design .heroCopy
+    gap: u(29)
+    h1
+      font-size: u(64)
+      line-height: 1.25
+      // Preserve Figma's mixed paragraph-leading baseline without overlap.
+      transform: translateY(u(-18.5))
+    p
+      font-size: u(32)
+      line-height: u(43)
+      white-space: pre-line
   .designHero, .designIntro, .designApproach, .designProjects
     display: grid
     height: auto
@@ -723,29 +740,104 @@ h3.text
     > .photo
       height: u(var(--h))
   .designHero
-    grid-template-columns: 532px minmax(0, 1fr)
+    grid-template-columns: u(532) minmax(0, 1fr)
     gap: u(55)
     min-height: u(624)
     padding: u(56) u(77) u(60)
+    > .photo
+      margin-top: u(1)
   .designIntro
-    grid-template-columns: 492fr 866fr
-    column-gap: u(90)
-    row-gap: u(40)
+    grid-template-columns: u(492) minmax(0, 1fr)
+    column-gap: u(91)
+    row-gap: u(26)
     min-height: u(756)
-    padding: u(29) u(75) u(37)
+    padding: u(29) u(82) u(38) u(69)
+    .designIntroCopy
+      .rule
+        margin-top: u(1)
+        margin-left: u(2)
+        width: u(870)
+      h2
+        margin-top: u(14)
+        margin-left: u(2)
+      p.text
+        width: u(870)
+        margin-top: u(28)
+        margin-left: u(-1)
+        line-height: u(27)
+        white-space: pre-wrap
     .stepCard
       align-self: end
+      width: u(487)
+      margin-left: u(6)
+      transform: translateY(u(1))
+      padding: u(21) u(22) u(32)
+      h3
+        font-size: u(30)
+        line-height: u(25)
+      p
+        font-size: u(17)
+        line-height: u(25)
+      a
+        position: absolute
+        right: u(29)
+        bottom: u(2)
+        width: u(40)
+        height: u(44)
+        font-size: 0
+        &::after
+          content: ''
+          position: absolute
+          top: 50%
+          left: 0
+          width: 100%
+          border-top: u(2) solid currentColor
   .designApproach
-    grid-template-columns: 659fr 620fr
+    grid-template-columns: u(659) minmax(0, 1fr)
     column-gap: u(174)
     min-height: u(860)
-    padding: u(51) u(75) u(100)
+    padding: u(51) u(72) u(100) u(75)
+    .designApproachCopy
+      h2
+        margin: u(33) 0 u(16) u(24)
+        &:nth-child(2)
+          margin-top: u(39)
+        &:nth-child(6)
+          margin: u(32) 0 u(8) u(29)
+      .bulletList
+        width: u(660)
+        margin-left: u(29)
+      p
+        width: u(558)
+        margin-left: u(29)
   .designProjects
     grid-template-columns: repeat(2, minmax(0, 1fr))
-    column-gap: u(68)
+    column-gap: u(72)
     row-gap: u(60)
     min-height: u(1320)
     padding: u(44) u(75) u(45)
+    .designProjectsCopy
+      .rule
+        width: u(725)
+      h2
+        margin-top: u(22)
+        margin-left: u(4)
+      p
+        margin-top: u(9)
+        margin-left: u(4)
+        max-width: u(473)
+      .more
+        width: u(519)
+        margin-top: u(48)
+        a
+          align-items: center
+        span
+          width: u(40)
+          height: 0
+          font-size: 0
+          border-top: u(1) solid currentColor
+    > .photo:nth-child(3)
+      margin-left: u(4)
 
 @media (max-width: 1200px)
   .designIntroCopy, .designApproachCopy, .designProjectsCopy

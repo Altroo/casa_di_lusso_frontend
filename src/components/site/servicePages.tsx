@@ -119,8 +119,7 @@ function DesignPage() {
 						<span>de luxe</span>
 					</h1>
 					<p>
-						Nous concevons des intérieurs élégants, fonctionnels et intemporels, pensés pour refléter votre style de vie
-						et valoriser chaque espace.
+						{'Nous concevons des intérieurs élégants, fonctionnels et intemporels, pensés pour\nrefléter votre style de vie et valoriser chaque espace.'}
 					</p>
 				</Place>
 				<Photo
@@ -140,11 +139,7 @@ function DesignPage() {
 						<br /> CE QU’IL FAUT FAIRE
 					</Place>
 					<Place as="p" at={[651, 186, 870]} font={[25, 27]}>
-						Casa Di Lusso accompagne ses clients dans la création d’intérieurs haut de gamme, où chaque détail est
-						étudié avec précision.
-						<br /> Notre approche repose sur l’équilibre entre esthétique, confort et fonctionnalité. Nous analysons
-						votre mode de vie, vos préférences, la lumière naturelle, les volumes et les matériaux afin de proposer une
-						ambiance cohérente et raffinée.
+						{'Casa Di Lusso accompagne ses clients dans la création d’intérieurs haut de gamme, où chaque détail est étudié avec précision.\nNotre  approche  repose  sur  l’équilibre entre esthétique, confort et fonctionnalité. Nous analysons votre mode de vie, vos préférences,\nla lumière naturelle, les volumes et les matériaux afin de proposer une ambiance cohérente et raffinée.'}
 					</Place>
 				</div>
 				<Place at={[75, 443, 487, 276]} className={styles.stepCard}>
