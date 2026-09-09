@@ -188,6 +188,156 @@
   display: grid
   gap: 24px
 
+// Blog list: measured against the 1440px Figma frame (2587:731).
+// Keep these overrides scoped: the article detail and shared site chrome
+// retain their existing typography until their own design review.
+.listPage
+  -webkit-font-smoothing: antialiased
+  .listHero
+    min-height: 0
+    height: u(644)
+  .heroCopy
+    padding: u(97) 0 0
+    margin-left: u(50)
+    width: u(457)
+    h1
+      font-size: u(55)
+      font-weight: 700
+      line-height: calc(61 / 55)
+      letter-spacing: 0
+      span
+        letter-spacing: .07em
+    p
+      margin-top: u(41)
+      font-size: u(20)
+      font-weight: 400
+      line-height: 1.325
+      letter-spacing: -.02em
+  .introSpace
+    display: none
+  .categories
+    padding-top: u(37)
+  .category
+    margin-bottom: u(95)
+    h2
+      font-size: u(55)
+      font-weight: 700
+      line-height: 1.5
+      letter-spacing: .07em
+      margin-bottom: u(20)
+    &:first-child
+      margin-bottom: u(88)
+    &:nth-child(2)
+      margin-bottom: u(103)
+      h2
+        margin-bottom: u(26)
+    &:nth-child(3) h2
+      margin-bottom: u(39)
+  .listCover1 img
+    object-position: 42.5% 100%
+    transform: scale(1.10857)
+    transform-origin: 42.5% 100%
+  .listCover2 img
+    object-position: 2.63% 100%
+    transform: scale(1.17714)
+    transform-origin: 2.63% 100%
+  .listCover3 img
+    object-position: 37.5% 45%
+    transform: scale(1.23429)
+    transform-origin: 37.5% 45%
+  .cardLink
+    h3
+      margin-top: u(30)
+      font-size: u(36)
+      font-weight: 700
+      line-height: 1.5
+      letter-spacing: 0
+    p
+      margin-top: u(10)
+      font-size: u(20)
+      font-weight: 400
+      line-height: 1.5
+      letter-spacing: 0
+      max-width: u(395)
+      white-space: pre-line
+  .grid > article:nth-child(3n + 2) h3
+    letter-spacing: .07em
+  .grid > article:nth-child(3n + 2) p
+    font-size: u(17)
+    line-height: 1.5
+  .category:nth-child(3) .grid > article:nth-child(3n + 2) p
+    font-size: u(20)
+  .brands
+    margin-top: u(-22)
+    padding: u(57.5) u(280) u(117.5)
+    min-height: u(255)
+    justify-content: flex-start
+    gap: 0
+    img
+      flex-shrink: 0
+      width: u(210)
+      height: u(80)
+      &:first-child
+        width: u(82.77)
+        margin-right: u(72.23)
+      &:nth-child(2)
+        width: u(209)
+        margin-right: u(54)
+      &:nth-child(3)
+        width: u(240)
+        margin-right: u(32)
+      &:last-child
+        width: u(189)
+  .empty
+    h2
+      font-size: 32px
+      line-height: 1.4
+    p
+      font-size: 18px
+      line-height: 1.6
+
+@media (min-width: 701px) and (max-width: 1100px)
+  .listPage
+    .heroCopy p, .cardLink p
+      font-size: max(u(20), 16px)
+    .grid > article:nth-child(3n + 2) p, .category:nth-child(3) .grid > article:nth-child(3n + 2) p
+      font-size: 16px
+    .introBreak
+      display: none
+    .introSpace
+      display: inline
+    .listHero
+      height: auto
+      min-height: 520px
+    .heroCopy
+      width: min(457px, 52%)
+      padding-bottom: 48px
+    .grid
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+      gap: 40px 24px
+    .cardLink p
+      max-width: none
+      white-space: normal
+    .cardLink h3
+      font-size: 28px
+    .grid > article:nth-child(3n + 2) h3
+      letter-spacing: 0
+    .brands
+      margin-top: 0
+      padding: 40px 8% 80px
+      justify-content: space-between
+      gap: 32px
+      img
+        width: 150px
+        &:first-child, &:nth-child(2), &:nth-child(3)
+          margin-right: 0
+        &:nth-child(2), &:nth-child(3)
+          width: 150px
+        &:first-child
+          width: 70px
+        &:last-child
+          width: 130px
+
 @media (max-width: 700px)
   .page
     --unit: 1px
@@ -255,3 +405,77 @@
     margin-top: 30px
   .contact
     padding: 40px 24px
+  .listPage
+    .listHero
+      height: auto
+      min-height: 560px
+    .heroCopy
+      width: auto
+      margin: 0
+      padding: 55px 24px 64px
+      h1
+        font-size: clamp(32px, 8.8vw, 48px)
+        line-height: 1.2
+      p
+        font-size: 18px
+        line-height: 1.6
+        letter-spacing: -.02em
+        margin-top: 28px
+    .introBreak
+      display: none
+    .introSpace
+      display: inline
+    .categories
+      padding: 36px 24px 0
+    .category
+      margin-bottom: 56px
+      &:first-child, &:nth-child(2)
+        margin-bottom: 56px
+      h2
+        max-width: none
+        font-size: clamp(25px, 6.7vw, 34px)
+        line-height: 1.35
+        letter-spacing: .035em
+        margin-bottom: 24px
+      &:nth-child(2) h2, &:nth-child(3) h2
+        margin-bottom: 24px
+    .grid
+      gap: 36px
+    .cardLink
+      h3
+        margin-top: 18px
+        font-size: 24px
+        line-height: 1.4
+      p
+        margin-top: 10px
+        max-width: none
+        font-size: 17px
+        line-height: 1.6
+        white-space: normal
+    .grid > article:nth-child(3n + 2) h3
+      letter-spacing: 0
+    .grid > article:nth-child(3n + 2) p, .category:nth-child(3) .grid > article:nth-child(3n + 2) p
+      font-size: 17px
+      line-height: 1.6
+    .brands
+      margin-top: 0
+      padding: 8px 24px 56px
+      min-height: 0
+      gap: 28px 24px
+      img
+        width: min(130px, 100%)
+        height: 55px
+        &:first-child, &:nth-child(2), &:nth-child(3)
+          margin-right: 0
+        &:nth-child(2), &:nth-child(3)
+          width: min(130px, 100%)
+        &:first-child
+          width: 75px
+        &:last-child
+          width: min(125px, 100%)
+    .empty
+      padding: 24px 0 48px
+      min-height: 0
+      h2
+        font-size: 26px
+        line-height: 1.4

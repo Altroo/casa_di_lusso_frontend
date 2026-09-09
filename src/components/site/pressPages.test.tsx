@@ -22,6 +22,27 @@ describe('Press pages', () => {
 		expect(screen.getByText('Nos prochaines actualités')).toBeInTheDocument();
 		expect(screen.queryByText('Vita Gessi Caffè')).not.toBeInTheDocument();
 	});
+	it('limits the list design to the list page', () => {
+		const { unmount } = render(<PressList articles={[article]} categories={[category]} settings={fallbackContent.settings} />);
+		expect(screen.getByRole('main')).toHaveClass('listPage');
+		unmount();
+		render(<PressDetail article={article} settings={fallbackContent.settings} />);
+		expect(screen.getByRole('main')).not.toHaveClass('listPage');
+	});
+	it('preserves editorial excerpt labels and line breaks without adding copy', () => {
+		const excerpt = 'Vita Gessi Caffè: Un geste quotidien.\nUne expérience de design.';
+		render(<PressList articles={[{ ...article, excerpt }]} categories={[category]} settings={fallbackContent.settings} />);
+		const link = screen.getByRole('link', { name: /Vita Gessi Caffè/ });
+		expect(link.querySelector('p')?.textContent).toBe(excerpt);
+		expect(link.querySelector('strong')).toHaveTextContent('Vita Gessi Caffè:');
+	});
+	it('does not invent an excerpt label or apply Figma crops to other managed images', () => {
+		render(<PressList articles={[{ ...article, image_url: '/media/press/new-project.jpg' }]} categories={[category]} settings={fallbackContent.settings} />);
+		const link = screen.getByRole('link', { name: /Vita Gessi Caffè/ });
+		expect(link.querySelector('p')?.textContent).toBe(article.excerpt);
+		expect(link.querySelector('strong')).toBeNull();
+		expect(link.querySelector('.cover')?.className).not.toMatch(/listCover[123]/);
+	});
 	it('renders managed detail copy, the return link, and the existing contact CTA', () => {
 		render(<PressDetail article={article} settings={fallbackContent.settings} />);
 		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(article.title);

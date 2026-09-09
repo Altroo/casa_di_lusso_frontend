@@ -9,8 +9,17 @@ import siteStyles from './site.module.sass';
 
 const introduction = 'À travers notre blog, Casa Di Lusso partage ses conseils, inspirations et actualités autour du design intérieur, de l’architecture et de l’aménagement haut de gamme. Découvrez les tendances déco, les nouveautés de nos marques partenaires et nos recommandations pour créer des espaces élégants, fonctionnels et personnalisés.';
 
+function Excerpt({ text }: { text: string }) {
+	const separator = text.indexOf(':');
+	// Emphasize an editorial label when supplied; never add copy to a post.
+	return separator > 0 && separator < 60
+		? <><strong>{text.slice(0, separator + 1)}</strong>{text.slice(separator + 1)}</>
+		: <>{text}</>;
+}
+
 function Cover({ article, className }: { article: PressArticle; className?: string }) {
-	return <div className={`${styles.cover} ${className ?? ''}`}>
+	const figmaImage = article.image_url.match(/\/bespoke-blog([123])(?:_[a-zA-Z0-9]+)?\.png(?:[?#]|$)/)?.[1];
+	return <div className={`${styles.cover} ${figmaImage ? styles[`listCover${figmaImage}`] : ''} ${className ?? ''}`}>
 		{article.image_url ? <Image src={article.image_url} alt={article.image_alt || article.title} fill unoptimized={process.env.NODE_ENV === 'development'}
 			sizes="(max-width: 700px) 100vw, 34vw" /> : <span className={styles.noImage}>Casa di Lusso</span>}
 	</div>;
@@ -32,12 +41,12 @@ export function PressList({ articles, categories, settings }: {
 }) {
 	return <div className={siteStyles.site}>
 		<SiteHeader variant="press" />
-		<main className={styles.page}>
+		<main className={`${styles.page} ${styles.listPage}`}>
 			<section className={styles.listHero}>
 				<Image src="/assets/casa/press/list-hero.png" alt="Catalogue Casa di Lusso ouvert" fill preload sizes="100vw" />
 				<div className={styles.heroCopy}>
-					<h1>Blog<br /> &amp; actualités</h1>
-					<p>{introduction}</p>
+					<h1><span>Blog</span><br />&amp; actualités</h1>
+					<p>À travers notre blog, Casa Di Lusso partage<span className={styles.introBreak}><br /></span><span className={styles.introSpace}> </span>{introduction.split('partage ')[1]}</p>
 				</div>
 			</section>
 			<div className={styles.categories}>
@@ -53,7 +62,7 @@ export function PressList({ articles, categories, settings }: {
 							<Link href={`/press/${article.slug}`} className={styles.cardLink}>
 								<Cover article={article} />
 								<h3>{article.title}</h3>
-								<p>{article.excerpt}</p>
+								<p><Excerpt text={article.excerpt} /></p>
 							</Link>
 						</article>)}</div>
 					</section>;
