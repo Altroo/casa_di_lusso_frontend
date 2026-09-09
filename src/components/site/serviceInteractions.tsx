@@ -108,43 +108,18 @@ export function ProjectCarousel() {
 	);
 }
 
-export function ServiceAccordion() {
-	return (
-		<>
-			{[
-				[
-					'Aménagement intérieur du salon',
-					'Des solutions personnalisées pour créer un salon confortable, élégant et harmonieux.',
-				],
-				[
-					'Aménagement intérieur de bureaux commerciaux',
-					'Des espaces de travail adaptés à vos usages, avec des rangements intégrés et une circulation fluide.',
-				],
-			].map(([title, text]) => (
-				<details key={title} name="amenagement-details">
-					<summary>
-						{title}
-						<Image src={serviceAssets['bespoke-plus']} alt="" width={24} height={24} />
-					</summary>
-					<p>{text}</p>
-				</details>
-			))}
-		</>
-	);
-}
-
 const testimonials = [
 	{
 		name: 'Sanae jamil',
 		location: 'Casablanca, Maroc',
 		image: 'bespoke-sanae',
-		text: 'Travailler avec l’équipe de Casa Di Lusso a été un véritable plaisir. Leur souci du détail et leur créativité ont dépassé mes attentes. Merci d’avoir embelli ma maison !',
+		text: 'Travailler avec l’équipe de Casa Di Lusso a\nété un véritable plaisir. Leur souci du détail\net leur créativité ont dépassé mes attentes.\nMerci d’avoir embelli ma maison !',
 	},
 	{
 		name: 'Ahmed Said',
 		location: 'Tanger, Maroc',
 		image: 'bespoke-ahmed',
-		text: 'Service exceptionnel ! De la première consultation à la présentation finale, votre équipe a fait preuve de professionnalisme et d’un sens aigu du design.',
+		text: 'Service exceptionnel ! De la première\nconsultation à la présentation finale, votre\néquipe a fait preuve de professionnalisme\net d’un sens aigu du design.',
 	},
 ];
 
@@ -157,7 +132,9 @@ export function ServiceTestimonials() {
 					const testimonial = testimonials[(index + offset) % testimonials.length];
 					return (
 						<blockquote key={testimonial.name} data-author={testimonial.image}>
-							<span aria-hidden="true">“</span>
+							<span aria-hidden="true">
+								<Image src="/assets/casa/services/bespoke-figma-quote.png" alt="" width={49} height={38} unoptimized />
+							</span>
 							<p>{testimonial.text}</p>
 							<footer>
 								<span className={styles.avatar}>

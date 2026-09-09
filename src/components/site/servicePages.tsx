@@ -7,7 +7,7 @@ import { serviceAssets } from '@/data/serviceAssets';
 import SiteHeader from './siteHeader';
 import SiteFooter from './siteFooter';
 import AnimatedMetricValue from './animatedMetricValue';
-import { ProjectCarousel, ServiceAccordion, ServiceTestimonials } from './serviceInteractions';
+import { ProjectCarousel, ServiceTestimonials } from './serviceInteractions';
 import siteStyles from './site.module.sass';
 import styles from './servicePages.module.sass';
 
@@ -60,7 +60,10 @@ function Photo({
 	className?: string;
 }) {
 	const designWidth = name.startsWith('architecture-') ? 1920 : name.startsWith('bespoke-') ? 1728 : 1600;
-	const imageScale = crop?.[0] ?? 100;
+	// Figma exports already contain the final crop; never crop or recompress them a second time.
+	const isFigmaExport = serviceAssets[name].includes('/bespoke-figma-');
+	const imageCrop = isFigmaExport ? undefined : crop;
+	const imageScale = imageCrop?.[0] ?? 100;
 	return (
 		<Place at={at} className={`${styles.photo} ${className}`}>
 			<div style={{ '--ratio': `${at[2]} / ${at[3]}` } as CSSProperties}>
@@ -68,15 +71,16 @@ function Photo({
 					src={serviceAssets[name]}
 					alt={alt}
 					fill
+					unoptimized={isFigmaExport || name === 'bespoke-testimonial'}
 					sizes={`(max-width: 1200px) ${imageScale}vw, ${(at[2] / designWidth) * imageScale}vw`}
 					preload={priority}
 					style={
-						crop
+						imageCrop
 							? ({
-									'--crop-width': `${crop[0]}%`,
-									'--crop-height': `${crop[1]}%`,
-									'--crop-left': `${crop[2]}%`,
-									'--crop-top': `${crop[3]}%`,
+									'--crop-width': `${imageCrop[0]}%`,
+									'--crop-height': `${imageCrop[1]}%`,
+									'--crop-left': `${imageCrop[2]}%`,
+									'--crop-top': `${imageCrop[3]}%`,
 									objectFit: 'fill',
 								} as CSSProperties)
 							: undefined
@@ -356,7 +360,7 @@ const fittingTypes = [
 		icon: 'dressingIcon',
 		iconAt: [129, 53, 67, 77] as Coordinates,
 		title: 'Dressings sur mesure',
-		text: 'Rangements personnalisés pour organiser vêtements et accessoires avec élégance.',
+		text: 'Rangements personnalisés\npour organiser vêtements\net accessoires avec élégance.',
 	},
 	{
 		x: 738,
@@ -365,7 +369,7 @@ const fittingTypes = [
 		icon: 'kitchenIcon',
 		iconAt: [620, 52, 89, 78] as Coordinates,
 		title: 'Cuisines haut de gamme',
-		text: 'Cuisines modernes, pratiques et raffinées avec matériaux de qualité.',
+		text: 'Cuisines modernes, pratiques\net raffinées avec matériaux de\nqualité.',
 	},
 	{
 		x: 1264,
@@ -374,7 +378,7 @@ const fittingTypes = [
 		icon: 'libraryIcon',
 		iconAt: [1169, 47, 73, 89] as Coordinates,
 		title: 'Bibliothèques intégrées',
-		text: 'Bibliothèques adaptées à l’espace, à la fois décoratives et fonctionnelles.',
+		text: 'Bibliothèques adaptées à\nl’espace, à la fois décoratives\net fonctionnelles.',
 	},
 	{
 		x: 415,
@@ -388,7 +392,7 @@ const fittingTypes = [
 				<br /> élégants
 			</>
 		),
-		text: 'Solutions discrètes pour optimiser l’espace avec style.',
+		text: 'Solutions discrètes pour\noptimiser l’espace avec style.',
 	},
 	{
 		x: 966,
@@ -397,14 +401,14 @@ const fittingTypes = [
 		icon: 'roomIcon',
 		iconAt: [801, 310, 138, 68] as Coordinates,
 		title: 'Aménagements pour salons, chambres et suites',
-		text: 'Solutions personnalisées pour créer des espaces confortables, élégants et harmonieux.',
+		text: 'Solutions personnalisées pour\ncréer des espaces confortables,\nélégants et harmonieux.',
 	},
 ];
 
 function BespokePage() {
 	return (
 		<>
-			<Section height={1036} className={styles.bespokeHero}>
+			<Section height={1022} className={styles.bespokeHero}>
 				<div className={styles.bespokeHeroContent}>
 					<Place at={[113, 28, 687]} className={styles.heroCopy}>
 						<h1 className={styles.bespokeTitle}>
@@ -412,15 +416,17 @@ function BespokePage() {
 							<span>sur mesure</span>
 						</h1>
 						<p>
-							L’aménagement sur mesure permet d’exploiter pleinement le potentiel de chaque pièce. Chez{' '}
-							<strong>Casa Di Lusso</strong>, nous concevons des solutions adaptées aux dimensions, aux usages et à
-							l’esthétique de votre intérieur.
+							L’aménagement sur mesure permet d’exploiter <br className={styles.bespokeBreak} />
+							pleinement le potentiel de chaque pièce. <br className={styles.bespokeBreak} />
+							Chez <strong>Casa Di Lusso</strong>, nous concevons <br className={styles.bespokeBreak} />
+							des solutions adaptées aux dimensions, <br className={styles.bespokeBreak} />
+							aux usages et à l’esthétique de votre intérieur.
 						</p>
 						<Link className={siteStyles.filledButton} href="/#contact">
 							Démarrer votre projet
 						</Link>
 					</Place>
-					<Place at={[120, 730, 740, 190]} className={styles.bespokeMetrics}>
+					<Place at={[120, 716, 726, 190]} className={styles.bespokeMetrics}>
 						{[
 							['180+', 'Clients servis'],
 							['200+', 'Clients satisfaits'],
@@ -442,7 +448,7 @@ function BespokePage() {
 						priority
 					/>
 					<Place at={[0, 429, 206, 187]} className={styles.outlineAccent} />
-					<Photo name="bespoke-bed" at={[60, 473, 608, 405]} alt="Mobilier de chambre réalisé sur mesure" />
+					<Photo name="bespoke-bed" at={[30, 460, 638, 406]} alt="Mobilier de chambre réalisé sur mesure" />
 					<Place at={[616, 715, 151, 151]} className={styles.downArrow}>
 						<Link href="#amenagements" aria-label="Découvrir les aménagements">
 							<Image src={serviceAssets['bespoke-arrowDown']} alt="" fill sizes="151px" />
@@ -483,18 +489,23 @@ function BespokePage() {
 						Concevoir votre rêve avec éclat
 					</Place>
 					<Place as="p" at={[919, 190, 722]} font={[24, 39.648, 500]} family="Inter">
-						Sublimez vos espaces grâce à des aménagements intérieurs sur mesure qui reflètent votre style et vos
-						aspirations uniques, conçus avec précision et brio pour une expérience de vie inoubliable.
+						Sublimez vos espaces grâce à des aménagements intérieurs <br className={styles.bespokeBreak} />
+						sur mesure qui reflètent votre style et vos aspirations uniques, <br className={styles.bespokeBreak} />
+						conçus avec précision et brio pour une expérience de vie <br className={styles.bespokeBreak} />
+						inoubliable.
 					</Place>
-					<Place at={[919, 396, 704]} className={styles.accordionStack}>
-						<div className={styles.accordion}>
-							<ServiceAccordion />
-						</div>
-						<div className={styles.solidLink}>
-							<Link className={siteStyles.filledButton} href="/#contact">
-								Voir plus
-							</Link>
-						</div>
+					<Place at={[919, 396, 704]} className={styles.bespokeOptions}>
+						<ul className={styles.bespokeOptionList} aria-label="Aménagements intérieurs">
+							{['Aménagement intérieur du salon', 'Aménagement intérieur de bureaux commerciaux'].map((title) => (
+								<li key={title}>
+									<span>{title}</span>
+									<Image src={serviceAssets['bespoke-plus']} alt="" width={24} height={24} />
+								</li>
+							))}
+						</ul>
+						<Link className={`${siteStyles.filledButton} ${styles.bespokeMore}`} href="/#contact">
+							Voir plus
+						</Link>
 					</Place>
 				</div>
 			</Section>
@@ -525,6 +536,7 @@ function BespokePage() {
 									width={28}
 									height={28}
 									data-complete={index === 2 || undefined}
+									unoptimized={index === 2}
 								/>
 							</Place>
 							<Place at={[232, 217 + 237 * index, 569]} className={styles.bodyCopy}>
@@ -543,19 +555,33 @@ function BespokePage() {
 			</Section>
 			<Section height={1022} className={styles.bespokeTestimonials}>
 				<Photo
+					name="bespoke-testimonial-cutout"
+					at={[105, 0, 711, 711]}
+					alt="Intérieur lumineux et chaleureux"
+					className={styles.bespokeTestimonialDesktop}
+				/>
+				<Photo
 					name="bespoke-testimonial"
 					at={[105, 0, 711, 711]}
 					alt="Intérieur lumineux et chaleureux"
 					crop={[167.37, 111.53, -43.6, -6.19]}
+					className={styles.bespokeTestimonialMobile}
 				/>
 				<Place as="h2" at={[919, 0, 704]} font={[58, 70, 600]} family="Inter">
-					Ce que nos clients disent de nous
+					Ce que nos clients <br className={styles.bespokeBreak} />
+					disent de nous
 				</Place>
 				<ServiceTestimonials />
 			</Section>
 			<Section height={947} className={styles.bespokeGallery}>
 				<Place as="h2" at={[84, 11, 1535]} font={[58, 70, 600]} family="Inter">
 					Des espaces inspirants, des vies inspirantes
+				</Place>
+				<Place at={[622, 409, 40, 40]} className={styles.bespokeDivider}>
+					<Image src="/assets/casa/services/bespoke-figma-divider1.png" alt="" fill sizes="40px" unoptimized />
+				</Place>
+				<Place at={[1182, 158, 1, 617]} className={styles.bespokeDivider}>
+					<Image src="/assets/casa/services/bespoke-figma-divider2.png" alt="" fill sizes="1px" unoptimized />
 				</Place>
 				<Photo
 					name="bespoke-gallery1"

@@ -37,6 +37,7 @@
 
 .bespoke
   --unit: .0578703704cqw
+  -webkit-font-smoothing: antialiased
 
 .layoutSection
   position: relative
@@ -202,12 +203,6 @@ h3.text
   font-optical-sizing: none
   cursor: pointer
 
-.solidLink
-  a
-    width: 100%
-    height: 100%
-    min-width: 0
-
 .bespokeHero .heroCopy > p, .fittingType > p, .bespokeDream > p, .processStep > p
   color: #545454
 
@@ -246,44 +241,42 @@ h3.text
 .fittingIcon img
   object-fit: contain
 
-.accordionStack
-  > .solidLink
-    position: relative
-    margin-top: u(30.72)
-    width: u(275)
-    height: u(80)
-
-.accordion
-  display: flow-root
-  z-index: 1
+.bespokeOptionList
+  padding: 0
+  list-style: none
   font-family: Inter, Arial, sans-serif
-  details
+  li
     border-bottom: 1px solid #dadada
-    background: white
     margin-bottom: u(38)
-  summary
     display: flex
     justify-content: space-between
     align-items: center
     padding: 0 0 u(24)
-    font-size: var(--site-lead-size)
+    gap: 16px
+    font-size: 24px
     line-height: 1.652
     font-weight: 600
-    cursor: pointer
-    list-style: none
-    &::-webkit-details-marker
-      display: none
     img
       width: u(24)
       height: u(24)
       flex: 0 0 auto
-  details[open]
-    box-shadow: 0 u(10) u(16) #0001
-    padding: u(12)
-    summary img
-      transform: rotate(45deg)
-  p
-    padding-bottom: u(20)
+
+.bespoke .bespokeMore
+  width: 220px
+  max-width: 100%
+  min-width: 0
+  height: 64px
+  margin-top: u(30.72)
+  padding: 10px 18px
+  font-family: Inter, Arial, sans-serif
+  font-size: 24px
+  font-weight: 600
+  text-transform: none
+  background: #1f1f1f
+  color: #fff
+  &:hover, &:focus-visible
+    background: #fff
+    color: #1f1f1f
 
 .processStep
   display: contents
@@ -340,9 +333,14 @@ h3.text
     font-family: Inter, Arial, sans-serif
     > span
       position: absolute
-      top: u(43)
+      top: u(77)
+      left: u(62)
       font-size: u(150)
       line-height: 1.2
+      img
+        display: block
+        width: u(49)
+        height: u(38)
     > p
       width: u(500)
     &[data-author='bespoke-ahmed'] > p
@@ -545,13 +543,6 @@ h3.text
     width: 62px
     height: 62px
     font-size: 12px
-  .solidLink
-    width: max-content
-    max-width: 100%
-    height: auto
-    a
-      min-width: 230px
-      min-height: 60px
   .outlineAccent, .downArrow, .inspirationOutline
     display: none
   .bespokeMetrics
@@ -576,17 +567,14 @@ h3.text
     grid-row: 1 / 3
     align-self: start
     margin-top: 4px
-  .accordion
-    details
+  .bespokeOptionList
+    li
       margin-bottom: 20px
-    summary
       padding-bottom: 14px
       font-size: 16px
       gap: 15px
-  .accordionStack > .solidLink
+  .bespoke .bespokeMore
     margin-top: 24px
-    width: max-content
-    height: auto
   .processStep
     display: grid
     grid-template-columns: 48px 1fr
@@ -618,8 +606,12 @@ h3.text
       min-height: 350px
       padding: 95px 26px 30px
       > span
-        top: 16px
+        top: 37px
+        left: 26px
         font-size: 90px
+        img
+          width: 30px
+          height: 23px
       > p, &[data-author='bespoke-ahmed'] > p
         width: auto
       footer
@@ -1051,16 +1043,6 @@ h3.text
   > p
     color: #545454
 
-.bespoke .accordion
-  summary
-    font-size: 24px
-    line-height: 1.652
-    gap: 16px
-  p
-    font-family: Inter, Arial, sans-serif
-    font-size: 20px
-    line-height: 1.6
-
 .bespokeProcessCopy
   display: flex
   flex-direction: column
@@ -1147,105 +1129,154 @@ h3.text
   &:last-child .inspirationCard p
     font-family: Inter, Arial, sans-serif
     line-height: 1.21
+  .coffeeCard
+    padding: 18px 24px 28px
+    h3
+      text-align: left
+
+.bespokeBreak, .bespokeDivider, .bespokeTestimonialDesktop
+  display: none
 
 @media (min-width: 1201px)
   .bespoke .layoutSection
-    height: auto
-  .bespokeHero
-    display: grid
-    grid-template-columns: minmax(660px, 740fr) minmax(0, 767fr)
+    // The 1728px Figma canvas, scaled as a whole on smaller desktops.
+    // Mobile switches to natural document flow below; no fixed text heights there.
+    display: block
+    height: u(var(--height))
+    padding: 0
+    .place
+      position: absolute
+      left: u(var(--x))
+      top: u(var(--y))
+      width: u(var(--w))
+      height: u(var(--h))
+    .photo > div
+      height: 100%
+    .text
+      font-size: u(var(--font))
+      line-height: max(u(var(--leading)), 1.2em)
+  .bespokeHeroContent, .bespokeSectionHeading, .bespokeSectionCopy, .bespokeProcessCopy, .bespoke .fittingType, .bespoke .processStep, .bespoke .inspirationColumn
+    display: contents
+  .bespokeBreak, .bespokeDivider, .bespokeTestimonialDesktop
+    display: block
+  .bespokeTestimonialMobile
+    display: none
+  .bespokeHeroImages
+    position: absolute
+    left: u(856)
+    top: u(28)
+    width: u(767)
+    height: u(878)
+    margin: 0
+  .bespoke .heroCopy
     gap: 0
-    padding: u(28) u(105) u(116) u(113)
-  .bespoke .fittingTypes
-    display: grid
-    grid-template-columns: repeat(6, minmax(0, 1fr))
-    gap: 64px 40px
-    padding: 0 u(105) u(150) u(113)
-    .fittingType
-      grid-column: span 2
-      &:nth-last-child(2)
-        grid-column: 2 / span 2
-      &:last-child
-        grid-column: span 3
-  .bespokeDream, .bespokeProcess
-    display: grid
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
-    gap: u(102)
-    padding: 0 u(105) u(196)
-    align-items: start
-    > .photo
-      position: relative
-      top: auto
-      left: auto
-      width: 100%
-      height: auto
-      > div
-        height: auto
-        aspect-ratio: var(--ratio)
-  .bespokeProcess
-    padding-bottom: u(245)
-  .bespokeTestimonials
-    padding-bottom: u(204)
-    > h2
-      position: relative
-      top: auto
-      left: auto
-      width: u(704)
-      margin-left: u(919)
-    .testimonialCards
-      position: relative
-      top: auto
-      left: auto
-      grid-template-columns: repeat(2, minmax(0, 1fr))
-      margin: 78px u(105) 0 u(362)
-      blockquote
-        width: 100%
-      &::before
-        width: calc(50% + #{u(10)})
-  .bespokeGallery
-    display: grid
-    grid-template-columns: minmax(0, 538fr) minmax(0, 515fr) minmax(0, 413fr)
-    grid-template-rows: auto u(263) u(340)
-    gap: u(14) u(27)
-    padding: 0 u(109) u(172) u(84)
-    > .place
-      position: relative
-      top: auto
-      left: auto
-      width: 100%
-      height: auto
-    h2
-      grid-column: 1 / -1
-      margin-bottom: u(72)
-    > .photo:last-child
-      grid-column: 3
-      grid-row: 2 / 4
-  .bespokeInspiration
-    display: grid
-    grid-template-columns: repeat(3, minmax(0, 1fr))
-    gap: u(70) u(46)
-    padding: 0 u(96) u(240) u(97)
-    > h2
-      position: relative
-      top: auto
-      left: auto
-      width: 100%
-      height: auto
-      grid-column: 1 / -1
-    > .inspirationOutline
-      top: auto
-      bottom: u(220)
-      &:nth-child(3), &:nth-child(5)
-        top: u(130)
-        bottom: auto
-
-@media (min-width: 1201px) and (max-width: 1400px)
-  .bespoke .fittingTypes
-    grid-template-columns: repeat(2, minmax(0, 1fr))
-    .fittingType
-      grid-column: auto
-      &:nth-last-child(2), &:last-child
-        grid-column: auto
+    h1
+      font-size: u(80)
+      line-height: u(100)
+      span + span
+        margin-top: u(20)
+    > p
+      position: absolute
+      top: u(239)
+      left: u(4)
+      width: u(687)
+      font-size: u(24)
+      line-height: u(42.12)
+    > a
+      position: absolute
+      top: u(473)
+  .bespoke .bespokeMetrics
+    grid-template-columns: u(253) u(240) 1fr
+    strong
+      font-size: u(70)
+      line-height: 1.21
+    span
+      font-size: u(24)
+      white-space: nowrap
+  .bespoke .fittingType
+    h3
+      font-size: u(30)
+      line-height: 1.21
+    p
+      margin-top: u(35)
+      white-space: pre-line
+      font-size: u(22)
+      line-height: 1.652
+    &:nth-last-child(-n + 2)
+      h3
+        line-height: 1.5
+      p
+        margin-top: u(12)
+  .bespokeOptionList li
+    height: u(63)
+    margin-bottom: u(54)
+    padding-bottom: u(33)
+    font-size: u(24)
+    line-height: 1.21
+    &:last-child
+      margin-bottom: 0
+  .bespoke .bespokeMore
+    // Deliberately smaller than Figma's 275x80 button, as requested.
+    width: u(220)
+    height: u(64)
+    margin-top: u(56)
+    font-size: u(24)
+  .bespoke .processStep
+    &::after
+      display: none
+    > .stepIcon::after
+      display: block
+    &:last-child > .stepIcon::after
+      display: none
+    h3
+      font-size: u(30)
+      line-height: 1.21
+    p
+      margin-top: u(21)
+      font-size: u(24)
+      line-height: 1.652
+  .bespoke .testimonialCards
+    grid-template-columns: repeat(2, u(600))
+    &::before
+      left: u(-32)
+      top: u(-31)
+      width: u(632)
+    blockquote
+      height: u(600)
+      > p
+        width: u(500)
+        font-size: u(24)
+        white-space: pre-line
+      &[data-author='bespoke-ahmed'] > p
+        width: u(522)
+        font-size: u(24)
+      footer
+        position: absolute
+        top: u(412)
+        margin: 0
+        strong
+          font-size: u(24)
+        small
+          font-size: u(20)
+  .bespoke .inspirationColumn .inspirationCard
+    height: u(var(--h))
+    min-height: 0
+    padding: u(24) u(26) u(28)
+    gap: 0
+    p
+      font-size: u(32)
+      line-height: 1.5
+    h3
+      font-size: u(36)
+    &.coffeeCard
+      padding: u(18) u(24) u(42)
+    &.surfaceCard
+      padding-top: u(30)
+      p
+        font-size: u(22)
+        line-height: 1.22
+  .bespoke .inspirationColumn:last-child .inspirationCard p
+    line-height: 1.21
 
 @media (max-width: 1200px)
   .bespokeHeroContent
@@ -1322,11 +1353,11 @@ h3.text
       line-height: 1.6
   .bespokeSectionCopy
     gap: 24px
-  .bespoke .accordion
-    summary
-      font-size: 16px
-    p
-      font-size: 16px
+  .bespoke .bespokeMore
+    width: 137px
+    height: 40px
+    padding: 8px 12px
+    font-size: 16px
   .bespoke .processStep
     grid-template-columns: 44px minmax(0, 1fr)
     gap: 16px
@@ -1367,3 +1398,10 @@ h3.text
 @media (max-width: 360px)
   .bespoke .heroCopy h1
     font-size: 36px
+  .bespokeSectionHeading
+    gap: 12px
+    > .rule
+      flex-basis: 20px
+    > h2.text
+      font-size: 26px
+      min-width: 0
