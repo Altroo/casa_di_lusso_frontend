@@ -656,3 +656,130 @@ h3.text
       margin-top: 16px
     > .photo:nth-last-child(2)
       margin-top: 16px
+
+// Design intérieur only: literal Figma font sizes, independent of canvas width.
+// Keep the index, shared chrome, and the other service pages unchanged.
+.design .text
+  font-family: var(--family), Arial, sans-serif
+  font-size: calc(var(--font) * 1px)
+  line-height: max(calc(var(--leading) * 1px), 1.3em)
+  font-weight: var(--weight)
+
+.design .heroCopy
+  gap: 30px
+  h1
+    font-size: 64px
+    line-height: 1.25
+    font-weight: 600
+  p
+    font-size: 32px
+    line-height: 43px
+    font-weight: 300
+
+.design .stepCard
+  h3
+    font-size: 30px
+    line-height: 1.3
+    font-weight: 600
+  p
+    font-size: 17px
+    line-height: 25px
+
+.designIntroCopy, .designApproachCopy, .designProjectsCopy
+  min-width: 0
+  > .place
+    position: static
+    width: 100%
+    height: auto
+  > .rule
+    height: 0
+
+.designIntroCopy
+  h2
+    margin-top: 14px
+  p.text
+    margin-top: 20px
+    line-height: 1.4
+
+.designApproachCopy
+  h2
+    margin: 32px 0 16px
+  .bulletList
+    width: calc(100% - 28px)
+    margin-left: 28px
+
+.designProjectsCopy
+  h2
+    margin-top: 20px
+  p
+    margin-top: 8px
+    max-width: 473px
+  .more
+    margin-top: 24px
+
+@media (min-width: 1201px)
+  .designHero, .designIntro, .designApproach, .designProjects
+    display: grid
+    height: auto
+    align-items: start
+    > .place
+      position: relative
+      left: auto
+      top: auto
+      bottom: auto
+      width: 100%
+    > .photo
+      height: u(var(--h))
+  .designHero
+    grid-template-columns: 532px minmax(0, 1fr)
+    gap: u(55)
+    min-height: u(624)
+    padding: u(56) u(77) u(60)
+  .designIntro
+    grid-template-columns: 492fr 866fr
+    column-gap: u(90)
+    row-gap: u(40)
+    min-height: u(756)
+    padding: u(29) u(75) u(37)
+    .stepCard
+      align-self: end
+  .designApproach
+    grid-template-columns: 659fr 620fr
+    column-gap: u(174)
+    min-height: u(860)
+    padding: u(51) u(75) u(100)
+  .designProjects
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    column-gap: u(68)
+    row-gap: u(60)
+    min-height: u(1320)
+    padding: u(44) u(75) u(45)
+
+@media (max-width: 1200px)
+  .designIntroCopy, .designApproachCopy, .designProjectsCopy
+    width: 100%
+
+@media (max-width: 700px)
+  .design .text
+    font-size: 16px
+    line-height: 1.6
+  .design h2.text
+    font-size: 28px
+    line-height: 1.35
+  .design .heroCopy
+    gap: 24px
+    h1
+      font-size: 36px
+      line-height: 1.2
+    p
+      font-size: 18px
+      line-height: 1.6
+  .design .stepCard
+    h3
+      font-size: 22px
+      line-height: 1.3
+    p
+      font-size: 16px
+      line-height: 1.6
+  .designIntroCopy p.text
+    line-height: 1.6

@@ -129,18 +129,20 @@ function DesignPage() {
 			</Section>
 			<Section height={756} className={`${styles.dark} ${styles.designIntro}`}>
 				<Photo name="design-intro" at={[69, 29, 492, 329]} alt="Salon contemporain aux finitions raffinées" />
-				<Place at={[654, 30, 870]} className={styles.rule} />
-				<Place as="h2" at={[654, 44, 830]} font={[40, 57, 600]}>
-					NOUS SAVONS TRÈS BIEN
-					<br /> CE QU’IL FAUT FAIRE
-				</Place>
-				<Place as="p" at={[651, 186, 870]} font={[25, 27]}>
-					Casa Di Lusso accompagne ses clients dans la création d’intérieurs haut de gamme, où chaque détail est étudié
-					avec précision.
-					<br /> Notre approche repose sur l’équilibre entre esthétique, confort et fonctionnalité. Nous analysons votre
-					mode de vie, vos préférences, la lumière naturelle, les volumes et les matériaux afin de proposer une ambiance
-					cohérente et raffinée.
-				</Place>
+				<div className={styles.designIntroCopy}>
+					<Place at={[654, 30, 870]} className={styles.rule} />
+					<Place as="h2" at={[654, 44, 830]} font={[40, 57, 600]}>
+						NOUS SAVONS TRÈS BIEN
+						<br /> CE QU’IL FAUT FAIRE
+					</Place>
+					<Place as="p" at={[651, 186, 870]} font={[25, 27]}>
+						Casa Di Lusso accompagne ses clients dans la création d’intérieurs haut de gamme, où chaque détail est
+						étudié avec précision.
+						<br /> Notre approche repose sur l’équilibre entre esthétique, confort et fonctionnalité. Nous analysons
+						votre mode de vie, vos préférences, la lumière naturelle, les volumes et les matériaux afin de proposer une
+						ambiance cohérente et raffinée.
+					</Place>
+				</div>
 				<Place at={[75, 443, 487, 276]} className={styles.stepCard}>
 					<h3>Tout étape par étape</h3>
 					<p>
@@ -161,41 +163,43 @@ function DesignPage() {
 				/>
 			</Section>
 			<Section height={860} className={styles.designApproach}>
-				<Place at={[75, 51, 659]} className={`${styles.rule} ${styles.thickRule}`} />
-				<Place as="h2" at={[99, 95, 550]} font={[40, 57]}>
-					NOTRE APPROCHE
-				</Place>
-				<Place as="ul" at={[104, 168, 660]} font={[20, 34]} className={styles.bulletList}>
-					{[
-						'Analyse de vos besoins',
-						'Création d’une direction artistique',
-						'Sélection des matériaux, couleurs et textures',
-						'Proposition de mobilier et d’éléments décoratifs',
-						'Suivi jusqu’à la finalisation du projet',
-					].map((text) => (
-						<li key={text}>{text}</li>
-					))}
-				</Place>
-				<Place as="h2" at={[99, 371, 550]} font={[40, 57]}>
-					POUR QUI ?
-				</Place>
-				<Place as="ul" at={[104, 444, 660]} font={[20, 34]} className={styles.bulletList}>
-					{[
-						'Villas et appartements haut standing',
-						'Résidences principales ou secondaires',
-						'Showrooms, bureaux privés et espaces professionnels',
-						'Espaces de réception et salons de prestige',
-					].map((text) => (
-						<li key={text}>{text}</li>
-					))}
-				</Place>
-				<Place as="h2" at={[104, 612, 620]} font={[40, 57]}>
-					RÉSULTAT ATTENDU
-				</Place>
-				<Place as="p" at={[104, 677, 558]} font={[20, 34]}>
-					Un intérieur élégant, cohérent, chaleureux
-					<br /> et parfaitement adapté à votre quotidien.
-				</Place>
+				<div className={styles.designApproachCopy}>
+					<Place at={[75, 51, 659]} className={`${styles.rule} ${styles.thickRule}`} />
+					<Place as="h2" at={[99, 95, 550]} font={[40, 57]}>
+						NOTRE APPROCHE
+					</Place>
+					<Place as="ul" at={[104, 168, 660]} font={[20, 34]} className={styles.bulletList}>
+						{[
+							'Analyse de vos besoins',
+							'Création d’une direction artistique',
+							'Sélection des matériaux, couleurs et textures',
+							'Proposition de mobilier et d’éléments décoratifs',
+							'Suivi jusqu’à la finalisation du projet',
+						].map((text) => (
+							<li key={text}>{text}</li>
+						))}
+					</Place>
+					<Place as="h2" at={[99, 371, 550]} font={[40, 57]}>
+						POUR QUI ?
+					</Place>
+					<Place as="ul" at={[104, 444, 660]} font={[20, 34]} className={styles.bulletList}>
+						{[
+							'Villas et appartements haut standing',
+							'Résidences principales ou secondaires',
+							'Showrooms, bureaux privés et espaces professionnels',
+							'Espaces de réception et salons de prestige',
+						].map((text) => (
+							<li key={text}>{text}</li>
+						))}
+					</Place>
+					<Place as="h2" at={[104, 612, 620]} font={[40, 57]}>
+						RÉSULTAT ATTENDU
+					</Place>
+					<Place as="p" at={[104, 677, 558]} font={[20, 34]}>
+						Un intérieur élégant, cohérent, chaleureux
+						<br /> et parfaitement adapté à votre quotidien.
+					</Place>
+				</div>
 				<Photo
 					name="design-detail"
 					at={[908, 51, 620, 683]}
@@ -204,20 +208,22 @@ function DesignPage() {
 				/>
 			</Section>
 			<Section height={1320} className={`${styles.dark} ${styles.designProjects}`} id="projets">
-				<Place at={[75, 44, 725]} className={`${styles.rule} ${styles.thickRule}`} />
-				<Place as="h2" at={[79, 71, 600]} font={[32, 76, 600]}>
-					NOS PROJETS
-				</Place>
-				<Place as="p" at={[79, 156, 473]} font={[19, 27]}>
-					L’harmonie des éléments de décoration intérieure crée un ensemble cohérent. L’appartement, décoré dans un
-					style moderne, offre une impression de lumière, d’espace et d’harmonie. Notre équipe est composée de
-					véritables professionnels forts d’une vaste expérience.
-				</Place>
-				<Place at={[75, 366, 519]} className={styles.more}>
-					<Link href="/#portfolio">
-						VOIR PLUS <span>⟶</span>
-					</Link>
-				</Place>
+				<div className={styles.designProjectsCopy}>
+					<Place at={[75, 44, 725]} className={`${styles.rule} ${styles.thickRule}`} />
+					<Place as="h2" at={[79, 71, 600]} font={[32, 76, 600]}>
+						NOS PROJETS
+					</Place>
+					<Place as="p" at={[79, 156, 473]} font={[19, 27]}>
+						L’harmonie des éléments de décoration intérieure crée un ensemble cohérent. L’appartement, décoré dans un
+						style moderne, offre une impression de lumière, d’espace et d’harmonie. Notre équipe est composée de
+						véritables professionnels forts d’une vaste expérience.
+					</Place>
+					<Place at={[75, 366, 519]} className={styles.more}>
+						<Link href="/#portfolio">
+							VOIR PLUS <span>⟶</span>
+						</Link>
+					</Place>
+				</div>
 				<Photo name="design-project1" at={[836, 44, 689, 347]} alt="Salon lumineux et cuisine ouverte" />
 				<Photo name="design-project2" at={[79, 451, 689, 382]} alt="Cuisine avec îlot et finitions en marbre" />
 				<Photo name="design-project3" at={[836, 451, 689, 382]} alt="Chambre contemporaine et coin repas" />
