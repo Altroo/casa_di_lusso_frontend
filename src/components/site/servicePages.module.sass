@@ -1350,15 +1350,19 @@ h3.text
       span + span
         margin-top: u(20)
     > p
-      position: absolute
-      top: u(239)
+      // Preserve the Figma spacing while allowing copy to determine CTA placement.
+      position: relative
+      top: auto
       left: u(4)
       width: u(687)
+      max-width: none
+      margin-top: u(19)
       font-size: u(24)
       line-height: u(42.12)
     > a
-      position: absolute
-      top: u(473)
+      position: relative
+      top: auto
+      margin-top: u(23.4)
   .bespoke .bespokeMetrics
     grid-template-columns: u(253) u(240) 1fr
     strong
