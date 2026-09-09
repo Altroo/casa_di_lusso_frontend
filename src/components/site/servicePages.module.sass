@@ -783,3 +783,172 @@ h3.text
       line-height: 1.6
   .designIntroCopy p.text
     line-height: 1.6
+
+// Architecture only. Keep the approved Design page and shared chrome untouched.
+.architecture .text
+  font-family: var(--family), Arial, sans-serif
+  font-size: calc(var(--font) * 1px)
+  line-height: max(calc(var(--leading) * 1px), 1.2em)
+  font-weight: var(--weight)
+
+.architecture .heroCopy
+  min-width: 0
+  gap: 24px
+  h1
+    font-size: 96px
+    line-height: 1.1
+    font-weight: 700
+    letter-spacing: -.836px
+  > p
+    font-size: 24px
+    line-height: 43px
+    font-weight: 300
+  > div p
+    font-size: 32px
+    line-height: 43px
+    font-weight: 500
+  > div p + p
+    margin-top: 24px
+
+.architectureBodyHeading, .architectureOverview, .architectureProjectsHeading
+  min-width: 0
+  > .place
+    position: static
+    width: 100%
+    height: auto
+
+.architectureBodyHeading
+  > .rule
+    width: min(100%, 659px)
+    height: 0
+  h2
+    margin-top: 48px
+
+.architectureOverview
+  .bulletList
+    width: calc(100% - 40px)
+    margin-left: 40px
+  h2
+    margin: 64px 0 24px
+  > p
+    max-width: 682px
+
+.architectureProjectsHeading
+  display: grid
+  grid-template-columns: minmax(140px, 1fr) minmax(0, 994px) 150px
+  align-items: start
+  gap: u(60)
+  h2
+    letter-spacing: -.836px
+  .allProjects
+    font-size: 16px
+    line-height: 28.5px
+
+.architecture .projectCarousel
+  position: relative
+  top: auto
+  left: auto
+  right: auto
+  margin-top: u(80)
+  margin-left: u(38)
+  margin-right: u(-81)
+
+.architecture .projectTrack article
+  h3
+    font-family: Inter, Arial, sans-serif
+    font-size: 26.5px
+    line-height: 35.625px
+    font-weight: 700
+  p
+    font-family: Inter, Arial, sans-serif
+    font-size: 17px
+    line-height: 26.79px
+    font-weight: 400
+  a
+    font-family: Inter, Arial, sans-serif
+    font-size: 16px
+    line-height: 1.5
+
+@media (min-width: 1201px)
+  .architectureHero, .architectureBody
+    display: grid
+    height: auto
+    align-items: start
+    > .place
+      position: relative
+      top: auto
+      left: auto
+      width: 100%
+      height: auto
+    > .photo > div
+      height: auto
+      aspect-ratio: var(--ratio)
+  .architectureHero
+    grid-template-columns: minmax(680px, 860fr) minmax(0, 793fr)
+    column-gap: u(85)
+    row-gap: u(60)
+    padding: u(125) u(7) 0 u(175)
+    > .photo:not(.showroom)
+      margin-top: u(12)
+    .showroom
+      grid-column: 1 / -1
+      margin-right: u(-7)
+      width: calc(100% + #{u(7)})
+  .architectureBody
+    grid-template-columns: minmax(0, 811fr) minmax(0, 794fr)
+    column-gap: u(100)
+    row-gap: 40px
+    padding: u(110) u(81) u(160) u(135)
+  .architectureBodyHeading, .architectureProjects
+    grid-column: 1 / -1
+  .architectureBody > .architectureProjects
+    margin-top: u(160)
+
+@media (max-width: 1200px)
+  .architectureBodyHeading, .architectureOverview
+    width: 100%
+  .architectureBodyHeading h2
+    margin-top: 32px
+  .architectureOverview h2
+    margin-top: 40px
+  .architectureProjectsHeading
+    grid-template-columns: minmax(0, 1fr)
+    gap: 24px
+  .architecture .projectCarousel
+    margin: 24px -24px 0 0
+
+@media (max-width: 700px)
+  .architecture .text
+    font-size: 16px
+    line-height: 1.6
+  .architecture h2.text
+    font-size: 28px
+    line-height: 1.35
+  .architecture .heroCopy
+    h1
+      font-size: 44px
+      line-height: 1.15
+      letter-spacing: -.3px
+    > p
+      font-size: 18px
+      line-height: 1.6
+    > div p
+      font-size: 16px
+      line-height: 1.6
+  .architectureOverview
+    .bulletList
+      width: calc(100% - 24px)
+      margin-left: 24px !important
+    h2
+      margin: 32px 0 16px
+  .architecture .projectTrack article
+    h3
+      font-size: 22px
+      line-height: 1.35
+    p
+      font-size: 16px
+      line-height: 1.6
+
+@media (max-width: 360px)
+  .architecture .heroCopy h1
+    font-size: 36px

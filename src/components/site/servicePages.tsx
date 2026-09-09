@@ -276,48 +276,52 @@ function ArchitecturePage() {
 				/>
 			</Section>
 			<Section height={2765} className={styles.architectureBody}>
-				<Place at={[173, 110, 659]} className={`${styles.rule} ${styles.thickRule}`} />
-				<Place as="h2" at={[135, 189, 1000]} font={[60, 57, 500]}>
-					CE QUE NOUS PROPOSONS
-				</Place>
-				<Place as="ul" at={[190, 281, 811]} font={[32, 57, 500]} className={styles.bulletList}>
-					{[
-						'Étude conceptuelle',
-						'Plans d’aménagement',
-						'Optimisation des volumes',
-						'Choix des matériaux',
-						'Coordination esthétique du projet',
-						'Accompagnement dans',
-					].map((text) => (
-						<li key={text}>
-							{text}
-							{text === 'Accompagnement dans' && (
-								<>
-									<br /> la visualisation finale
-								</>
-							)}
-						</li>
-					))}
-				</Place>
-				<Place as="h2" at={[135, 745, 682]} font={[60, 57, 500]}>
-					NOTRE VISION
-				</Place>
-				<Place as="p" at={[190, 835, 682]} font={[32, 43, 500]}>
-					Créer des lieux qui allient beauté, confort, fluidité et valeur patrimoniale.
-				</Place>
-				<Place as="h2" at={[135, 979, 682]} font={[60, 60, 500]}>
-					Idéal pour
-				</Place>
-				<Place as="ul" at={[190, 1060, 740]} font={[32, 43, 500]} className={styles.bulletList}>
-					{[
-						'Rénovations haut de gamme',
-						'Nouveaux projets résidentiels',
-						'Espaces commerciaux premium',
-						'Villas, appartements et showrooms',
-					].map((text) => (
-						<li key={text}>{text}</li>
-					))}
-				</Place>
+				<div className={styles.architectureBodyHeading}>
+					<Place at={[173, 110, 659]} className={`${styles.rule} ${styles.thickRule}`} />
+					<Place as="h2" at={[135, 189, 1000]} font={[60, 57, 500]}>
+						CE QUE NOUS PROPOSONS
+					</Place>
+				</div>
+				<div className={styles.architectureOverview}>
+					<Place as="ul" at={[190, 281, 811]} font={[32, 57, 500]} className={styles.bulletList}>
+						{[
+							'Étude conceptuelle',
+							'Plans d’aménagement',
+							'Optimisation des volumes',
+							'Choix des matériaux',
+							'Coordination esthétique du projet',
+							'Accompagnement dans',
+						].map((text) => (
+							<li key={text}>
+								{text}
+								{text === 'Accompagnement dans' && (
+									<>
+										<br /> la visualisation finale
+									</>
+								)}
+							</li>
+						))}
+					</Place>
+					<Place as="h2" at={[135, 745, 682]} font={[60, 57, 500]}>
+						NOTRE VISION
+					</Place>
+					<Place as="p" at={[190, 835, 682]} font={[32, 43, 500]}>
+						Créer des lieux qui allient beauté, confort, fluidité et valeur patrimoniale.
+					</Place>
+					<Place as="h2" at={[135, 979, 682]} font={[60, 60, 500]}>
+						Idéal pour
+					</Place>
+					<Place as="ul" at={[190, 1060, 740]} font={[32, 43, 500]} className={styles.bulletList}>
+						{[
+							'Rénovations haut de gamme',
+							'Nouveaux projets résidentiels',
+							'Espaces commerciaux premium',
+							'Villas, appartements et showrooms',
+						].map((text) => (
+							<li key={text}>{text}</li>
+						))}
+					</Place>
+				</div>
 				<Photo
 					name="architecture-detail"
 					at={[1045, 250, 794, 1021]}
@@ -325,16 +329,18 @@ function ArchitecturePage() {
 					crop={[128.73, 100, -25.82, 0]}
 				/>
 				<Place at={[0, 1500, 1920, 1240]} className={styles.architectureProjects}>
-					<Place as="p" at={[173, 0, 141]} font={[18, 28.5]}>
-						Projets en cours
-					</Place>
-					<Place as="h2" at={[566, 0, 994]} font={[73, 76, 600]}>
-						Découvrez certains de
-						<br /> nos projets en cours
-					</Place>
-					<Place at={[1665, 0, 150]} className={styles.allProjects}>
-						<Link href="/#portfolio">Afficher tout →</Link>
-					</Place>
+					<div className={styles.architectureProjectsHeading}>
+						<Place as="p" at={[173, 0, 141]} font={[18, 28.5]}>
+							Projets en cours
+						</Place>
+						<Place as="h2" at={[566, 0, 994]} font={[73, 76, 600]}>
+							Découvrez certains de
+							<br /> nos projets en cours
+						</Place>
+						<Place at={[1665, 0, 150]} className={styles.allProjects}>
+							<Link href="/#portfolio">Afficher tout →</Link>
+						</Place>
+					</div>
 					<ProjectCarousel />
 				</Place>
 			</Section>
