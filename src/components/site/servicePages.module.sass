@@ -36,6 +36,8 @@
 
 .architecture
   --unit: .0520833333cqw
+  color: #161616
+  -webkit-font-smoothing: antialiased
 
 .bespoke
   --unit: .0578703704cqw
@@ -188,22 +190,6 @@ h3.text
       font-size: u(16)
       text-decoration: underline
       text-underline-offset: u(7)
-
-.dragControl
-  position: absolute
-  left: u(1180.79)
-  top: u(164.92)
-  display: grid
-  place-items: center
-  width: u(152)
-  height: u(152)
-  border-radius: 50%
-  border: 0
-  background: #f2cd00
-  color: #161616
-  font: 400 u(17) Inter, Arial, sans-serif
-  font-optical-sizing: none
-  cursor: pointer
 
 .bespokeHero .heroCopy > p, .fittingType > p, .bespokeDream > p, .processStep > p
   color: #545454
@@ -538,13 +524,6 @@ h3.text
       a
         margin-top: 14px
         font-size: 15px
-  .dragControl
-    left: auto
-    right: 8px
-    top: 55px
-    width: 62px
-    height: 62px
-    font-size: 12px
   .outlineAccent, .downArrow, .inspirationOutline
     display: none
   .bespokeMetrics
@@ -938,6 +917,8 @@ h3.text
   margin-right: u(-81)
 
 .architecture .projectTrack article
+  &:nth-child(2) > div img
+    object-fit: fill
   h3
     font-family: Inter, Arial, sans-serif
     font-size: 26.5px
@@ -954,6 +935,29 @@ h3.text
     line-height: 1.5
 
 @media (min-width: 1201px)
+  .architecture .text
+    font-size: u(var(--font))
+    line-height: u(var(--leading))
+  .architecture .heroCopy
+    gap: u(20)
+    z-index: 1
+    h1
+      font-size: u(96)
+      line-height: u(95)
+      letter-spacing: u(-.836)
+      transform: translateY(u(-8))
+    > p
+      font-size: u(24)
+      line-height: u(40)
+      white-space: pre-line
+    > div
+      width: u(1030)
+      margin-top: u(22)
+      p
+        font-size: u(32)
+        line-height: u(43)
+      p + p
+        margin-top: 0
   .architectureHero, .architectureBody
     display: grid
     height: auto
@@ -968,25 +972,102 @@ h3.text
       height: auto
       aspect-ratio: var(--ratio)
   .architectureHero
-    grid-template-columns: minmax(680px, 860fr) minmax(0, 793fr)
+    grid-template-columns: u(860) minmax(0, 1fr)
+    grid-template-rows: minmax(u(873), auto) auto
     column-gap: u(85)
-    row-gap: u(60)
+    row-gap: 0
     padding: u(125) u(7) 0 u(175)
     > .photo:not(.showroom)
       margin-top: u(12)
     .showroom
       grid-column: 1 / -1
+      margin-left: u(-2)
       margin-right: u(-7)
-      width: calc(100% + #{u(7)})
+      width: calc(100% + #{u(9)})
+      img
+        transform: rotate(-.47deg)
   .architectureBody
-    grid-template-columns: minmax(0, 811fr) minmax(0, 794fr)
-    column-gap: u(100)
-    row-gap: 40px
-    padding: u(110) u(81) u(160) u(135)
+    grid-template-columns: u(811) minmax(0, 1fr)
+    column-gap: u(99)
+    row-gap: u(4)
+    align-content: start
+    padding: u(110) u(81) 0 u(135)
+    > .photo
+      clip-path: inset(0 0 #{u(14)} 0)
+    .architectureBodyHeading
+      > .rule
+        width: u(659)
+        margin-left: u(38)
+      h2
+        margin-top: u(74)
+        color: #000
+    .architectureOverview
+      .bulletList
+        width: calc(100% - #{u(55)})
+        margin-left: u(55)
+      > .bulletList:first-child
+        margin-top: u(31)
+        list-style: none
+        li
+          position: relative
+          &::before
+            content: ''
+            position: absolute
+            left: u(-37)
+            top: u(21)
+            width: u(19)
+            height: u(19)
+            border-radius: 50%
+            background: currentColor
+          &:nth-child(2)::before
+            display: none
+      h2
+        margin: u(65) 0 u(33)
+        &:first-of-type
+          color: #000
+        &:nth-of-type(2)
+          margin-top: u(58)
+          margin-bottom: u(21)
+          transform: translateY(u(-8.5))
+      > .bulletList:last-child
+        transform: translateY(u(-5.5))
+      > p
+        max-width: u(682)
+        margin-left: u(55)
+        white-space: pre-line
   .architectureBodyHeading, .architectureProjects
     grid-column: 1 / -1
   .architectureBody > .architectureProjects
-    margin-top: u(160)
+    margin-top: u(225)
+    min-height: u(1265)
+  .architectureProjectsHeading
+    margin-left: u(38)
+    grid-template-columns: u(393) u(994) u(150)
+    gap: 0
+    > p
+      width: u(141)
+      white-space: pre-line
+      transform: translateY(u(-13))
+    h2
+      letter-spacing: u(-.836)
+      transform: translateY(u(-16))
+    .allProjects
+      margin-left: u(105)
+      font-size: u(16)
+      line-height: u(28.5)
+  .architecture .projectCarousel
+    margin-top: u(99.75)
+  .architecture .projectTrack article
+    h3
+      font-size: u(26.5)
+      line-height: u(35.625)
+    p
+      font-size: u(17)
+      line-height: u(26.79)
+      + p
+        min-height: u(53.58)
+    a
+      font-size: u(16)
 
 @media (max-width: 1200px)
   .architectureBodyHeading, .architectureOverview

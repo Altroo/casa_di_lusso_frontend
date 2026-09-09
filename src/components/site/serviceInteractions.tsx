@@ -101,9 +101,6 @@ export function ProjectCarousel() {
 					))}
 				</div>
 			</div>
-			<button type="button" className={styles.dragControl} onClick={() => move(1)} aria-label="Projet suivant">
-				Glisser
-			</button>
 		</div>
 	);
 }

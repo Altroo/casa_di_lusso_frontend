@@ -243,7 +243,7 @@ function ArchitecturePage() {
 						<br /> &amp; conception
 					</h1>
 					<p>
-						Nous transformons vos idées en projets architecturaux uniques, pensés avec précision, équilibre et exigence.
+						{'Nous transformons vos idées en projets architecturaux\nuniques, pensés avec précision, équilibre et exigence.'}
 					</p>
 					<div>
 						<p>
@@ -270,7 +270,7 @@ function ArchitecturePage() {
 					name="architecture-showroom"
 					at={[173, 998, 1747, 1005]}
 					alt="Architecture extérieure du showroom Casa di Lusso"
-					crop={[146.88, 170.15, -44.14, -58.36]}
+					crop={[146.88, 170.15, -43.735, -57.31]}
 					className={styles.showroom}
 				/>
 			</Section>
@@ -305,7 +305,7 @@ function ArchitecturePage() {
 						NOTRE VISION
 					</Place>
 					<Place as="p" at={[190, 835, 682]} font={[32, 43, 500]}>
-						Créer des lieux qui allient beauté, confort, fluidité et valeur patrimoniale.
+						{'Créer des lieux qui allient beauté, confort,\nfluidité et valeur patrimoniale.'}
 					</Place>
 					<Place as="h2" at={[135, 979, 682]} font={[60, 60, 500]}>
 						Idéal pour
@@ -330,7 +330,7 @@ function ArchitecturePage() {
 				<Place at={[0, 1500, 1920, 1240]} className={styles.architectureProjects}>
 					<div className={styles.architectureProjectsHeading}>
 						<Place as="p" at={[173, 0, 141]} font={[18, 28.5]}>
-							Projets en cours
+							{'Projets en\ncours'}
 						</Place>
 						<Place as="h2" at={[566, 0, 994]} font={[73, 76, 600]}>
 							Découvrez certains de

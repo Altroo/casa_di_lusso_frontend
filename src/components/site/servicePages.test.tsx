@@ -24,3 +24,15 @@ describe('Design intérieur page', () => {
 		expect(main.queryByRole('button')).not.toBeInTheDocument();
 	});
 });
+
+describe('Architecture page', () => {
+	it('keeps the projects carousel without the yellow drag control', () => {
+		render(<ServicePageView service={servicePages[1]} settings={fallbackContent.settings} />);
+		const main = within(screen.getByRole('main'));
+		const carousel = main.getByRole('region', { name: 'Projets d’architecture' });
+		expect(carousel).toHaveAttribute('tabindex', '0');
+		expect(within(carousel).getAllByRole('article')).toHaveLength(3);
+		expect(main.queryByRole('button', { name: 'Projet suivant' })).not.toBeInTheDocument();
+		expect(main.queryByText('Glisser')).not.toBeInTheDocument();
+	});
+});
