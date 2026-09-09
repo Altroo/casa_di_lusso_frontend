@@ -405,52 +405,58 @@ function BespokePage() {
 	return (
 		<>
 			<Section height={1036} className={styles.bespokeHero}>
-				<Place at={[113, 28, 687]} className={styles.heroCopy}>
-					<h1 className={styles.bespokeTitle}>
-						<span>Aménagement </span>
-						<span>sur mesure</span>
-					</h1>
-					<p>
-						L’aménagement sur mesure permet d’exploiter pleinement le potentiel de chaque pièce. Chez{' '}
-						<strong>Casa Di Lusso</strong>, nous concevons des solutions adaptées aux dimensions, aux usages et à
-						l’esthétique de votre intérieur.
-					</p>
-					<Link className={siteStyles.filledButton} href="/#contact">
-						Démarrer votre projet
-					</Link>
-				</Place>
-				<Photo
-					name="bespoke-hero"
-					at={[1116, 42, 507, 438]}
-					alt="Dressing sur mesure et chambre vus du dessus"
-					crop={[129.62, 100, -12.84, 0]}
-					priority
-				/>
-				<Place at={[856, 471, 206, 187]} className={styles.outlineAccent} />
-				<Photo name="bespoke-bed" at={[916, 515, 608, 405]} alt="Mobilier de chambre réalisé sur mesure" />
-				<Place at={[1472, 757, 151, 151]} className={styles.downArrow}>
-					<Link href="#amenagements" aria-label="Découvrir les aménagements">
-						<Image src={serviceAssets['bespoke-arrowDown']} alt="" fill sizes="151px" />
-					</Link>
-				</Place>
-				<Place at={[120, 730, 740, 190]} className={styles.bespokeMetrics}>
-					{[
-						['180+', 'Clients servis'],
-						['200+', 'Clients satisfaits'],
-						['10+', 'années d’expérience'],
-					].map(([value, label]) => (
-						<div key={value}>
-							<AnimatedMetricValue value={value} bracketed={false} />
-							<span>{label}</span>
-						</div>
-					))}
-				</Place>
+				<div className={styles.bespokeHeroContent}>
+					<Place at={[113, 28, 687]} className={styles.heroCopy}>
+						<h1 className={styles.bespokeTitle}>
+							<span>Aménagement </span>
+							<span>sur mesure</span>
+						</h1>
+						<p>
+							L’aménagement sur mesure permet d’exploiter pleinement le potentiel de chaque pièce. Chez{' '}
+							<strong>Casa Di Lusso</strong>, nous concevons des solutions adaptées aux dimensions, aux usages et à
+							l’esthétique de votre intérieur.
+						</p>
+						<Link className={siteStyles.filledButton} href="/#contact">
+							Démarrer votre projet
+						</Link>
+					</Place>
+					<Place at={[120, 730, 740, 190]} className={styles.bespokeMetrics}>
+						{[
+							['180+', 'Clients servis'],
+							['200+', 'Clients satisfaits'],
+							['10+', 'années d’expérience'],
+						].map(([value, label]) => (
+							<div key={value}>
+								<AnimatedMetricValue value={value} bracketed={false} />
+								<span>{label}</span>
+							</div>
+						))}
+					</Place>
+				</div>
+				<div className={styles.bespokeHeroImages}>
+					<Photo
+						name="bespoke-hero"
+						at={[260, 0, 507, 438]}
+						alt="Dressing sur mesure et chambre vus du dessus"
+						crop={[129.62, 100, -12.84, 0]}
+						priority
+					/>
+					<Place at={[0, 429, 206, 187]} className={styles.outlineAccent} />
+					<Photo name="bespoke-bed" at={[60, 473, 608, 405]} alt="Mobilier de chambre réalisé sur mesure" />
+					<Place at={[616, 715, 151, 151]} className={styles.downArrow}>
+						<Link href="#amenagements" aria-label="Découvrir les aménagements">
+							<Image src={serviceAssets['bespoke-arrowDown']} alt="" fill sizes="151px" />
+						</Link>
+					</Place>
+				</div>
 			</Section>
 			<Section height={742} className={styles.fittingTypes} id="amenagements">
-				<Place at={[113, 40, 100]} className={`${styles.rule} ${styles.thickRule}`} />
-				<Place as="h2" at={[246, 0, 1000]} font={[40, 60, 600]}>
-					Types d’aménagements
-				</Place>
+				<div className={styles.bespokeSectionHeading}>
+					<Place at={[113, 40, 100]} className={`${styles.rule} ${styles.thickRule}`} />
+					<Place as="h2" at={[246, 0, 1000]} font={[40, 60, 600]}>
+						Types d’aménagements
+					</Place>
+				</div>
 				{fittingTypes.map((item) => (
 					<div key={item.icon} className={styles.fittingType}>
 						<Photo
@@ -472,55 +478,62 @@ function BespokePage() {
 					alt="Luminaires sculpturaux en verre"
 					crop={[115.88, 124.44, -0.01, 0]}
 				/>
-				<Place as="h2" at={[919, 0, 704]} font={[58, 70, 600]} family="Inter">
-					Concevoir votre rêve avec éclat
-				</Place>
-				<Place as="p" at={[919, 190, 722]} font={[24, 39.648, 500]} family="Inter">
-					Sublimez vos espaces grâce à des aménagements intérieurs sur mesure qui reflètent votre style et vos
-					aspirations uniques, conçus avec précision et brio pour une expérience de vie inoubliable.
-				</Place>
-				<Place at={[919, 396, 704]} className={styles.accordionStack}>
-					<div className={styles.accordion}>
-						<ServiceAccordion />
-					</div>
-					<div className={styles.solidLink}>
-						<Link className={siteStyles.filledButton} href="/#contact">
-							Voir plus
-						</Link>
-					</div>
-				</Place>
+				<div className={styles.bespokeSectionCopy}>
+					<Place as="h2" at={[919, 0, 704]} font={[58, 70, 600]} family="Inter">
+						Concevoir votre rêve avec éclat
+					</Place>
+					<Place as="p" at={[919, 190, 722]} font={[24, 39.648, 500]} family="Inter">
+						Sublimez vos espaces grâce à des aménagements intérieurs sur mesure qui reflètent votre style et vos
+						aspirations uniques, conçus avec précision et brio pour une expérience de vie inoubliable.
+					</Place>
+					<Place at={[919, 396, 704]} className={styles.accordionStack}>
+						<div className={styles.accordion}>
+							<ServiceAccordion />
+						</div>
+						<div className={styles.solidLink}>
+							<Link className={siteStyles.filledButton} href="/#contact">
+								Voir plus
+							</Link>
+						</div>
+					</Place>
+				</div>
 			</Section>
 			<Section height={1096} className={styles.bespokeProcess}>
-				<Place as="h2" at={[97, 0, 781]} font={[36, 43.56, 600]} family="Inter">
-					Créer un espace pratique, esthétique et parfaitement adapté à votre style de vie.
-				</Place>
-				{[
-					[
-						'Optimisation de l’espace',
-						'Utiliser chaque zone intelligemment pour gagner en confort, rangement et circulation.',
-					],
-					[
-						'Cohérence avec le design intérieur',
-						'Créer une harmonie entre les couleurs, les matériaux, le mobilier et le style général.',
-					],
-					['Finitions personnalisées', 'Adapter les détails, couleurs, textures et formes selon les goûts du client.'],
-				].map(([title, text], index) => (
-					<div className={styles.processStep} key={title}>
-						<Place at={[97, 201 + 237 * index, 72, 72]} className={styles.stepIcon}>
-							<Image
-								src={serviceAssets[`bespoke-step${index + 1}`]}
-								alt=""
-								width={28}
-								height={28}
-								data-complete={index === 2 || undefined}
-							/>
-						</Place>
-						<Place at={[232, 217 + 237 * index, 569]} className={styles.bodyCopy}>
-							<h3>{title}</h3>
-							<p>{text}</p>
-						</Place>
-					</div>
-				))}
+				<div className={styles.bespokeProcessCopy}>
+					<Place as="h2" at={[97, 0, 781]} font={[36, 43.56, 600]} family="Inter">
+						Créer un espace pratique, esthétique et parfaitement adapté à votre style de vie.
+					</Place>
+					{[
+						[
+							'Optimisation de l’espace',
+							'Utiliser chaque zone intelligemment pour gagner en confort, rangement et circulation.',
+						],
+						[
+							'Cohérence avec le design intérieur',
+							'Créer une harmonie entre les couleurs, les matériaux, le mobilier et le style général.',
+						],
+						[
+							'Finitions personnalisées',
+							'Adapter les détails, couleurs, textures et formes selon les goûts du client.',
+						],
+					].map(([title, text], index) => (
+						<div className={styles.processStep} key={title}>
+							<Place at={[97, 201 + 237 * index, 72, 72]} className={styles.stepIcon}>
+								<Image
+									src={serviceAssets[`bespoke-step${index + 1}`]}
+									alt=""
+									width={28}
+									height={28}
+									data-complete={index === 2 || undefined}
+								/>
+							</Place>
+							<Place at={[232, 217 + 237 * index, 569]} className={styles.bodyCopy}>
+								<h3>{title}</h3>
+								<p>{text}</p>
+							</Place>
+						</div>
+					))}
+				</div>
 				<Photo
 					name="bespoke-storage"
 					at={[921, 1, 698, 851]}
@@ -588,34 +601,40 @@ function BespokePage() {
 				<Place as="h2" at={[97, 8, 1535]} font={[58, 70, 600]} family="Inter">
 					Transformer les espaces avec élégance
 				</Place>
-				<Photo name="bespoke-blog1" at={[97, 138, 482, 289]} alt="Vita Gessi Caffè" crop={[100, 109.99, 0, -9.94]} />
-				<Place at={[97, 427, 482, 285]} className={`${styles.inspirationCard} ${styles.coffeeCard}`}>
-					<p>Gessi transforme un geste quotidien en une véritable expérience de design.</p>
-					<h3>Vita Gessi Caffè</h3>
-				</Place>
-				<Place at={[625, 158, 482, 273]} className={`${styles.inspirationCard} ${styles.surfaceCard}`}>
-					<p>
-						Ariostea donne à la céramique une dimension supplémentaire. Au-delà de l’esthétique, ces surfaces sont
-						conçues pour contribuer activement à l’hygiène et au bien-être des espaces intérieurs comme extérieurs.
-					</p>
-					<h3>Active Surfaces®</h3>
-				</Place>
-				<Photo
-					name="bespoke-blog2"
-					at={[625, 431, 482, 293]}
-					alt="Surfaces céramiques Ariostea"
-					crop={[100.07, 116.72, -0.03, -16.72]}
-				/>
-				<Photo
-					name="bespoke-blog3"
-					at={[1150, 158, 482, 263]}
-					alt="Savoir-faire Gessi Haute Culture"
-					crop={[100.01, 121.29, -0.01, -9.13]}
-				/>
-				<Place at={[1150, 421, 482, 291]} className={styles.inspirationCard}>
-					<p>Avec Haute Culture, Gessi porte sa vision du design à son expression la plus exclusive.</p>
-					<h3>Gessi Haute Culture</h3>
-				</Place>
+				<article className={styles.inspirationColumn}>
+					<Photo name="bespoke-blog1" at={[97, 138, 482, 289]} alt="Vita Gessi Caffè" crop={[100, 109.99, 0, -9.94]} />
+					<Place at={[97, 427, 482, 285]} className={`${styles.inspirationCard} ${styles.coffeeCard}`}>
+						<p>Gessi transforme un geste quotidien en une véritable expérience de design.</p>
+						<h3>Vita Gessi Caffè</h3>
+					</Place>
+				</article>
+				<article className={styles.inspirationColumn}>
+					<Place at={[625, 158, 482, 273]} className={`${styles.inspirationCard} ${styles.surfaceCard}`}>
+						<p>
+							Ariostea donne à la céramique une dimension supplémentaire. Au-delà de l’esthétique, ces surfaces sont
+							conçues pour contribuer activement à l’hygiène et au bien-être des espaces intérieurs comme extérieurs.
+						</p>
+						<h3>Active Surfaces®</h3>
+					</Place>
+					<Photo
+						name="bespoke-blog2"
+						at={[625, 431, 482, 293]}
+						alt="Surfaces céramiques Ariostea"
+						crop={[100.07, 116.72, -0.03, -16.72]}
+					/>
+				</article>
+				<article className={styles.inspirationColumn}>
+					<Photo
+						name="bespoke-blog3"
+						at={[1150, 158, 482, 263]}
+						alt="Savoir-faire Gessi Haute Culture"
+						crop={[100.01, 121.29, -0.01, -9.13]}
+					/>
+					<Place at={[1150, 421, 482, 291]} className={styles.inspirationCard}>
+						<p>Avec Haute Culture, Gessi porte sa vision du design à son expression la plus exclusive.</p>
+						<h3>Gessi Haute Culture</h3>
+					</Place>
+				</article>
 			</Section>
 		</>
 	);

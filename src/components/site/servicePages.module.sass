@@ -952,3 +952,418 @@ h3.text
 @media (max-width: 360px)
   .architecture .heroCopy h1
     font-size: 36px
+
+// Aménagement only: preserve its individual Figma type scales in flowing rows.
+.bespoke .text
+  font-family: var(--family), Arial, sans-serif
+  font-size: calc(var(--font) * 1px)
+  line-height: max(calc(var(--leading) * 1px), 1.2em)
+  font-weight: var(--weight)
+
+.bespoke .heroCopy
+  gap: 40px
+  h1
+    font-size: 80px
+    line-height: 100px
+    font-weight: 700
+  > p
+    max-width: 687px
+    color: #545454
+    font-size: 24px
+    line-height: 42.12px
+    font-weight: 500
+
+.bespokeHeroContent, .bespokeSectionCopy, .bespokeProcessCopy, .bespokeSectionHeading, .inspirationColumn
+  min-width: 0
+  > .place
+    position: relative
+    top: auto
+    left: auto
+    width: 100%
+    height: auto
+
+.bespokeHeroContent
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  gap: 80px
+
+.bespokeHeroImages
+  position: relative
+  container-type: inline-size
+  aspect-ratio: 767 / 878
+  margin-top: u(14)
+  > .place
+    --unit: calc(100cqw / 767)
+
+.bespoke .bespokeMetrics
+  display: grid
+  grid-template-columns: minmax(0, 253fr) minmax(0, 240fr) minmax(0, 247fr)
+  gap: 0
+  strong
+    font-size: 70px
+    line-height: 1.755
+    font-weight: 400
+    white-space: nowrap
+  span
+    font-size: 24px
+    line-height: 1.33
+
+.bespokeSectionHeading
+  display: flex
+  align-items: center
+  gap: 32px
+  grid-column: 1 / -1
+  > .rule
+    flex: 0 0 u(100)
+    height: 0
+
+.bespoke .fittingType
+  display: grid
+  grid-template-columns: 76px minmax(0, 1fr)
+  gap: 24px
+  align-items: start
+  .place
+    position: relative
+    top: auto
+    left: auto
+    width: 100%
+    height: auto
+  .photo > div
+    height: auto
+    aspect-ratio: var(--ratio)
+  h3
+    font-family: Inter, Arial, sans-serif
+    font-size: 30px
+    line-height: 45px
+    font-weight: 600
+  p
+    font-size: 22px
+    line-height: 36.344px
+    font-weight: 500
+  &:nth-last-child(-n + 2) h3
+    font-family: Poppins, Arial, sans-serif
+
+.bespokeSectionCopy
+  display: flex
+  flex-direction: column
+  gap: 40px
+  > p
+    color: #545454
+
+.bespoke .accordion
+  summary
+    font-size: 24px
+    line-height: 1.652
+    gap: 16px
+  p
+    font-family: Inter, Arial, sans-serif
+    font-size: 20px
+    line-height: 1.6
+
+.bespokeProcessCopy
+  display: flex
+  flex-direction: column
+  gap: 64px
+
+.bespoke .processStep
+  position: relative
+  display: grid
+  grid-template-columns: 72px minmax(0, 1fr)
+  gap: 48px
+  > .place
+    position: relative
+    top: auto
+    left: auto
+    width: 100%
+    height: auto
+  > .stepIcon
+    width: 72px
+    height: 72px
+    &::after
+      display: none
+  &:not(:last-child)::after
+    content: ''
+    position: absolute
+    left: 36px
+    top: 104px
+    bottom: -32px
+    width: 1px
+    background: #9b9b9b
+  h3
+    font-family: Inter, Arial, sans-serif
+    font-size: 30px
+    line-height: 36.3px
+    font-weight: 700
+  p
+    font-family: Inter, Arial, sans-serif
+    font-size: 24px
+    line-height: 39.648px
+    font-weight: 500
+
+.bespoke .testimonialCards
+  blockquote
+    height: auto
+    min-height: u(600)
+    > p, &[data-author='bespoke-ahmed'] > p
+      width: auto
+      font-family: Inter, Arial, sans-serif
+      font-size: 24px
+      line-height: 1.652
+      font-weight: 500
+    footer
+      position: static
+      margin-top: 48px
+      strong
+        font-size: 24px
+      small
+        font-size: 20px
+
+.inspirationColumn
+  position: relative
+  display: flex
+  flex-direction: column
+  .photo > div
+    height: auto
+    aspect-ratio: var(--ratio)
+  .inspirationCard
+    flex: 1
+    min-height: u(285)
+    gap: 28px
+    padding: 24px 26px 28px
+    p
+      font-size: 32px
+      line-height: 1.5
+      font-weight: 700
+    h3
+      font-family: Inter, Arial, sans-serif
+      font-size: 36px
+      line-height: 1.21
+      font-weight: 700
+  .surfaceCard p
+    font-family: Inter, Arial, sans-serif
+    font-size: 22px
+    line-height: 1.22
+  &:last-child .inspirationCard p
+    font-family: Inter, Arial, sans-serif
+    line-height: 1.21
+
+@media (min-width: 1201px)
+  .bespoke .layoutSection
+    height: auto
+  .bespokeHero
+    display: grid
+    grid-template-columns: minmax(660px, 740fr) minmax(0, 767fr)
+    gap: 0
+    padding: u(28) u(105) u(116) u(113)
+  .bespoke .fittingTypes
+    display: grid
+    grid-template-columns: repeat(6, minmax(0, 1fr))
+    gap: 64px 40px
+    padding: 0 u(105) u(150) u(113)
+    .fittingType
+      grid-column: span 2
+      &:nth-last-child(2)
+        grid-column: 2 / span 2
+      &:last-child
+        grid-column: span 3
+  .bespokeDream, .bespokeProcess
+    display: grid
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+    gap: u(102)
+    padding: 0 u(105) u(196)
+    align-items: start
+    > .photo
+      position: relative
+      top: auto
+      left: auto
+      width: 100%
+      height: auto
+      > div
+        height: auto
+        aspect-ratio: var(--ratio)
+  .bespokeProcess
+    padding-bottom: u(245)
+  .bespokeTestimonials
+    padding-bottom: u(204)
+    > h2
+      position: relative
+      top: auto
+      left: auto
+      width: u(704)
+      margin-left: u(919)
+    .testimonialCards
+      position: relative
+      top: auto
+      left: auto
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+      margin: 78px u(105) 0 u(362)
+      blockquote
+        width: 100%
+      &::before
+        width: calc(50% + #{u(10)})
+  .bespokeGallery
+    display: grid
+    grid-template-columns: minmax(0, 538fr) minmax(0, 515fr) minmax(0, 413fr)
+    grid-template-rows: auto u(263) u(340)
+    gap: u(14) u(27)
+    padding: 0 u(109) u(172) u(84)
+    > .place
+      position: relative
+      top: auto
+      left: auto
+      width: 100%
+      height: auto
+    h2
+      grid-column: 1 / -1
+      margin-bottom: u(72)
+    > .photo:last-child
+      grid-column: 3
+      grid-row: 2 / 4
+  .bespokeInspiration
+    display: grid
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    gap: u(70) u(46)
+    padding: 0 u(96) u(240) u(97)
+    > h2
+      position: relative
+      top: auto
+      left: auto
+      width: 100%
+      height: auto
+      grid-column: 1 / -1
+    > .inspirationOutline
+      top: auto
+      bottom: u(220)
+      &:nth-child(3), &:nth-child(5)
+        top: u(130)
+        bottom: auto
+
+@media (min-width: 1201px) and (max-width: 1400px)
+  .bespoke .fittingTypes
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    .fittingType
+      grid-column: auto
+      &:nth-last-child(2), &:last-child
+        grid-column: auto
+
+@media (max-width: 1200px)
+  .bespokeHeroContent
+    gap: 48px
+  .bespokeHeroImages
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    align-items: center
+    gap: 24px
+    aspect-ratio: auto
+    margin: 0
+  .bespoke .bespokeMetrics
+    max-width: 740px
+  .bespoke .testimonialCards blockquote
+    min-height: 350px
+  .bespoke .fittingType
+    grid-template-columns: 64px minmax(0, 1fr)
+  .bespokeSectionHeading
+    gap: 20px
+    > .rule
+      flex-basis: 50px
+  .bespokeProcessCopy
+    gap: 40px
+  .bespoke .processStep:not(:last-child)::after
+    bottom: -8px
+  .bespoke .bespokeGallery
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 20px
+    h2, > .photo:last-child
+      grid-column: 1 / -1
+    h2
+      margin-bottom: 12px
+
+@media (max-width: 700px)
+  .bespoke .text
+    font-size: 16px
+    line-height: 1.6
+  .bespoke h2.text
+    font-size: 28px
+    line-height: 1.3
+  .bespoke .heroCopy
+    gap: 24px
+    h1
+      font-size: 40px
+      line-height: 1.2
+    > p
+      font-size: 18px
+      line-height: 1.6
+  .bespokeHeroContent
+    gap: 32px
+  .bespokeHeroImages
+    grid-template-columns: minmax(0, 1fr)
+  .bespoke .bespokeMetrics
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    gap: 12px
+    strong
+      font-size: 32px
+      line-height: 1.5
+    span
+      font-size: 12px
+      line-height: 1.5
+  .bespokeSectionHeading
+    > .rule
+      flex-basis: 30px
+  .bespoke .fittingType
+    grid-template-columns: 48px minmax(0, 1fr)
+    gap: 16px
+    h3
+      font-size: 22px
+      line-height: 1.35
+    p
+      font-size: 16px
+      line-height: 1.6
+  .bespokeSectionCopy
+    gap: 24px
+  .bespoke .accordion
+    summary
+      font-size: 16px
+    p
+      font-size: 16px
+  .bespoke .processStep
+    grid-template-columns: 44px minmax(0, 1fr)
+    gap: 16px
+    > .stepIcon
+      width: 44px
+      height: 44px
+    &::after
+      display: none
+    h3
+      font-size: 22px
+      line-height: 1.35
+    p
+      font-size: 16px
+      line-height: 1.6
+  .bespoke .testimonialCards blockquote
+    > p, &[data-author='bespoke-ahmed'] > p
+      font-size: 16px
+      line-height: 1.6
+    footer
+      margin-top: 30px
+      strong
+        font-size: 16px
+      small
+        font-size: 13px
+  .inspirationColumn .inspirationCard
+    min-height: 0
+    padding: 24px
+    p
+      font-size: 20px
+      line-height: 1.5
+    h3
+      font-size: 26px
+      line-height: 1.3
+  .inspirationColumn .surfaceCard p
+    font-size: 18px
+    line-height: 1.5
+
+@media (max-width: 360px)
+  .bespoke .heroCopy h1
+    font-size: 36px
