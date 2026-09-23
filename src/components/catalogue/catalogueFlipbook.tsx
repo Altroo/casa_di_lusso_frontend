@@ -3,37 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import HTMLFlipBook from 'react-pageflip';
-import { forwardRef, type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useEffectEvent, useRef, useState } from 'react';
+import { PAGE_COUNT, PDF_PATH, PAGE_PATHS, PAGE_PREVIEW_PATHS } from '@/data/rawData';
+import type { CataloguePageProps, FlipBookHandle, FlipEvent } from '@/types/componentTypes';
 import styles from './catalogue.module.sass';
 
-const PAGE_COUNT = 24;
-const PDF_PATH = '/assets/casa/catalogue/catalogue-casa-di-lusso.pdf';
-const PAGE_PATHS = Array.from(
-	{ length: PAGE_COUNT },
-	(_, index) => `/assets/casa/catalogue/pages/page-${String(index + 1).padStart(2, '0')}.jpg`,
-);
-const PAGE_PREVIEW_PATHS = PAGE_PATHS.map((path) => path.replace('/pages/', '/pages/previews/'));
-
-interface PageFlipApi {
-	flipNext: () => void;
-	flipPrev: () => void;
-	turnToPage: (page: number) => void;
-}
-
-interface FlipBookHandle {
-	pageFlip: () => PageFlipApi;
-}
-
-interface FlipEvent {
-	data: number;
-}
-
-interface CataloguePageProps {
-	page: number;
-	onReady: (page: number) => void;
-}
-
-const CataloguePage = forwardRef<HTMLDivElement, CataloguePageProps>(({ page, onReady }, ref) => {
+const CataloguePage = ({ page, onReady, ref }: CataloguePageProps) => {
 	const [isHighResolutionReady, setIsHighResolutionReady] = useState(false);
 
 	return (
@@ -75,9 +50,7 @@ const CataloguePage = forwardRef<HTMLDivElement, CataloguePageProps>(({ page, on
 			/>
 		</div>
 	);
-});
-
-CataloguePage.displayName = 'CataloguePage';
+};
 
 const ArrowIcon = ({ direction }: { direction: 'left' | 'right' }) => (
 	<svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
@@ -125,27 +98,29 @@ export default function CatalogueFlipbook() {
 	const [zoom, setZoom] = useState(1);
 	const isReady = arePagesReady && isBookReady && renderedPages === PAGE_COUNT;
 
-	const getBook = useCallback(() => bookRef.current?.pageFlip(), []);
+	const getBook = () => bookRef.current?.pageFlip();
 
-	const previousPage = useCallback(() => getBook()?.flipPrev(), [getBook]);
-	const nextPage = useCallback(() => getBook()?.flipNext(), [getBook]);
-	const firstPage = useCallback(() => getBook()?.turnToPage(0), [getBook]);
-	const lastPage = useCallback(() => getBook()?.turnToPage(PAGE_COUNT - 1), [getBook]);
-	const markPageReady = useCallback((page: number) => {
+	const previousPage = () => getBook()?.flipPrev();
+	const nextPage = () => getBook()?.flipNext();
+	const firstPage = () => getBook()?.turnToPage(0);
+	const lastPage = () => getBook()?.turnToPage(PAGE_COUNT - 1);
+	const markPageReady = (page: number) => {
 		if (renderedPagesRef.current.has(page)) return;
 		renderedPagesRef.current.add(page);
 		setRenderedPages(renderedPagesRef.current.size);
-	}, []);
-
-	useEffect(() => {
-		let cancelled = false;
-
+	};
+	const retryPreload = () => {
 		setLoadedPages(0);
 		renderedPagesRef.current.clear();
 		setRenderedPages(0);
 		setArePagesReady(false);
 		setIsBookReady(false);
 		setPreloadFailed(false);
+		setPreloadAttempt((value) => value + 1);
+	};
+
+	useEffect(() => {
+		let cancelled = false;
 
 		const preloadPage = (src: string) =>
 			new Promise<void>((resolve, reject) => {
@@ -162,13 +137,11 @@ export default function CatalogueFlipbook() {
 			});
 
 		void Promise.allSettled(
-			PAGE_PREVIEW_PATHS.map(async (src) => {
-				try {
-					await preloadPage(src);
-				} finally {
+			PAGE_PREVIEW_PATHS.map((src) =>
+				preloadPage(src).finally(() => {
 					if (!cancelled) setLoadedPages((value) => value + 1);
-				}
-			}),
+				}),
+			),
 		).then((results) => {
 			if (cancelled) return;
 			if (results.every((result) => result.status === 'fulfilled')) {
@@ -198,17 +171,17 @@ export default function CatalogueFlipbook() {
 		return () => window.cancelAnimationFrame(animationFrame);
 	}, [arePagesReady]);
 
-	useEffect(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
+	const handleKeyDown = useEffectEvent((event: KeyboardEvent) => {
 			if (event.key === 'ArrowLeft') previousPage();
 			if (event.key === 'ArrowRight') nextPage();
 			if (event.key === 'Home') firstPage();
 			if (event.key === 'End') lastPage();
-		};
+	});
 
+	useEffect(() => {
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [firstPage, lastPage, nextPage, previousPage]);
+	}, []);
 
 	useEffect(() => {
 		const handleFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
@@ -254,7 +227,7 @@ export default function CatalogueFlipbook() {
 					<div className={styles.loadingPanel} role="status" aria-live="polite">
 						<p>{preloadFailed ? 'Le chargement a été interrompu' : 'Préparation du catalogue'}</p>
 						{preloadFailed ? (
-							<button type="button" onClick={() => setPreloadAttempt((value) => value + 1)}>
+						<button type="button" onClick={retryPreload}>
 								Réessayer
 							</button>
 						) : (

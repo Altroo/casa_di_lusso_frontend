@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties, ReactNode } from 'react';
+import { fittingTypes } from '@/data/rawData';
+import type { Coordinates, PlaceProps } from '@/types/componentTypes';
 import type { SiteSettings } from '@/types/websiteTypes';
 import type { ServicePage } from '@/data/services';
 import { serviceAssets } from '@/data/serviceAssets';
@@ -10,16 +12,6 @@ import AnimatedMetricValue from './animatedMetricValue';
 import { ProjectCarousel, ServiceTestimonials } from './serviceInteractions';
 import siteStyles from './site.module.sass';
 import styles from './servicePages.module.sass';
-
-type Coordinates = [number, number, number, number?];
-type PlaceProps = {
-	at: Coordinates;
-	children?: ReactNode;
-	className?: string;
-	as?: 'div' | 'p' | 'h1' | 'h2' | 'h3' | 'ul';
-	font?: [number, number, number?];
-	family?: 'Inter' | 'Poppins';
-};
 
 function Place({ at: [x, y, width, height], children, className = '', as: Tag = 'div', font, family }: PlaceProps) {
 	return (
@@ -347,59 +339,6 @@ function ArchitecturePage() {
 	);
 }
 
-const fittingTypes = [
-	{
-		x: 220,
-		y: 74,
-		width: 448,
-		icon: 'dressingIcon',
-		iconAt: [129, 53, 67, 77] as Coordinates,
-		title: 'Dressings sur mesure',
-		text: 'Rangements personnalisés\npour organiser vêtements\net accessoires avec élégance.',
-	},
-	{
-		x: 738,
-		y: 74,
-		width: 359,
-		icon: 'kitchenIcon',
-		iconAt: [620, 52, 89, 78] as Coordinates,
-		title: 'Cuisines haut de gamme',
-		text: 'Cuisines modernes, pratiques\net raffinées avec matériaux de\nqualité.',
-	},
-	{
-		x: 1264,
-		y: 74,
-		width: 359,
-		icon: 'libraryIcon',
-		iconAt: [1169, 47, 73, 89] as Coordinates,
-		title: 'Bibliothèques intégrées',
-		text: 'Bibliothèques adaptées à\nl’espace, à la fois décoratives\net fonctionnelles.',
-	},
-	{
-		x: 415,
-		y: 306,
-		width: 359,
-		icon: 'storageIcon',
-		iconAt: [268, 299, 116, 81] as Coordinates,
-		title: (
-			<>
-				Rangements
-				<br /> élégants
-			</>
-		),
-		text: 'Solutions discrètes pour\noptimiser l’espace avec style.',
-	},
-	{
-		x: 966,
-		y: 306,
-		width: 511,
-		icon: 'roomIcon',
-		iconAt: [801, 310, 138, 68] as Coordinates,
-		title: 'Aménagements pour salons, chambres et suites',
-		text: 'Solutions personnalisées pour\ncréer des espaces confortables,\nélégants et harmonieux.',
-	},
-];
-
 function BespokePage() {
 	return (
 		<>
@@ -466,7 +405,7 @@ function BespokePage() {
 							className={styles.fittingIcon}
 						/>
 						<Place at={[item.x, item.y + 77, item.width]} className={styles.bodyCopy}>
-							<h3>{item.title}</h3>
+							<h3>{item.titleLines ? <>{item.titleLines[0]}<br /> {item.titleLines[1]}</> : item.title}</h3>
 							<p>{item.text}</p>
 						</Place>
 					</div>

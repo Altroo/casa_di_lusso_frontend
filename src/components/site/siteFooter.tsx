@@ -74,7 +74,7 @@ export default function SiteFooter({
 		const duration = 700;
 		let startedAt: number | null = null;
 		const animate = (timestamp: number) => {
-			startedAt ??= timestamp;
+			if (startedAt === null) startedAt = timestamp;
 			const progress = Math.min((timestamp - startedAt) / duration, 1);
 			const eased = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 			window.scrollTo(0, Math.round(initialScroll * (1 - eased)));

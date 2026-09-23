@@ -1,3 +1,5 @@
+export type { ServicePage } from '@/types/serviceTypes';
+
 export const servicePages = [
 	{
 		slug: 'design-interieur-de-luxe',
@@ -20,8 +22,6 @@ export const servicePages = [
 		description: 'Des aménagements sur mesure adaptés aux dimensions, aux usages et à l’esthétique de votre intérieur.',
 	},
 ] as const;
-
-export type ServicePage = (typeof servicePages)[number];
 
 export function serviceLink(title: string) {
 	const normalized = title.toLocaleLowerCase('fr');

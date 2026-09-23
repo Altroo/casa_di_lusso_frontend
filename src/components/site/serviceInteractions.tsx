@@ -4,31 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { serviceAssets } from '@/data/serviceAssets';
+import { projects, testimonials } from '@/data/rawData';
 import styles from './servicePages.module.sass';
-
-const projects = [
-	{
-		image: 'architecture-project1',
-		name: '323 Down Lane',
-		place: 'Corney',
-		type: 'Résidentiel',
-		details: 'Appartements, suites',
-	},
-	{
-		image: 'architecture-project2',
-		name: '88 Johnson Blvd',
-		place: 'Sunset South',
-		type: 'Décoration intérieure',
-		details: 'Appartements, résidences, suites',
-	},
-	{
-		image: 'architecture-project3',
-		name: '130-540 Noth Road',
-		place: 'Reggae',
-		type: 'Décoration intérieure',
-		details: 'Centre médical',
-	},
-];
 
 export function ProjectCarousel() {
 	const viewport = useRef<HTMLDivElement>(null);
@@ -104,21 +81,6 @@ export function ProjectCarousel() {
 		</div>
 	);
 }
-
-const testimonials = [
-	{
-		name: 'Sanae jamil',
-		location: 'Casablanca, Maroc',
-		image: 'bespoke-sanae',
-		text: 'Travailler avec l’équipe de Casa Di Lusso a\nété un véritable plaisir. Leur souci du détail\net leur créativité ont dépassé mes attentes.\nMerci d’avoir embelli ma maison !',
-	},
-	{
-		name: 'Ahmed Said',
-		location: 'Tanger, Maroc',
-		image: 'bespoke-ahmed',
-		text: 'Service exceptionnel ! De la première\nconsultation à la présentation finale, votre\néquipe a fait preuve de professionnalisme\net d’un sens aigu du design.',
-	},
-];
 
 export function ServiceTestimonials() {
 	const [index, setIndex] = useState(0);

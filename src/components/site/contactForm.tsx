@@ -2,31 +2,10 @@
 
 import { useState } from 'react';
 import type { ComponentProps } from 'react';
+import { fieldDefinitions, initialValues } from '@/data/rawData';
+import type { ContactField, ContactValues } from '@/types/componentTypes';
 import { publicWebsiteApi } from '@/utils/websiteApi';
 import styles from './site.module.sass';
-
-interface ContactValues {
-	full_name: string;
-	email: string;
-	phone: string;
-	message: string;
-	website: string;
-}
-type ContactField = keyof ContactValues;
-
-const initialValues: ContactValues = { full_name: '', email: '', phone: '', message: '', website: '' };
-
-const fieldDefinitions: Array<{
-	name: Exclude<ContactField, 'website'>;
-	label: string;
-	type: string;
-	autoComplete: string;
-}> = [
-	{ name: 'full_name', label: 'Nom complet', type: 'text', autoComplete: 'name' },
-	{ name: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
-	{ name: 'phone', label: 'Téléphone', type: 'tel', autoComplete: 'tel' },
-	{ name: 'message', label: 'Message', type: 'text', autoComplete: 'off' },
-];
 
 export default function ContactForm() {
 	const [values, setValues] = useState<ContactValues>(initialValues);
@@ -46,27 +25,25 @@ export default function ContactForm() {
 		return Object.keys(nextErrors).length === 0;
 	};
 
-	const submit: NonNullable<ComponentProps<'form'>['onSubmit']> = async (event) => {
+	const submit: NonNullable<ComponentProps<'form'>['onSubmit']> = (event) => {
 		event.preventDefault();
 		setTouched({ full_name: true, email: true, phone: true, message: true });
 		if (!validate(values)) return;
 		setNotice(null);
 		setIsSubmitting(true);
-		try {
-			const response = await fetch(`${publicWebsiteApi}/contact/`, {
+		void fetch(`${publicWebsiteApi}/contact/`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 				body: JSON.stringify(values),
-			});
-			if (!response.ok) throw new Error('Contact request failed');
-			setNotice({ type: 'success', text: 'Votre demande a bien été envoyée.' });
-			setValues(initialValues);
-			setTouched({});
-		} catch {
-			setNotice({ type: 'error', text: "L'envoi a échoué. Réessayez dans quelques instants." });
-		} finally {
-			setIsSubmitting(false);
-		}
+			})
+			.then((response) => {
+				if (!response.ok) throw new Error('Contact request failed');
+				setNotice({ type: 'success', text: 'Votre demande a bien été envoyée.' });
+				setValues(initialValues);
+				setTouched({});
+			})
+			.catch(() => setNotice({ type: 'error', text: "L'envoi a échoué. Réessayez dans quelques instants." }))
+			.finally(() => setIsSubmitting(false));
 	};
 
 	return (

@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.sass';
+import type { RootLayoutProps } from '@/types/componentTypes';
 
 export const generateMetadata = (): Metadata => ({
 	metadataBase: new URL(process.env.NEXT_PUBLIC_DOMAIN_URL_PREFIX ?? 'https://casadilusso.ma'),
@@ -38,10 +38,6 @@ export const viewport: Viewport = {
 	initialScale: 1,
 	themeColor: '#1a1a1a',
 };
-
-interface RootLayoutProps {
-	children: ReactNode;
-}
 
 export default function RootLayout({ children }: RootLayoutProps) {
 	return (

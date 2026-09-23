@@ -22,21 +22,20 @@ export default function NewsletterForm() {
 	const [email, setEmail] = useState('');
 	const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-	const submit: NonNullable<ComponentProps<'form'>['onSubmit']> = async (event) => {
+	const submit: NonNullable<ComponentProps<'form'>['onSubmit']> = (event) => {
 		event.preventDefault();
 		setState('loading');
-		try {
-			const response = await fetch(`${publicWebsiteApi}/newsletter/`, {
+		void fetch(`${publicWebsiteApi}/newsletter/`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 				body: JSON.stringify({ email }),
-			});
-			if (!response.ok) throw new Error('Newsletter request failed');
-			setEmail('');
-			setState('success');
-		} catch {
-			setState('error');
-		}
+			})
+			.then((response) => {
+				if (!response.ok) throw new Error('Newsletter request failed');
+				setEmail('');
+				setState('success');
+			})
+			.catch(() => setState('error'));
 	};
 
 	return (

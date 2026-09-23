@@ -1,75 +1,15 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import Image from 'next/image';
-import type { SiteContent } from '@/types/websiteTypes';
+import type { CasaSiteProps } from '@/types/componentTypes';
+import { heroSlides, topBrandMarks, valueIcons, heroWordmark, partnerMarks, portfolioImages } from '@/data/rawData';
 import ContactForm from './contactForm';
 import SiteHeader from './siteHeader';
 import SiteFooter from './siteFooter';
 import AnimatedMetricValue from './animatedMetricValue';
 import { serviceLink } from '@/data/services';
 import styles from './site.module.sass';
-
-interface CasaSiteProps {
-	content: SiteContent;
-}
-
-const topBrandMarks = [
-	{ src: '/assets/casa/figma/brand-effe.svg', alt: 'effe' },
-	{ src: '/assets/casa/figma/brand-arredo3.svg', alt: 'Arredo3 Cucine' },
-	{ src: '/assets/casa/figma/brand-jacuzzi.png', alt: 'Jacuzzi' },
-	{ src: '/assets/casa/figma/brand-jacuzzi.svg', alt: 'Bonaldo' },
-	{ src: '/assets/casa/figma/brand-bonaldo.svg', alt: 'Poliform' },
-	{ src: '/assets/casa/figma/partner-gessi.png', alt: 'Giessegi' },
-	{ src: '/assets/casa/figma/partner-bomma.png', alt: 'Loommo' },
-	{ src: '/assets/casa/figma/partner-flaminia.png', alt: 'Flaminia' },
-	{ src: '/assets/casa/figma/group60.svg', alt: 'Gessi' },
-	{ src: '/assets/casa/figma/partner-marazzi.png', alt: 'Marazzi' },
-];
-
-const valueIcons = {
-	design: '/assets/casa/figma/value-design.svg',
-	bespoke: '/assets/casa/figma/value-bespoke.svg',
-	quality: '/assets/casa/figma/value-quality.svg',
-	support: '/assets/casa/figma/value-support.svg',
-} as const;
-
-const heroWordmark = [
-	{ src: '/assets/casa/figma/wordmark-c.svg', left: 0, width: 37.033, height: 41.737 },
-	{ src: '/assets/casa/figma/wordmark-a1.svg', left: 41.9, width: 39.99, height: 40.581 },
-	{ src: '/assets/casa/figma/wordmark-s1.svg', left: 86.8, width: 27.716, height: 41.764 },
-	{ src: '/assets/casa/figma/wordmark-a2.svg', left: 118.4, width: 39.99, height: 40.581 },
-	{ src: '/assets/casa/figma/wordmark-d.svg', left: 179, width: 37.892, height: 40.563 },
-	{ src: '/assets/casa/figma/wordmark-i.svg', left: 223.7, width: 11.651, height: 40.563 },
-	{ src: '/assets/casa/figma/wordmark-l.svg', left: 261.3, width: 31.341, height: 42.242 },
-	{ src: '/assets/casa/figma/wordmark-u.svg', left: 298.2, width: 39.517, height: 42.242 },
-	{ src: '/assets/casa/figma/wordmark-s2.svg', left: 343, width: 29.979, height: 42.242 },
-	{ src: '/assets/casa/figma/wordmark-s3.svg', left: 381.4, width: 28.616, height: 42.242 },
-	{ src: '/assets/casa/figma/wordmark-o.svg', left: 416.5, width: 44.968, height: 42.242 },
-];
-
-const partnerMarks = [
-	{ src: '/assets/casa/figma/brand-effe.svg', alt: 'effe' },
-	{ src: '/assets/casa/figma/brand-arredo3.svg', alt: 'Arredo3 Cucine' },
-	{ src: '/assets/casa/figma/brand-jacuzzi.png', alt: 'Jacuzzi' },
-	{ src: '/assets/casa/figma/brand-jacuzzi.svg', alt: 'Bonaldo' },
-	{ src: '/assets/casa/figma/brand-bonaldo.svg', alt: 'Poliform' },
-	{ src: '/assets/casa/figma/group60.svg', alt: 'Gessi' },
-	{ src: '/assets/casa/figma/partner-marazzi.png', alt: 'Marazzi' },
-	{ src: '/assets/casa/figma/partner-delta-light.png', alt: 'Delta Light' },
-	{ src: '/assets/casa/figma/partner-gessi.png', alt: 'Giessegi' },
-	{ src: '/assets/casa/figma/partner-bomma.png', alt: 'Loommo' },
-	{ src: '/assets/casa/figma/partner-flaminia.png', alt: 'Flaminia' },
-];
-
-const portfolioImages = [
-	{ src: '/assets/casa/partner-kali.jpg', alt: 'Cuisine Kali' },
-	{ src: '/assets/casa/figma/portfolio-office.jpg', alt: 'Mobilier de bureau contemporain' },
-	{ src: '/assets/casa/partner-fragments.jpg', alt: 'Luminaires Fragments' },
-	{ src: '/assets/casa/figma/portfolio-drawer.jpg', alt: 'Détail de mobilier sur mesure' },
-	{ src: '/assets/casa/partner-bomma.jpg', alt: 'Cuisine noire contemporaine' },
-	{ src: '/assets/casa/figma/portfolio-living.png', alt: 'Aménagement de salon sur mesure' },
-];
 
 const sectionImage = (apiImage: string, fallback: string) => apiImage || fallback;
 
@@ -85,46 +25,14 @@ export default function CasaSite({ content }: CasaSiteProps) {
 	const heroTransitionLocked = useRef(false);
 	const heroAutomaticTransitionActive = useRef(false);
 	const { settings } = content;
-	const heroSlides = [
-		{
-			src: '/assets/casa/hero-showroom-main.png',
-			alt: 'Showroom Casa di Lusso encadré par les arbres',
-			sizes: '(max-width: 1536px) 100vw, 1536px',
-		},
-		{
-			src: '/assets/casa/hero-lighting-pendants.png',
-			alt: 'Luminaires suspendus en laiton',
-			sizes: '(max-width: 1920px) 100vw, 1920px',
-		},
-		{
-			src: '/assets/casa/hero-delta-light.png',
-			alt: 'Éclairage architectural Delta Light au crépuscule',
-			sizes: '(max-width: 1920px) 100vw, 1920px',
-		},
-		{
-			src: '/assets/casa/hero-dark-interior.png',
-			alt: 'Salle à manger contemporaine illuminée',
-			sizes: '(max-width: 1920px) 100vw, 1920px',
-		},
-		{
-			src: '/assets/casa/hero-kitchen.png',
-			alt: 'Cuisine contemporaine verte',
-			sizes: '(max-width: 1920px) 100vw, 1920px',
-		},
-		{
-			src: '/assets/casa/hero-gessi-shower.jpg',
-			alt: 'Salle de douche Gessi',
-			sizes: '(max-width: 1920px) 100vw, 1920px',
-		},
-	];
 
-	const stopHeroAutoplay = useCallback(() => {
+	const stopHeroAutoplay = () => {
 		if (heroAutoplayTimer.current !== null) {
 			window.clearTimeout(heroAutoplayTimer.current);
 			heroAutoplayTimer.current = null;
 		}
-	}, []);
-	const transitionHero = useCallback((nextIndex: (current: number) => number) => {
+	};
+	const transitionHero = (nextIndex: (current: number) => number) => {
 		if (heroTransitionLocked.current) return false;
 		heroTransitionLocked.current = true;
 		setHeroIndex(nextIndex);
@@ -134,7 +42,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			heroUnlockTimer.current = null;
 		}, 780);
 		return true;
-	}, []);
+	};
 	const changeHero = (direction: -1 | 1) => {
 		setHeroAutoplayEnabled(true);
 		stopHeroAutoplay();
@@ -143,9 +51,12 @@ export default function CasaSite({ content }: CasaSiteProps) {
 		}
 		setHeroAutoplayRevision((revision) => revision + 1);
 	};
+	const advanceHeroAutomatically = useEffectEvent(() => {
+		transitionHero((current) => (current + 1) % heroSlides.length);
+	});
 	useEffect(() => {
 		if (!heroAutoplayEnabled) return;
-		stopHeroAutoplay();
+		if (heroAutoplayTimer.current !== null) window.clearTimeout(heroAutoplayTimer.current);
 		heroAutoplayTimer.current = window.setTimeout(() => {
 			heroAutoplayTimer.current = null;
 			heroAutomaticTransitionActive.current = true;
@@ -154,11 +65,14 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				heroAutomaticTransitionActive.current = false;
 				heroAutomaticGuardTimer.current = null;
 			}, 2000);
-			transitionHero((current) => (current + 1) % heroSlides.length);
+			advanceHeroAutomatically();
 		}, 5000);
 
-		return stopHeroAutoplay;
-	}, [heroAutoplayEnabled, heroAutoplayRevision, heroIndex, heroSlides.length, stopHeroAutoplay, transitionHero]);
+		return () => {
+			if (heroAutoplayTimer.current !== null) window.clearTimeout(heroAutoplayTimer.current);
+			heroAutoplayTimer.current = null;
+		};
+	}, [heroAutoplayEnabled, heroAutoplayRevision, heroIndex]);
 
 	useEffect(
 		() => () => {

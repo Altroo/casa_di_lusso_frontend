@@ -1,24 +1,5 @@
-export type PressCategory = { id: number; title: string; slug: string };
-
-export type PressArticle = {
-	id: number;
-	title: string;
-	slug: string;
-	categories: PressCategory[];
-	excerpt: string;
-	image_url: string;
-	image_alt: string;
-	published_at: string;
-	updated_at: string;
-	is_featured: boolean;
-};
-
-export type PressArticleDetail = PressArticle & {
-	content_title: string;
-	introduction: string;
-	body_html: string;
-	hero_image_url: string;
-};
+import type { PressArticle, PressArticleDetail, PressCategory } from '@/types/pressTypes';
+export type { PressArticle, PressArticleDetail, PressCategory } from '@/types/pressTypes';
 
 const api = `${process.env.NEXT_PUBLIC_BACKEND_API ?? 'http://localhost:8008'}/api/website/press`;
 
