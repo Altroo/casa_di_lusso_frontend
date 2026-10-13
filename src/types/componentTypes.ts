@@ -3,6 +3,8 @@ import type { SiteContent } from '@/types/websiteTypes';
 
 export interface PageFlipApi {
 	flipNext: () => void;
+	turnToNextPage: () => void;
+	turnToPrevPage: () => void;
 	flipPrev: () => void;
 	turnToPage: (page: number) => void;
 }
@@ -48,4 +50,13 @@ export interface RootLayoutProps {
 	children: ReactNode;
 }
 
-export type FittingType = { x: number; y: number; width: number; icon: string; iconAt: Coordinates; title: string; titleLines?: [string, string]; text: string };
+export type FittingType = {
+	x: number;
+	y: number;
+	width: number;
+	icon: string;
+	iconAt: Coordinates;
+	title: string;
+	titleLines?: [string, string];
+	text: string;
+};

@@ -65,39 +65,6 @@ export const portfolioImages = [
 	{ src: '/assets/casa/figma/portfolio-living.png', alt: 'Aménagement de salon sur mesure' },
 ];
 
-export const heroSlides = [
-	{
-		src: '/assets/casa/hero-showroom-main.png',
-		alt: 'Showroom Casa di Lusso encadré par les arbres',
-		sizes: '(max-width: 1536px) 100vw, 1536px',
-	},
-	{
-		src: '/assets/casa/hero-lighting-pendants.png',
-		alt: 'Luminaires suspendus en laiton',
-		sizes: '(max-width: 1920px) 100vw, 1920px',
-	},
-	{
-		src: '/assets/casa/hero-delta-light.png',
-		alt: 'Éclairage architectural Delta Light au crépuscule',
-		sizes: '(max-width: 1920px) 100vw, 1920px',
-	},
-	{
-		src: '/assets/casa/hero-dark-interior.png',
-		alt: 'Salle à manger contemporaine illuminée',
-		sizes: '(max-width: 1920px) 100vw, 1920px',
-	},
-	{
-		src: '/assets/casa/hero-kitchen.png',
-		alt: 'Cuisine contemporaine verte',
-		sizes: '(max-width: 1920px) 100vw, 1920px',
-	},
-	{
-		src: '/assets/casa/hero-gessi-shower.jpg',
-		alt: 'Salle de douche Gessi',
-		sizes: '(max-width: 1920px) 100vw, 1920px',
-	},
-	];
-
 export const projects = [
 	{
 		image: 'architecture-project1',

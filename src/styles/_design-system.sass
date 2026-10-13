@@ -1,0 +1,70 @@
+// Shared roles. Rem bounds preserve the reader's text-size preference.
+@mixin body
+  font-size: var(--text-body)
+  font-weight: 400
+  line-height: 1.65
+  letter-spacing: normal
+
+@mixin lead
+  font-size: var(--text-lead)
+  font-weight: 400
+  line-height: 1.6
+  letter-spacing: normal
+
+@mixin display
+  font-size: var(--text-display)
+  font-weight: 500
+  line-height: 1.12
+  letter-spacing: -.035em
+  text-wrap: balance
+
+@mixin title
+  font-size: var(--text-title)
+  font-weight: 500
+  line-height: 1.15
+  letter-spacing: -.03em
+  text-wrap: balance
+
+@mixin section
+  font-size: var(--text-section)
+  font-weight: 500
+  line-height: 1.25
+  letter-spacing: -.025em
+  text-wrap: balance
+
+@mixin card
+  font-size: var(--text-card)
+  font-weight: 500
+  line-height: 1.35
+  letter-spacing: -.015em
+  text-wrap: balance
+
+@mixin label
+  font-size: .875rem
+  font-weight: 500
+  line-height: 1.5
+  letter-spacing: .06em
+
+@mixin container
+  padding-inline: var(--gutter)
+
+@mixin section-space
+  padding-block: var(--section-space)
+
+@mixin button
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: .625rem
+  min-height: 3rem
+  max-width: 100%
+  padding: .875rem 1.5rem
+  border: 1px solid currentColor
+  border-radius: 0
+  font-size: .875rem
+  font-weight: 500
+  line-height: 1.5
+  letter-spacing: .035em
+  text-align: center
+  cursor: pointer
+  transition: background-color .25s ease, color .25s ease

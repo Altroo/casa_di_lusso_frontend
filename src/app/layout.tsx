@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
+import PageMotion from '@/components/site/pageMotion';
 import '@/styles/globals.sass';
 import type { RootLayoutProps } from '@/types/componentTypes';
 
@@ -47,6 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 					Aller au contenu
 				</a>
 				<div id="main-content">{children}</div>
+				<Suspense fallback={null}><PageMotion /></Suspense>
 			</body>
 		</html>
 	);

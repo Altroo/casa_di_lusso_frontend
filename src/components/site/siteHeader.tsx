@@ -7,11 +7,18 @@ import { servicePages, type ServicePage } from '@/data/services';
 import styles from './site.module.sass';
 import menuStyles from './siteHeader.module.sass';
 
-export default function SiteHeader({ variant, activeSlug }: { variant?: ServicePage['kind'] | 'press'; activeSlug?: string }) {
+export default function SiteHeader({
+	variant,
+	activeSlug,
+}: {
+	variant?: ServicePage['kind'] | 'press' | 'recovery';
+	activeSlug?: string;
+}) {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [servicesOpen, setServicesOpen] = useState(false);
 	const menuButton = useRef<HTMLButtonElement>(null);
 	const serviceButton = useRef<HTMLButtonElement>(null);
+	const headerRef = useRef<HTMLElement>(null);
 	const home = variant ? '/' : '';
 	const closeMenu = () => {
 		setMenuOpen(false);
@@ -22,8 +29,33 @@ export default function SiteHeader({ variant, activeSlug }: { variant?: ServiceP
 		if (!menuOpen) return;
 		const previous = document.body.style.overflow;
 		document.body.style.overflow = 'hidden';
+		const header = headerRef.current;
+		const firstLink = header?.querySelector<HTMLAnchorElement>('nav a');
+		firstLink?.focus();
+		const keepFocus = (event: KeyboardEvent) => {
+			if (event.key !== 'Tab' || !header) return;
+			const items = Array.from(header.querySelectorAll<HTMLElement>('a, button')).filter(
+				(item) => item.getClientRects().length > 0,
+			);
+			const first = items[0];
+			const last = items[items.length - 1];
+			if (event.shiftKey && document.activeElement === first) {
+				event.preventDefault();
+				last?.focus();
+			} else if (!event.shiftKey && document.activeElement === last) {
+				event.preventDefault();
+				first?.focus();
+			}
+		};
+		const closeOnWideScreen = () => {
+			if (window.innerWidth > 900) setMenuOpen(false);
+		};
+		window.addEventListener('keydown', keepFocus);
+		window.addEventListener('resize', closeOnWideScreen);
 		return () => {
 			document.body.style.overflow = previous;
+			window.removeEventListener('keydown', keepFocus);
+			window.removeEventListener('resize', closeOnWideScreen);
 		};
 	}, [menuOpen]);
 
@@ -45,7 +77,7 @@ export default function SiteHeader({ variant, activeSlug }: { variant?: ServiceP
 
 	return (
 		<div className={styles.headerSpace}>
-			<header className={styles.header} data-site-header>
+			<header ref={headerRef} className={styles.header} data-site-header>
 				<a href={`${home}#accueil`} className={styles.logoLink} aria-label="Casa di Lusso — Accueil">
 					<Image src="/assets/casa/logo.png" alt="Casa di Lusso" width={112} height={100} />
 				</a>
@@ -60,10 +92,11 @@ export default function SiteHeader({ variant, activeSlug }: { variant?: ServiceP
 					<div
 						className={menuStyles.services}
 						onPointerEnter={(event) => {
-							if (event.pointerType === 'mouse' && window.matchMedia('(min-width: 701px)').matches) setServicesOpen(true);
+							if (event.pointerType === 'mouse' && window.matchMedia('(min-width: 901px)').matches)
+								setServicesOpen(true);
 						}}
 						onPointerLeave={(event) => {
-							if (event.pointerType === 'mouse' && window.matchMedia('(min-width: 701px)').matches)
+							if (event.pointerType === 'mouse' && window.matchMedia('(min-width: 901px)').matches)
 								setServicesOpen(false);
 						}}
 						onBlur={(event) => {
@@ -80,7 +113,9 @@ export default function SiteHeader({ variant, activeSlug }: { variant?: ServiceP
 							aria-label="Afficher les services"
 							aria-expanded={servicesOpen}
 							aria-controls="service-navigation"
-							onClick={() => setServicesOpen((open) => !open)}
+							onClick={(event) => setServicesOpen((open) =>
+								event.detail > 0 && window.matchMedia('(min-width: 901px) and (hover: hover)').matches ? true : !open,
+							)}
 						>
 							<span />
 						</button>

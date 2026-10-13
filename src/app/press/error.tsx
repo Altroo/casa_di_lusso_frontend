@@ -1,14 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import styles from '@/components/site/pressPages.module.sass';
-import siteStyles from '@/components/site/site.module.sass';
+import { useTransition } from 'react';
+import RecoveryPage from '@/components/site/recoveryPage';
+import styles from '@/components/site/site.module.sass';
 
-export default function PressError({ reset }: { reset: () => void }) {
-	return <main className={styles.error}>
-		<h1>Press</h1>
-		<p>Les articles sont temporairement indisponibles. Veuillez réessayer dans quelques instants.</p>
-		<button type="button" className={siteStyles.filledButton} onClick={reset}>Réessayer</button>
-		<Link href="/">Retour à l’accueil</Link>
-	</main>;
+export default function PressError({ retry }: { retry: () => void }) {
+	const [pending, startTransition] = useTransition();
+	return <RecoveryPage code="Blog & actualités" title="Une interruption temporaire"
+		action={<>
+			<button type="button" className={styles.filledButton} disabled={pending} onClick={() => startTransition(retry)}>
+				{pending ? 'Chargement…' : 'Réessayer'}
+			</button>
+			<Link href="/">Retour à l’accueil</Link>
+		</>}>
+		<p>Les articles sont temporairement indisponibles. Vous pouvez réessayer ou poursuivre votre visite.</p>
+	</RecoveryPage>;
 }

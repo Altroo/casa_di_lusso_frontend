@@ -1,481 +1,230 @@
-@use './carouselTypography' as carousel
-
-@function u($value)
-  @return calc(#{$value} * var(--unit))
+@use '../../styles/design-system' as ds
 
 .page
-  @include carousel.paragraph
-  h1, h2, h3, h4, h5, h6
-    @include carousel.title
-  p
-    @include carousel.paragraph
-  --unit: .0694444444cqw
-  container-type: inline-size
-  background: white
-  color: #1a1a1a
-  font-family: Poppins, Arial, sans-serif
-  overflow: clip
+  background: var(--paper)
+  color: var(--ink)
   h1, h2, h3, p
     margin: 0
-  a:focus-visible
-    outline: 2px solid currentColor
-    outline-offset: 5px
 
-.listHero
+.listHero, .detailHero
   position: relative
-  min-height: max(u(644), 520px)
+  isolation: isolate
   color: white
+  background: var(--ink)
   > img
     object-fit: cover
+    z-index: -2
+  &::after
+    content: ''
+    position: absolute
+    inset: 0
+    z-index: -1
+    background: linear-gradient(90deg, #000b, #0002)
+
+.heroCopy, .detailHeroCopy
+  @include ds.container
+  padding-block: var(--section-space)
+  h1
+    @include ds.title
+    max-width: 24ch
+  p
+    @include ds.lead
+    max-width: 52ch
+    margin-top: 1.5rem
+
+.detailHeroCopy h1
+  hyphens: auto
 
 .heroCopy
-  position: relative
-  padding-top: u(92)
-  padding-bottom: 60px
-  margin-left: u(50)
-  width: min(462px, calc(100% - 48px))
-  h1
-    text-transform: uppercase
-  p
-    width: 100%
-    margin-top: 24px
+  min-height: clamp(28rem, 44vw, 40rem)
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+.heroCopy p
+  @include ds.body
+  max-width: 54ch
+
+.detailHeroCopy
+  padding-bottom: calc(var(--section-space) + 5rem)
 
 .categories
-  padding: u(40) u(50) 0
+  @include ds.container
+  padding-top: var(--section-space)
 
 .category
-  margin-bottom: u(95)
+  margin-bottom: var(--section-space)
   h2
-    max-width: u(1050)
-    margin-bottom: u(25)
-    text-transform: uppercase
+    @include ds.section
+    max-width: 32ch
+    margin-bottom: 2rem
 
 .grid
   display: grid
   grid-template-columns: repeat(3, minmax(0, 1fr))
-  gap: u(30)
+  gap: 2.5rem var(--grid-gap)
 
 .cardLink
   display: block
   h3
-    margin-top: u(28)
-    text-transform: uppercase
+    @include ds.card
+    margin-top: 1.25rem
   p
-    margin-top: u(10)
-    max-width: u(395)
-    color: #7b7b7b
+    @include ds.body
+    margin-top: .75rem
+    color: var(--muted)
   &:hover h3
     text-decoration: underline
     text-underline-offset: .2em
 
 .cover
   position: relative
-  aspect-ratio: 426 / 350
+  aspect-ratio: 4 / 3
   overflow: hidden
-  background: #f2f1ed
+  background: var(--surface)
   img
     object-fit: cover
+    transition: transform .65s cubic-bezier(.22, 1, .36, 1)
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)
+  .cardLink:hover .cover img
+    transform: scale(1.035)
 
 .noImage
   display: grid
   place-items: center
   height: 100%
-  padding: 20px
-  color: #777
-  font-family: Georgia, serif
+  padding: 1.5rem
+  color: var(--muted)
+  @include ds.card
 
 .brands
-  min-height: u(260)
-  padding: u(45) u(245) u(90)
-  display: flex
+  @include ds.container
+  display: grid
+  grid-template-columns: repeat(4, minmax(0, 1fr))
   align-items: center
-  justify-content: space-between
-  gap: u(60)
+  justify-items: center
+  gap: 2rem
+  padding-block: 3rem
+  border-top: 1px solid var(--line)
   img
-    width: u(200)
-    height: u(80)
+    width: min(100%, 10rem)
+    height: 4rem
     object-fit: contain
     &:first-child
-      width: u(100)
-
-.detailHero
-  position: relative
-  min-height: u(780)
-  color: white
-  > img
-    object-fit: cover
+      width: 5rem
 
 .heroShade
   position: absolute
   inset: 0
-  background: #0008
-
-.detailHeroCopy
-  position: relative
-  padding: u(110) u(57) u(440)
-  h1
-    text-transform: uppercase
-    max-width: u(1260)
-  p
-    margin-top: u(15)
-    max-width: u(575)
+  z-index: -1
+  background: #0004
 
 .articlePanel
   position: relative
-  background: white
-  margin: u(-405) u(50) 0
-  padding: u(32) u(84) u(70)
+  margin: -5rem var(--gutter) 0
+  padding: clamp(1.5rem, 4vw, 4rem)
+  background: var(--paper)
 
 .articleIntro
   display: grid
-  grid-template-columns: u(457) minmax(0, 1fr)
-  gap: u(30)
-  .cover
-    aspect-ratio: 457 / 373
+  grid-template-columns: 1fr 1fr
+  align-items: center
+  gap: var(--grid-gap)
   h2
-    text-transform: uppercase
+    @include ds.section
   p
-    margin-top: u(22)
-    color: #7b7b7b
+    @include ds.lead
+    margin-top: 1.5rem
+    color: var(--muted)
+    white-space: pre-line
 
 .articleBody
-  margin-top: u(92)
-  color: #7b7b7b
+  max-width: var(--measure)
+  margin: var(--section-space) auto 0
+  color: var(--muted)
+  @include ds.body
   overflow-wrap: anywhere
   p + p, ul, ol, blockquote, table
-    margin-top: 1em
-  h2, h3, h4
-    margin: 1.5em 0 .7em
-    color: #1a1a1a
+    margin-top: 1.25em
+  h2, h3, h4, h5, h6
+    color: var(--ink)
+    margin: 2em 0 .75em
+  h2
+    @include ds.section
+  h3, h4, h5, h6
+    @include ds.card
   a
     text-decoration: underline
+    text-underline-offset: .2em
   blockquote
     margin-left: 0
-    padding-left: 1em
-    border-left: 2px solid currentColor
+    padding: 1rem 1.5rem
+    border-left: 2px solid var(--ink)
+    background: var(--surface)
+  img, video
+    max-width: 100%
+    height: auto
+  pre
+    white-space: pre-wrap
+    overflow-wrap: anywhere
   table
     display: block
     overflow-x: auto
     border-collapse: collapse
   td, th
-    border: 1px solid #ccc
+    border: 1px solid var(--line)
     padding: .5em
 
 .back
-  display: inline-block
-  margin-top: u(40)
-  font-size: var(--site-body-size)
+  display: flex
+  align-items: center
+  min-height: 2.75rem
+  max-width: var(--measure)
+  margin: 2rem auto 0
+  text-decoration: underline
+  text-underline-offset: .3em
 
 .contact
-  background: #1a1a1a
+  @include ds.container
+  @include ds.section-space
+  background: var(--ink)
   color: white
-  padding: u(65) u(164)
   h2
-    max-width: u(1000)
-    text-transform: uppercase
-    margin-bottom: u(36)
+    @include ds.section
+    max-width: 28ch
+    margin-bottom: 2rem
+  a
+    border-color: white
 
 .empty
-  padding: 70px 0
-  min-height: 300px
+  padding-block: 2rem var(--section-space)
   h2
-    margin-bottom: 18px
+    @include ds.section
+    margin-bottom: 1rem
 
-.error
-  max-width: 800px
-  margin: 100px auto
-  padding: 30px
-  display: grid
-  gap: 24px
-
-// Blog list: measured against the 1440px Figma frame (2587:731).
-// Keep these overrides scoped: the article detail and shared site chrome
-// retain their existing typography until their own design review.
-.listPage
-  -webkit-font-smoothing: antialiased
-  .listHero
-    min-height: 0
-    height: u(644)
-  .heroCopy
-    padding: u(97) 0 0
-    margin-left: u(50)
-    width: u(457)
-    h1
-      font-size: u(55)
-      font-weight: 700
-      line-height: calc(61 / 55)
-      letter-spacing: 0
-      span
-        letter-spacing: .07em
-    p
-      margin-top: u(41)
-      font-size: u(20)
-      font-weight: 400
-      line-height: 1.325
-      letter-spacing: -.02em
-  .introSpace
-    display: none
-  .categories
-    padding-top: u(37)
-  .category
-    margin-bottom: u(95)
-    h2
-      font-size: u(55)
-      font-weight: 700
-      line-height: 1.5
-      letter-spacing: .07em
-      margin-bottom: u(20)
-    &:first-child
-      margin-bottom: u(88)
-    &:nth-child(2)
-      margin-bottom: u(103)
-      h2
-        margin-bottom: u(26)
-    &:nth-child(3) h2
-      margin-bottom: u(39)
-  .listCover1 img
-    object-position: 42.5% 100%
-    transform: scale(1.10857)
-    transform-origin: 42.5% 100%
-  .listCover2 img
-    object-position: 2.63% 100%
-    transform: scale(1.17714)
-    transform-origin: 2.63% 100%
-  .listCover3 img
-    object-position: 37.5% 45%
-    transform: scale(1.23429)
-    transform-origin: 37.5% 45%
-  .cardLink
-    h3
-      margin-top: u(30)
-      font-size: u(36)
-      font-weight: 700
-      line-height: 1.5
-      letter-spacing: 0
-    p
-      margin-top: u(10)
-      font-size: u(20)
-      font-weight: 400
-      line-height: 1.5
-      letter-spacing: 0
-      max-width: u(395)
-      white-space: pre-line
-  .grid > article:nth-child(3n + 2) h3
-    letter-spacing: .07em
-  .grid > article:nth-child(3n + 2) p
-    font-size: u(17)
-    line-height: 1.5
-  .category:nth-child(3) .grid > article:nth-child(3n + 2) p
-    font-size: u(20)
-  .brands
-    margin-top: u(-22)
-    padding: u(57.5) u(280) u(117.5)
-    min-height: u(255)
-    justify-content: flex-start
-    gap: 0
-    img
-      flex-shrink: 0
-      width: u(210)
-      height: u(80)
-      &:first-child
-        width: u(82.77)
-        margin-right: u(72.23)
-      &:nth-child(2)
-        width: u(209)
-        margin-right: u(54)
-      &:nth-child(3)
-        width: u(240)
-        margin-right: u(32)
-      &:last-child
-        width: u(189)
-  .empty
-    h2
-      font-size: 32px
-      line-height: 1.4
-    p
-      font-size: 18px
-      line-height: 1.6
-
-@media (min-width: 701px) and (max-width: 1100px)
-  .listPage
-    .heroCopy p, .cardLink p
-      font-size: max(u(20), 16px)
-    .grid > article:nth-child(3n + 2) p, .category:nth-child(3) .grid > article:nth-child(3n + 2) p
-      font-size: 16px
-    .introBreak
-      display: none
-    .introSpace
-      display: inline
-    .listHero
-      height: auto
-      min-height: 520px
-    .heroCopy
-      width: min(457px, 52%)
-      padding-bottom: 48px
-    .grid
-      grid-template-columns: repeat(2, minmax(0, 1fr))
-      gap: 40px 24px
-    .cardLink p
-      max-width: none
-      white-space: normal
-    .cardLink h3
-      font-size: 28px
-    .grid > article:nth-child(3n + 2) h3
-      letter-spacing: 0
-    .brands
-      margin-top: 0
-      padding: 40px 8% 80px
-      justify-content: space-between
-      gap: 32px
-      img
-        width: 150px
-        &:first-child, &:nth-child(2), &:nth-child(3)
-          margin-right: 0
-        &:nth-child(2), &:nth-child(3)
-          width: 150px
-        &:first-child
-          width: 70px
-        &:last-child
-          width: 130px
-
-@media (max-width: 700px)
-  .page
-    --unit: 1px
-  .listHero
-    height: auto
-    min-height: 520px
-    > img
-      object-position: 56% center
-    &::after
-      content: ''
-      position: absolute
-      inset: 0
-      background: #0003
-  .heroCopy
-    z-index: 1
-    padding: 60px 24px
-    margin: 0
-    width: auto
-    p
-      width: auto
-      max-width: 420px
-      margin-top: 28px
-  .categories
-    padding: 40px 24px 0
-  .category
-    margin-bottom: 48px
+@media (max-width: 64rem)
   .grid
-    grid-template-columns: 1fr
-    gap: 36px
-  .cardLink
-    h3
-      margin-top: 18px
-    p
-      max-width: none
-  .brands
-    min-height: 0
-    padding: 30px 24px 48px
-    display: grid
-    grid-template-columns: 1fr 1fr
-    justify-items: center
-    gap: 24px
-    img
-      width: 130px
-      height: 55px
-      &:first-child
-        width: 90px
-  .detailHero
-    min-height: 440px
-  .detailHeroCopy
-    padding: 65px 24px 125px
-    p
-      margin-top: 20px
-  .articlePanel
-    margin: -50px 16px 0
-    padding: 24px 16px 30px
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+
+@media (max-width: 48rem)
   .articleIntro
     grid-template-columns: 1fr
-    gap: 24px
-    p
-      margin-top: 16px
+  .articlePanel
+    margin: -2rem var(--gutter) 0
+    padding: 1.5rem 0
+  .detailHeroCopy
+    padding-bottom: calc(var(--section-space) + 2rem)
   .articleBody
-    margin-top: 35px
-  .back
-    font-size: 16px
-    margin-top: 30px
-  .contact
-    padding: 40px 24px
-  .listPage
-    .listHero
-      height: auto
-      min-height: 560px
-    .heroCopy
-      width: auto
-      margin: 0
-      padding: 55px 24px 64px
-      h1
-        font-size: clamp(32px, 8.8vw, 48px)
-        line-height: 1.2
-      p
-        font-size: 18px
-        line-height: 1.6
-        letter-spacing: -.02em
-        margin-top: 28px
-    .introBreak
-      display: none
-    .introSpace
-      display: inline
-    .categories
-      padding: 36px 24px 0
-    .category
-      margin-bottom: 56px
-      &:first-child, &:nth-child(2)
-        margin-bottom: 56px
-      h2
-        max-width: none
-        font-size: clamp(25px, 6.7vw, 34px)
-        line-height: 1.35
-        letter-spacing: .035em
-        margin-bottom: 24px
-      &:nth-child(2) h2, &:nth-child(3) h2
-        margin-bottom: 24px
-    .grid
-      gap: 36px
-    .cardLink
-      h3
-        margin-top: 18px
-        font-size: 24px
-        line-height: 1.4
-      p
-        margin-top: 10px
-        max-width: none
-        font-size: 17px
-        line-height: 1.6
-        white-space: normal
-    .grid > article:nth-child(3n + 2) h3
-      letter-spacing: 0
-    .grid > article:nth-child(3n + 2) p, .category:nth-child(3) .grid > article:nth-child(3n + 2) p
-      font-size: 17px
-      line-height: 1.6
-    .brands
-      margin-top: 0
-      padding: 8px 24px 56px
-      min-height: 0
-      gap: 28px 24px
-      img
-        width: min(130px, 100%)
-        height: 55px
-        &:first-child, &:nth-child(2), &:nth-child(3)
-          margin-right: 0
-        &:nth-child(2), &:nth-child(3)
-          width: min(130px, 100%)
-        &:first-child
-          width: 75px
-        &:last-child
-          width: min(125px, 100%)
-    .empty
-      padding: 24px 0 48px
-      min-height: 0
-      h2
-        font-size: 26px
-        line-height: 1.4
+    margin-top: 3rem
+
+@media (max-width: 40rem)
+  .heroCopy
+    min-height: 0
+  .grid
+    grid-template-columns: 1fr
+  .brands
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+
+.listPage, .detailPage
+  min-width: 0

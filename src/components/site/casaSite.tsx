@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useEffectEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import type { CasaSiteProps } from '@/types/componentTypes';
-import { heroSlides, topBrandMarks, valueIcons, heroWordmark, partnerMarks, portfolioImages } from '@/data/rawData';
+import { topBrandMarks, valueIcons, heroWordmark, partnerMarks, portfolioImages } from '@/data/rawData';
 import ContactForm from './contactForm';
 import SiteHeader from './siteHeader';
 import SiteFooter from './siteFooter';
@@ -14,115 +14,36 @@ import styles from './site.module.sass';
 const sectionImage = (apiImage: string, fallback: string) => apiImage || fallback;
 
 export default function CasaSite({ content }: CasaSiteProps) {
-	const [heroIndex, setHeroIndex] = useState(0);
-	const [heroAutoplayEnabled, setHeroAutoplayEnabled] = useState(false);
-	const [heroAutoplayRevision, setHeroAutoplayRevision] = useState(0);
 	const [mapStarted, setMapStarted] = useState(false);
-	const touchStartX = useRef<number | null>(null);
-	const heroAutoplayTimer = useRef<number | null>(null);
-	const heroUnlockTimer = useRef<number | null>(null);
-	const heroAutomaticGuardTimer = useRef<number | null>(null);
-	const heroTransitionLocked = useRef(false);
-	const heroAutomaticTransitionActive = useRef(false);
+	const [brandsPaused, setBrandsPaused] = useState(false);
 	const { settings } = content;
-
-	const stopHeroAutoplay = () => {
-		if (heroAutoplayTimer.current !== null) {
-			window.clearTimeout(heroAutoplayTimer.current);
-			heroAutoplayTimer.current = null;
-		}
-	};
-	const transitionHero = (nextIndex: (current: number) => number) => {
-		if (heroTransitionLocked.current) return false;
-		heroTransitionLocked.current = true;
-		setHeroIndex(nextIndex);
-		if (heroUnlockTimer.current !== null) window.clearTimeout(heroUnlockTimer.current);
-		heroUnlockTimer.current = window.setTimeout(() => {
-			heroTransitionLocked.current = false;
-			heroUnlockTimer.current = null;
-		}, 780);
-		return true;
-	};
-	const changeHero = (direction: -1 | 1) => {
-		setHeroAutoplayEnabled(true);
-		stopHeroAutoplay();
-		if (!heroAutomaticTransitionActive.current) {
-			transitionHero((current) => (current + direction + heroSlides.length) % heroSlides.length);
-		}
-		setHeroAutoplayRevision((revision) => revision + 1);
-	};
-	const advanceHeroAutomatically = useEffectEvent(() => {
-		transitionHero((current) => (current + 1) % heroSlides.length);
-	});
-	useEffect(() => {
-		if (!heroAutoplayEnabled) return;
-		if (heroAutoplayTimer.current !== null) window.clearTimeout(heroAutoplayTimer.current);
-		heroAutoplayTimer.current = window.setTimeout(() => {
-			heroAutoplayTimer.current = null;
-			heroAutomaticTransitionActive.current = true;
-			if (heroAutomaticGuardTimer.current !== null) window.clearTimeout(heroAutomaticGuardTimer.current);
-			heroAutomaticGuardTimer.current = window.setTimeout(() => {
-				heroAutomaticTransitionActive.current = false;
-				heroAutomaticGuardTimer.current = null;
-			}, 2000);
-			advanceHeroAutomatically();
-		}, 5000);
-
-		return () => {
-			if (heroAutoplayTimer.current !== null) window.clearTimeout(heroAutoplayTimer.current);
-			heroAutoplayTimer.current = null;
-		};
-	}, [heroAutoplayEnabled, heroAutoplayRevision, heroIndex]);
-
-	useEffect(
-		() => () => {
-			if (heroUnlockTimer.current !== null) window.clearTimeout(heroUnlockTimer.current);
-			if (heroAutomaticGuardTimer.current !== null) window.clearTimeout(heroAutomaticGuardTimer.current);
-		},
-		[],
-	);
 
 	return (
 		<main className={styles.site}>
 			<SiteHeader />
 			<section id="accueil" className={styles.hero} data-node-id="2379:7052">
-				<div className={styles.heroSlides} style={{ transform: `translateX(-${heroIndex * 100}%)` }}>
-					{heroSlides.map((slide, index) => (
-						<div className={styles.heroSlide} key={slide.src} aria-hidden={index !== heroIndex}>
-							<Image
-								src={slide.src}
-								alt={index === heroIndex ? slide.alt : ''}
-								fill
-								preload={index === 0}
-								fetchPriority={index === 0 ? 'high' : 'auto'}
-								sizes={slide.sizes}
-								quality={70}
-								className={styles.coverImage}
-							/>
-						</div>
-					))}
+				<div className={styles.heroImage}>
+					<Image
+						src="/assets/casa/hero-showroom-main.png"
+						alt="Showroom Casa di Lusso encadré par les arbres"
+						fill
+						preload
+						fetchPriority="high"
+						sizes="100vw"
+						quality={70}
+						className={styles.coverImage}
+					/>
 				</div>
-				<div
-					className={styles.heroGestureArea}
-					onTouchStart={(event) => {
-						setHeroAutoplayEnabled(true);
-						stopHeroAutoplay();
-						touchStartX.current = event.touches[0]?.clientX ?? null;
-					}}
-					onTouchEnd={(event) => {
-						if (touchStartX.current === null) return;
-						const distance = (event.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
-						if (Math.abs(distance) > 45) changeHero(distance > 0 ? -1 : 1);
-						else setHeroAutoplayRevision((revision) => revision + 1);
-						touchStartX.current = null;
-					}}
-				/>
 				<div className={styles.heroCopy}>
 					<div className={styles.wordmarkArt} role="img" aria-label={settings.hero_eyebrow}>
 						{heroWordmark.map((letter) => (
 							<span
 								key={`${letter.src}-${letter.left}`}
-								style={{ left: letter.left, width: letter.width, height: letter.height }}
+								style={{
+									left: `${(letter.left / 462) * 100}%`,
+									width: `${(letter.width / 462) * 100}%`,
+									height: `${(letter.height / 43) * 100}%`,
+								}}
 							>
 								<Image src={letter.src} alt="" width={letter.width} height={letter.height} />
 							</span>
@@ -133,36 +54,12 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						<p className={styles.heroDescription}>{settings.hero_text}</p>
 						{settings.hero_tagline && <p className={styles.heroTagline}>{settings.hero_tagline}</p>}
 						<a href="#services" className={styles.textLink}>
-							nos services
+							Découvrir nos services
 						</a>
 					</div>
 				</div>
-				<div className={styles.heroArrows}>
-					<button
-						type="button"
-						className={styles.arrowPrevious}
-						onPointerDown={stopHeroAutoplay}
-						onClick={() => changeHero(-1)}
-						aria-label="Image précédente"
-					>
-						<Image src="/assets/casa/figma/arrow-left.svg" alt="" width={44} height={8} />
-					</button>
-					<button
-						type="button"
-						onPointerDown={stopHeroAutoplay}
-						onClick={() => changeHero(1)}
-						aria-label="Image suivante"
-					>
-						<Image src="/assets/casa/figma/arrow-right.svg" alt="" width={44} height={8} />
-					</button>
-				</div>
 			</section>
-			<div className={styles.heroPagination} aria-hidden="true">
-				{heroSlides.map((slide, index) => (
-					<span key={slide.src} className={index === heroIndex ? styles.heroDotActive : ''} />
-				))}
-			</div>
-			<div className={styles.brandStrip} aria-label="Marques partenaires">
+			<div className={styles.brandStrip} data-paused={brandsPaused} role="region" tabIndex={0} aria-label="Marques partenaires">
 				<div className={styles.brandTrack}>
 					{[0, 1].map((copy) => (
 						<div className={styles.brandGroup} key={copy} aria-hidden={copy === 1 ? 'true' : undefined}>
@@ -182,9 +79,12 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						</div>
 					))}
 				</div>
+				<button className={styles.brandPause} type="button" aria-pressed={brandsPaused} onClick={() => setBrandsPaused((paused) => !paused)}>
+					{brandsPaused ? 'Reprendre le défilement' : 'Mettre le défilement en pause'}
+				</button>
 			</div>
 			<section id="a-propos" className={styles.about} data-node-id="2358:444">
-				<div className={styles.aboutImage}>
+				<div className={styles.aboutImage} data-reveal>
 					<Image
 						src={sectionImage(settings.about_image_url, '/assets/casa/figma/about-exact-v2.jpg')}
 						alt="Showroom Casa di Lusso"
@@ -221,7 +121,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 			<section className={styles.project}>
 				<h2>{settings.project_title}</h2>
-				<div className={styles.projectCollage}>
+				<div className={styles.projectCollage} data-reveal>
 					<div className={styles.projectWide}>
 						<Image
 							src="/assets/casa/services/project-overhead.png"
@@ -265,11 +165,13 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				))}
 			</section>
 			<section id="portfolio" className={styles.portfolio} aria-label="Portfolio Casa di Lusso">
+				<h2 className={styles.portfolioHeading}>Portfolio</h2>
+				<div className={styles.portfolioGrid}>
 				{portfolioImages.map((item, index) => {
 					const spansTwoColumns = index === 0 || index === 5;
 
 					return (
-						<article className={`${styles.portfolioItem} ${styles[`portfolioItem${index + 1}`] ?? ''}`} key={item.src}>
+						<article className={`${styles.portfolioItem} ${spansTwoColumns ? styles.portfolioWide : ''}`} key={item.src} data-reveal>
 							<Image
 								src={item.src}
 								alt={item.alt}
@@ -281,6 +183,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						</article>
 					);
 				})}
+				</div>
 			</section>
 			<section id="services" className={styles.services}>
 				<header className={styles.sectionHeader}>
@@ -306,7 +209,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 			<section className={styles.partners}>
 				<header className={styles.sectionHeader}>
-					<h2>NOS PARTENAIRES</h2>
+					<h2>Nos partenaires</h2>
 					<span />
 				</header>
 				<p className={styles.partnersIntro}>{settings.partners_intro}</p>
@@ -320,25 +223,28 @@ export default function CasaSite({ content }: CasaSiteProps) {
 				<div className={styles.partnerBottom}>
 					<p>{settings.partners_outro}</p>
 					<a className={styles.filledButton} href="/catalogue">
-						DOWNLOAD CATALOG
+						Découvrir le catalogue
 					</a>
 				</div>
 			</section>
 			<section className={styles.video} aria-label="Présentation animée Casa di Lusso">
 				<div className={styles.videoPlayer}>
-					<Image
-						src="/assets/casa/promo-video-cdl.gif"
-						alt="Présentation animée Casa di Lusso"
-						fill
-						unoptimized
-						sizes="100vw"
-						className={styles.videoGif}
-					/>
+					<picture>
+						<source media="(prefers-reduced-motion: reduce)" srcSet="/assets/casa/video.png" />
+						<Image
+							src="/assets/casa/promo-video-cdl.gif"
+							alt="Présentation animée Casa di Lusso"
+							fill
+							unoptimized
+							sizes="100vw"
+							className={styles.videoGif}
+						/>
+					</picture>
 				</div>
 			</section>
 			<section className={styles.testimonials}>
 				<header className={styles.sectionHeader}>
-					<h2>témoignage des clients</h2>
+					<h2>Témoignages des clients</h2>
 					<span />
 				</header>
 				<div className={styles.testimonialGrid}>
@@ -353,7 +259,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 			</section>
 			<section id="contact" className={styles.contact}>
 				<header className={styles.sectionHeader}>
-					<h2>CONTACTEZ-NOUS</h2>
+					<h2>Contactez-nous</h2>
 					<span />
 				</header>
 				<div className={styles.contactGrid}>
@@ -380,7 +286,9 @@ export default function CasaSite({ content }: CasaSiteProps) {
 									className={styles.mapActivator}
 									onClick={() => setMapStarted(true)}
 									aria-label="Afficher la carte Google Maps interactive"
-								/>
+								>
+									<span>Afficher la carte interactive</span>
+								</button>
 							</>
 						)}
 					</div>

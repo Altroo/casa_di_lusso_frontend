@@ -12,7 +12,13 @@ describe('Design intérieur page', () => {
 		expect(within(main).getByRole('heading', { level: 1 })).toHaveTextContent('Design intérieur de luxe');
 		expect(main.querySelector('.heroCopy p')?.textContent?.replace(/\s+/g, ' ')).toBe(servicePages[0].description);
 		expect(within(main).getAllByRole('img')).toHaveLength(9);
-		for (const title of ['NOUS SAVONS TRÈS BIEN CE QU’IL FAUT FAIRE', 'NOTRE APPROCHE', 'POUR QUI ?', 'RÉSULTAT ATTENDU', 'NOS PROJETS']) {
+		for (const title of [
+			'NOUS SAVONS TRÈS BIEN CE QU’IL FAUT FAIRE',
+			'NOTRE APPROCHE',
+			'POUR QUI ?',
+			'RÉSULTAT ATTENDU',
+			'NOS PROJETS',
+		]) {
 			expect(within(main).getByRole('heading', { name: title })).toBeInTheDocument();
 		}
 	});
@@ -26,13 +32,13 @@ describe('Design intérieur page', () => {
 });
 
 describe('Architecture page', () => {
-	it('keeps the projects carousel without the yellow drag control', () => {
+	it('keeps keyboard browsing and exposes project navigation buttons', () => {
 		render(<ServicePageView service={servicePages[1]} settings={fallbackContent.settings} />);
 		const main = within(screen.getByRole('main'));
 		const carousel = main.getByRole('region', { name: 'Projets d’architecture' });
 		expect(carousel).toHaveAttribute('tabindex', '0');
 		expect(within(carousel).getAllByRole('article')).toHaveLength(3);
-		expect(main.queryByRole('button', { name: 'Projet suivant' })).not.toBeInTheDocument();
+		expect(main.getByRole('button', { name: 'Projet suivant' })).toBeInTheDocument();
 		expect(main.queryByText('Glisser')).not.toBeInTheDocument();
 	});
 });

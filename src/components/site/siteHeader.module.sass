@@ -2,25 +2,23 @@
   position: relative
   display: flex
   align-items: center
-  align-self: stretch
+  gap: .25rem
+  // Measure the desktop gap from the visible chevron, retaining its 44px hit area.
+  margin-inline-end: -1.1rem
 
 .toggle
-  position: absolute
-  right: -23px
-  top: 50%
-  transform: translateY(-50%)
   display: grid
   place-items: center
-  width: 22px
-  height: 32px
+  width: 2.75rem
+  height: 2.75rem
   padding: 0
   border: 0
   background: transparent
   color: inherit
   cursor: pointer
   span
-    width: 6px
-    height: 6px
+    width: .4rem
+    height: .4rem
     border-right: 1px solid currentColor
     border-bottom: 1px solid currentColor
     transform: rotate(45deg)
@@ -29,50 +27,40 @@
 
 .submenu
   position: absolute
-  left: -24px
   top: 100%
-  width: max-content
-  min-width: 290px
-  max-width: 360px
+  left: 0
+  width: 20rem
+  max-width: calc(100vw - 2rem)
   margin: 0
-  padding: 12px 0
+  padding: .75rem
   list-style: none
-  background: #fff
-  box-shadow: 0 10px 24px #0002
-  color: #1a1a1a
+  background: var(--paper)
+  border: 1px solid var(--line)
+  box-shadow: 0 .5rem 1rem #0001
+  color: var(--ink)
   text-transform: none
-  font-size: 15px
+  font-size: 1rem
   font-weight: 400
   line-height: 1.5
+  letter-spacing: normal
   &[hidden]
     display: none
   a
     display: block
-    padding: 12px 24px
+    padding: .75rem
     &[aria-current='page']
-      background: #f4f4f1
-    &:focus-visible
-      outline-offset: -3px
+      background: var(--surface)
 
-
-@media (max-width: 700px)
+@media (max-width: 56.25rem)
   .services
-    display: block
-    width: 100%
-  .toggle
-    right: 0
-    top: 0
-    width: 44px
-    height: 32px
-    transform: none
+    margin-inline-end: 0
+    display: grid
+    grid-template-columns: 1fr auto
   .submenu
     position: static
-    min-width: 0
-    max-width: none
+    grid-column: 1 / -1
     width: 100%
-    padding: 12px 0 0 14px
+    max-width: none
+    border: 0
+    border-left: 1px solid var(--line)
     box-shadow: none
-    font-size: 16px
-    a
-      padding: 10px 0
-      min-height: 44px

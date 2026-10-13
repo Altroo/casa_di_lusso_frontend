@@ -1,0 +1,90 @@
+@use '../../styles/design-system' as ds
+
+.page
+  @include ds.container
+  padding-block: clamp(2.5rem, 5vw, 5rem)
+  min-height: calc(100svh - var(--site-header-height))
+  display: grid
+  grid-template-columns: 1fr 1.1fr
+  align-items: center
+  gap: 3rem var(--grid-gap)
+  background: var(--paper)
+  color: var(--ink)
+
+.copy
+  max-width: 32rem
+  h1
+    @include ds.title
+    margin: 1rem 0 1.5rem
+
+.eyebrow
+  @include ds.label
+  margin: 0
+  color: var(--muted)
+  text-transform: uppercase
+
+.description
+  max-width: 42ch
+  color: var(--muted)
+  p
+    margin: 0
+
+.actions
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  gap: 1.5rem
+  margin-top: 2rem
+  > a:not([class])
+    min-height: 2.75rem
+    display: inline-flex
+    align-items: center
+    text-decoration: underline
+    text-underline-offset: .3em
+
+.image
+  position: relative
+  aspect-ratio: 5 / 4
+  margin: 0
+  overflow: hidden
+  img
+    object-fit: cover
+    object-position: 55% center
+  figcaption
+    position: absolute
+    inset: auto 0 0
+    padding: 2.5rem 1.5rem 1rem
+    color: white
+    background: linear-gradient(transparent, #000b)
+    font-size: .8125rem
+
+.destinations
+  grid-column: 1 / -1
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  gap: var(--grid-gap)
+  a
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 1rem
+    min-height: 4rem
+    border-top: 1px solid var(--line)
+    font-size: .875rem
+    span
+      transition: transform .25s ease
+    &:hover span
+      transform: translate(3px, -3px)
+    &:hover
+      text-decoration: underline
+      text-underline-offset: .3em
+
+@media (max-width: 48rem)
+  .page
+    grid-template-columns: minmax(0, 1fr)
+    gap: 2.5rem
+  .image
+    aspect-ratio: 16 / 10
+  .destinations
+    grid-template-columns: minmax(0, 1fr)
+    gap: 0

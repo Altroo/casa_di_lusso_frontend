@@ -28,14 +28,17 @@ export default function ContactForm() {
 	const submit: NonNullable<ComponentProps<'form'>['onSubmit']> = (event) => {
 		event.preventDefault();
 		setTouched({ full_name: true, email: true, phone: true, message: true });
-		if (!validate(values)) return;
+		if (!validate(values)) {
+			requestAnimationFrame(() => document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
+			return;
+		}
 		setNotice(null);
 		setIsSubmitting(true);
 		void fetch(`${publicWebsiteApi}/contact/`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-				body: JSON.stringify(values),
-			})
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+			body: JSON.stringify(values),
+		})
 			.then((response) => {
 				if (!response.ok) throw new Error('Contact request failed');
 				setNotice({ type: 'success', text: 'Votre demande a bien été envoyée.' });
@@ -51,17 +54,22 @@ export default function ContactForm() {
 			{fieldDefinitions.map((field) => {
 				const errorId = `${field.name}-error`;
 				const showError = Boolean(touched[field.name] && errors[field.name]);
+				const Field = field.name === 'message' ? 'textarea' : 'input';
 				return (
 					<div className={styles.contactField} key={field.name}>
 						<label htmlFor={field.name}>{field.label}</label>
-						<input
+						<Field
 							id={field.name}
 							name={field.name}
 							type={field.type}
 							autoComplete={field.autoComplete}
 							placeholder=" "
 							value={values[field.name]}
-							onChange={(event) => setValues((current) => ({ ...current, [field.name]: event.target.value }))}
+							onChange={(event) => {
+								const nextValues = { ...values, [field.name]: event.target.value };
+								setValues(nextValues);
+								if (touched[field.name]) validate(nextValues);
+							}}
 							onBlur={() => {
 								setTouched((current) => ({ ...current, [field.name]: true }));
 								validate(values);

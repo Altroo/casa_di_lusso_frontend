@@ -17,7 +17,7 @@ function Place({ at: [x, y, width, height], children, className = '', as: Tag = 
 	return (
 		<Tag
 			data-place
-			className={`${styles.place} ${font ? styles.text : ''} ${className}`}
+			className={`${styles.place} ${className}`}
 			style={
 				{
 					'--x': x,
@@ -58,7 +58,7 @@ function Photo({
 	const imageScale = imageCrop?.[0] ?? 100;
 	return (
 		<Place at={at} className={`${styles.photo} ${className}`}>
-			<div style={{ '--ratio': `${at[2]} / ${at[3]}` } as CSSProperties}>
+			<div data-reveal={alt ? '' : undefined} style={{ '--ratio': `${at[2]} / ${at[3]}` } as CSSProperties}>
 				<Image
 					src={serviceAssets[name]}
 					alt={alt}
@@ -69,10 +69,8 @@ function Photo({
 					style={
 						imageCrop
 							? ({
-									'--crop-width': `${imageCrop[0]}%`,
-									'--crop-height': `${imageCrop[1]}%`,
-									'--crop-left': `${imageCrop[2]}%`,
-									'--crop-top': `${imageCrop[3]}%`,
+									transform: `translate(${imageCrop[2]}%, ${imageCrop[3]}%) scale(${imageCrop[0] / 100}, ${imageCrop[1] / 100})`,
+									transformOrigin: 'top left',
 									objectFit: 'fill',
 								} as CSSProperties)
 							: undefined
@@ -111,7 +109,9 @@ function DesignPage() {
 						<span>de luxe</span>
 					</h1>
 					<p>
-						{'Nous concevons des intérieurs élégants, fonctionnels et intemporels, pensés pour\nrefléter votre style de vie et valoriser chaque espace.'}
+						{
+							'Nous concevons des intérieurs élégants, fonctionnels et intemporels, pensés pour\nrefléter votre style de vie et valoriser chaque espace.'
+						}
 					</p>
 				</Place>
 				<Photo
@@ -131,7 +131,9 @@ function DesignPage() {
 						<br /> CE QU’IL FAUT FAIRE
 					</Place>
 					<Place as="p" at={[651, 186, 870]} font={[25, 27]}>
-						{'Casa Di Lusso accompagne ses clients dans la création d’intérieurs haut de gamme, où chaque détail est étudié avec précision.\nNotre  approche  repose  sur  l’équilibre entre esthétique, confort et fonctionnalité. Nous analysons votre mode de vie, vos préférences,\nla lumière naturelle, les volumes et les matériaux afin de proposer une ambiance cohérente et raffinée.'}
+						{
+							'Casa Di Lusso accompagne ses clients dans la création d’intérieurs haut de gamme, où chaque détail est étudié avec précision.\nNotre  approche  repose  sur  l’équilibre entre esthétique, confort et fonctionnalité. Nous analysons votre mode de vie, vos préférences,\nla lumière naturelle, les volumes et les matériaux afin de proposer une ambiance cohérente et raffinée.'
+						}
 					</Place>
 				</div>
 				<Place at={[75, 443, 487, 276]} className={styles.stepCard}>
@@ -150,7 +152,6 @@ function DesignPage() {
 					name="design-living"
 					at={[652, 384, 866, 334]}
 					alt="Aménagement d’un salon élégant"
-					crop={[101.15, 174.87, 0, -62.59]}
 				/>
 			</Section>
 			<Section height={860} className={styles.designApproach}>
@@ -235,7 +236,9 @@ function ArchitecturePage() {
 						<br /> &amp; conception
 					</h1>
 					<p>
-						{'Nous transformons vos idées en projets architecturaux\nuniques, pensés avec précision, équilibre et exigence.'}
+						{
+							'Nous transformons vos idées en projets architecturaux\nuniques, pensés avec précision, équilibre et exigence.'
+						}
 					</p>
 					<div>
 						<p>
@@ -350,10 +353,10 @@ function BespokePage() {
 							<span>sur mesure</span>
 						</h1>
 						<p>
-							L’aménagement sur mesure permet d’exploiter <br className={styles.bespokeBreak} />
-							pleinement le potentiel de chaque pièce. <br className={styles.bespokeBreak} />
-							Chez <strong>Casa Di Lusso</strong>, nous concevons <br className={styles.bespokeBreak} />
-							des solutions adaptées aux dimensions, <br className={styles.bespokeBreak} />
+							L’aménagement sur mesure permet d’exploiter <br />
+							pleinement le potentiel de chaque pièce. <br />
+							Chez <strong>Casa Di Lusso</strong>, nous concevons <br />
+							des solutions adaptées aux dimensions, <br />
 							aux usages et à l’esthétique de votre intérieur.
 						</p>
 						<Link className={siteStyles.filledButton} href="/#contact">
@@ -405,7 +408,16 @@ function BespokePage() {
 							className={styles.fittingIcon}
 						/>
 						<Place at={[item.x, item.y + 77, item.width]} className={styles.bodyCopy}>
-							<h3>{item.titleLines ? <>{item.titleLines[0]}<br /> {item.titleLines[1]}</> : item.title}</h3>
+							<h3>
+								{item.titleLines ? (
+									<>
+										{item.titleLines[0]}
+										<br /> {item.titleLines[1]}
+									</>
+								) : (
+									item.title
+								)}
+							</h3>
 							<p>{item.text}</p>
 						</Place>
 					</div>
@@ -423,9 +435,9 @@ function BespokePage() {
 						Concevoir votre rêve avec éclat
 					</Place>
 					<Place as="p" at={[919, 190, 722]} font={[24, 39.648, 500]} family="Inter">
-						Sublimez vos espaces grâce à des aménagements intérieurs <br className={styles.bespokeBreak} />
-						sur mesure qui reflètent votre style et vos aspirations uniques, <br className={styles.bespokeBreak} />
-						conçus avec précision et brio pour une expérience de vie <br className={styles.bespokeBreak} />
+						Sublimez vos espaces grâce à des aménagements intérieurs <br />
+						sur mesure qui reflètent votre style et vos aspirations uniques, <br />
+						conçus avec précision et brio pour une expérience de vie <br />
 						inoubliable.
 					</Place>
 					<Place at={[919, 396, 704]} className={styles.bespokeOptions}>
@@ -433,7 +445,6 @@ function BespokePage() {
 							{['Aménagement intérieur du salon', 'Aménagement intérieur de bureaux commerciaux'].map((title) => (
 								<li key={title}>
 									<span>{title}</span>
-									<Image src={serviceAssets['bespoke-plus']} alt="" width={24} height={24} />
 								</li>
 							))}
 						</ul>
@@ -502,7 +513,7 @@ function BespokePage() {
 					className={styles.bespokeTestimonialMobile}
 				/>
 				<Place as="h2" at={[919, 0, 704]} font={[58, 70, 600]} family="Inter">
-					Ce que nos clients <br className={styles.bespokeBreak} />
+					Ce que nos clients <br />
 					disent de nous
 				</Place>
 				<ServiceTestimonials />
@@ -563,13 +574,13 @@ function BespokePage() {
 				</Place>
 				<article className={styles.inspirationColumn}>
 					<Photo name="bespoke-blog1" at={[97, 138, 482, 289]} alt="Vita Gessi Caffè" crop={[100, 109.99, 0, -9.94]} />
-					<Place at={[97, 427, 482, 285]} className={`${styles.inspirationCard} ${styles.coffeeCard}`}>
+					<Place at={[97, 427, 482, 285]} className={styles.inspirationCard}>
 						<p>Gessi transforme un geste quotidien en une véritable expérience de design.</p>
 						<h3>Vita Gessi Caffè</h3>
 					</Place>
 				</article>
 				<article className={styles.inspirationColumn}>
-					<Place at={[625, 158, 482, 273]} className={`${styles.inspirationCard} ${styles.surfaceCard}`}>
+					<Place at={[625, 158, 482, 273]} className={styles.inspirationCard}>
 						<p>
 							Ariostea donne à la céramique une dimension supplémentaire. Au-delà de l’esthétique, ces surfaces sont
 							conçues pour contribuer activement à l’hygiène et au bien-être des espaces intérieurs comme extérieurs.

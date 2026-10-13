@@ -14,7 +14,7 @@ export function ProjectCarousel() {
 		const element = viewport.current;
 		if (!element) return;
 		const cards = element.querySelectorAll('article');
-		const step = cards[1].offsetLeft - cards[0].offsetLeft;
+		const step = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : element.clientWidth;
 		const end = element.scrollWidth - element.clientWidth;
 		const next = direction > 0 && element.scrollLeft >= end - 2 ? 0 : element.scrollLeft + direction * step;
 		element.scrollTo({
@@ -78,6 +78,14 @@ export function ProjectCarousel() {
 					))}
 				</div>
 			</div>
+			<div className={styles.projectControls}>
+				<button type="button" aria-label="Projet précédent" onClick={() => move(-1)}>
+					←
+				</button>
+				<button type="button" aria-label="Projet suivant" onClick={() => move(1)}>
+					→
+				</button>
+			</div>
 		</div>
 	);
 }
@@ -113,7 +121,9 @@ export function ServiceTestimonials() {
 					<button
 						key={direction}
 						type="button"
-						onClick={() => setIndex((value) => (value + 1) % testimonials.length)}
+						onClick={() =>
+							setIndex((value) => (value + (direction === 'Left' ? -1 : 1) + testimonials.length) % testimonials.length)
+						}
 						aria-label={direction === 'Left' ? 'Témoignage précédent' : 'Témoignage suivant'}
 					>
 						<Image src={serviceAssets[`bespoke-arrow${direction}`]} alt="" width={73} height={73} />

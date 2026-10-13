@@ -18,7 +18,8 @@ const CataloguePage = ({ page, onReady, ref }: CataloguePageProps) => {
 				src={PAGE_PREVIEW_PATHS[page - 1]}
 				alt=""
 				aria-hidden="true"
-				fill
+				width={600}
+				height={842}
 				loading="eager"
 				unoptimized
 				draggable={false}
@@ -34,7 +35,8 @@ const CataloguePage = ({ page, onReady, ref }: CataloguePageProps) => {
 				className={`${styles.pageImage} ${isHighResolutionReady ? styles.pageImageReady : ''}`}
 				src={PAGE_PATHS[page - 1]}
 				alt={`Page ${page} du catalogue Casa di Lusso`}
-				fill
+				width={600}
+				height={842}
 				sizes="(max-width: 760px) 92vw, 44vw"
 				loading="eager"
 				fetchPriority={page <= 3 ? 'high' : 'auto'}
@@ -100,8 +102,16 @@ export default function CatalogueFlipbook() {
 
 	const getBook = () => bookRef.current?.pageFlip();
 
-	const previousPage = () => getBook()?.flipPrev();
-	const nextPage = () => getBook()?.flipNext();
+	const previousPage = () => {
+		const book = getBook();
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) book?.turnToPrevPage();
+		else book?.flipPrev();
+	};
+	const nextPage = () => {
+		const book = getBook();
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) book?.turnToNextPage();
+		else book?.flipNext();
+	};
 	const firstPage = () => getBook()?.turnToPage(0);
 	const lastPage = () => getBook()?.turnToPage(PAGE_COUNT - 1);
 	const markPageReady = (page: number) => {
@@ -172,10 +182,10 @@ export default function CatalogueFlipbook() {
 	}, [arePagesReady]);
 
 	const handleKeyDown = useEffectEvent((event: KeyboardEvent) => {
-			if (event.key === 'ArrowLeft') previousPage();
-			if (event.key === 'ArrowRight') nextPage();
-			if (event.key === 'Home') firstPage();
-			if (event.key === 'End') lastPage();
+		if (event.key === 'ArrowLeft') previousPage();
+		if (event.key === 'ArrowRight') nextPage();
+		if (event.key === 'Home') firstPage();
+		if (event.key === 'End') lastPage();
 	});
 
 	useEffect(() => {
@@ -211,11 +221,11 @@ export default function CatalogueFlipbook() {
 					<Image src="/assets/casa/logo.png" alt="" width={58} height={58} priority />
 					<span>Retour au site</span>
 				</Link>
-				<div className={styles.catalogueTitle}>
+				<h1 className={styles.catalogueTitle}>
 					<span>CASA DI LUSSO</span>
 					<strong>CATALOGUE</strong>
-				</div>
-				<a className={styles.downloadButton} href={PDF_PATH} download>
+				</h1>
+				<a className={styles.downloadButton} href={PDF_PATH} download aria-label="Télécharger le PDF">
 					<DownloadIcon />
 					<span>Télécharger le PDF</span>
 				</a>
@@ -227,7 +237,7 @@ export default function CatalogueFlipbook() {
 					<div className={styles.loadingPanel} role="status" aria-live="polite">
 						<p>{preloadFailed ? 'Le chargement a été interrompu' : 'Préparation du catalogue'}</p>
 						{preloadFailed ? (
-						<button type="button" onClick={retryPreload}>
+							<button type="button" onClick={retryPreload}>
 								Réessayer
 							</button>
 						) : (
