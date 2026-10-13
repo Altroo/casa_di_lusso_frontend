@@ -23,7 +23,7 @@ function Excerpt({ text }: { text: string }) {
 	);
 }
 
-function Cover({ article }: { article: PressArticle }) {
+function Cover({ article, sizes = '(max-width: 700px) 100vw, 34vw' }: { article: PressArticle; sizes?: string }) {
 	return (
 		<div className={styles.cover} data-reveal>
 			{article.image_url ? (
@@ -32,7 +32,7 @@ function Cover({ article }: { article: PressArticle }) {
 					alt={article.image_alt || article.title}
 					fill
 					unoptimized={process.env.NODE_ENV === 'development'}
-					sizes="(max-width: 700px) 100vw, 34vw"
+					sizes={sizes}
 				/>
 			) : (
 				<span className={styles.noImage}>Casa di Lusso</span>
@@ -123,12 +123,18 @@ export function PressList({
 export function PressDetail({ article, settings }: { article: PressArticleDetail; settings: SiteSettings }) {
 	const intro = article.introduction || article.excerpt;
 	const introLabel = 'Chez Casa di Lusso';
+	const publishedAt = new Date(article.published_at);
+	const publishedLabel = Number.isNaN(publishedAt.getTime())
+		? ''
+		: new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+				publishedAt,
+			);
 	return (
 		<div className={siteStyles.site}>
 			<SiteHeader variant="press" />
 			<main className={`${styles.page} ${styles.detailPage}`}>
 				<article>
-					<header className={`${styles.detailHero}`}>
+					<header className={styles.detailHero}>
 						<Image
 							src={article.hero_image_url || '/assets/casa/press/detail-hero.png'}
 							alt=""
@@ -139,14 +145,20 @@ export function PressDetail({ article, settings }: { article: PressArticleDetail
 						/>
 						{article.hero_image_url && <div className={styles.heroShade} />}
 						<div className={styles.detailHeroCopy}>
+							<div className={styles.articleMeta}>
+								<Link href="/press">← Blog &amp; actualités</Link>
+								{publishedLabel && <time dateTime={article.published_at}>{publishedLabel}</time>}
+							</div>
 							<h1>{article.title}</h1>
 							<p>{article.excerpt}</p>
 						</div>
 					</header>
-					<div className={`${styles.articlePanel}`}>
-						<section className={`${styles.articleIntro}`}>
-							<Cover article={article} />
-							<div>
+					<div className={styles.articlePanel}>
+						<div className={styles.articleMedia}>
+							<Cover article={article} sizes="(max-width: 960px) 100vw, (max-width: 1440px) 40vw, 500px" />
+						</div>
+						<div className={styles.articleContent}>
+							<section className={styles.articleIntro}>
 								<h2>{article.content_title || article.title}</h2>
 								<p>
 									{intro.startsWith(introLabel) ? (
@@ -158,12 +170,12 @@ export function PressDetail({ article, settings }: { article: PressArticleDetail
 										intro
 									)}
 								</p>
-							</div>
-						</section>
-						<div className={`${styles.articleBody}`} dangerouslySetInnerHTML={{ __html: article.body_html }} />
-						<Link href="/press" className={styles.back}>
-							← Tous les articles
-						</Link>
+							</section>
+							<div className={styles.articleBody} dangerouslySetInnerHTML={{ __html: article.body_html }} />
+							<Link href="/press" className={styles.back}>
+								← Tous les articles
+							</Link>
+						</div>
 					</div>
 				</article>
 				<div>
