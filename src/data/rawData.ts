@@ -21,11 +21,10 @@ export const topBrandMarks = [
 	{ src: '/assets/casa/figma/partner-marazzi.png', alt: 'Marazzi' },
 ];
 
-export const valueIcons = {
-	design: '/assets/casa/figma/value-design.svg',
-	bespoke: '/assets/casa/figma/value-bespoke.svg',
-	quality: '/assets/casa/figma/value-quality.svg',
-	support: '/assets/casa/figma/value-support.svg',
+export const serviceIcons = {
+	design: '/assets/casa/figma/value-quality.svg',
+	architecture: '/assets/casa/figma/value-bespoke.svg',
+	bespoke: '/assets/casa/services/fitted-wardrobe.svg',
 } as const;
 
 export const heroWordmark = [

@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { CasaSiteProps } from '@/types/componentTypes';
-import { topBrandMarks, valueIcons, heroWordmark, partnerMarks, portfolioImages } from '@/data/rawData';
+import { topBrandMarks, serviceIcons, heroWordmark, partnerMarks, portfolioImages } from '@/data/rawData';
 import ContactForm from './contactForm';
 import SiteHeader from './siteHeader';
 import SiteFooter from './siteFooter';
 import AnimatedMetricValue from './animatedMetricValue';
-import { serviceLink } from '@/data/services';
+import { serviceLink, servicePages } from '@/data/services';
 import styles from './site.module.sass';
 
 const sectionImage = (apiImage: string, fallback: string) => apiImage || fallback;
@@ -102,7 +103,7 @@ export default function CasaSite({ content }: CasaSiteProps) {
 						.map((paragraph, index) => paragraph && <p key={`${paragraph}-${index}`}>{paragraph}</p>)}
 				</div>
 			</section>
-			<section className={styles.values}>
+			<section className={styles.values} aria-label="Nos trois services">
 				<Image
 					src={sectionImage(settings.values_background_url, '/assets/casa/values.jpg')}
 					alt=""
@@ -110,13 +111,13 @@ export default function CasaSite({ content }: CasaSiteProps) {
 					sizes="(max-width: 1440px) 100vw, 1440px"
 					className={styles.valuesBackdrop}
 				/>
-				{content.values.map((value) => (
-					<article key={value.id} className={styles.valueItem}>
+				{servicePages.map((service) => (
+					<Link href={`/services/${service.slug}`} key={service.slug} className={styles.valueItem}>
 						<span>
-							<Image src={valueIcons[value.icon] ?? valueIcons.design} alt="" width={82} height={76} />
+							<Image src={serviceIcons[service.kind]} alt="" width={56} height={56} />
 						</span>
-						<h3>{value.title}</h3>
-					</article>
+						<h3>{service.title}</h3>
+					</Link>
 				))}
 			</section>
 			<section className={styles.project}>
