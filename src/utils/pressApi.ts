@@ -8,7 +8,7 @@ async function get<T>(path: string): Promise<T> {
 		cache: 'no-store', headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(10000),
 	});
 	if (!response.ok) throw new Error('La rubrique Press est temporairement indisponible.');
-	return response.json() as Promise<T>;
+	return await response.json() as Promise<T>;
 }
 
 export const fetchPressArticles = () => get<PressArticle[]>('articles');
@@ -20,5 +20,5 @@ export async function fetchPressArticle(slug: string): Promise<PressArticleDetai
 	});
 	if (response.status === 404) return null;
 	if (!response.ok) throw new Error('Cet article est temporairement indisponible.');
-	return response.json() as Promise<PressArticleDetail>;
+	return await response.json() as Promise<PressArticleDetail>;
 }
